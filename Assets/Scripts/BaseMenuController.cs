@@ -6,15 +6,21 @@ using UnityEngine.SceneManagement;
 public class BaseMenuController : MonoBehaviour
 {
     public GameObject baseMenuCanvas;
+    public GameObject worldMapController;
 
     public void menuMostrar()
     {
-        baseMenuCanvas.SetActive(true);
+        if (!worldMapController.GetComponent<WorldMapController>().isAMenuShowing)
+        {
+            baseMenuCanvas.SetActive(true);
+            worldMapController.GetComponent<WorldMapController>().isAMenuShowing = true;
+        }
     }
 
     public void menuCancelar()
     {
         baseMenuCanvas.SetActive(false);
+        worldMapController.GetComponent<WorldMapController>().isAMenuShowing = false;
     }
 
     public void menuSalir()

@@ -13,7 +13,7 @@ public class Savedata : MonoBehaviour
     public float dmgReceived;
     public float hitP;
 
-    private Savedata saveInstance;
+    private static Savedata saveInstance;
     void Awake()
     {
         DontDestroyOnLoad(this);
