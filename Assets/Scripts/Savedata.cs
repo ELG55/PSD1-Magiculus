@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Savedata : MonoBehaviour
 {
@@ -15,7 +13,7 @@ public class Savedata : MonoBehaviour
     public float dmgReceived;
     public float hitP;
 
-    private static Savedata saveInstance;
+    private Savedata saveInstance;
     void Awake()
     {
         DontDestroyOnLoad(this);
