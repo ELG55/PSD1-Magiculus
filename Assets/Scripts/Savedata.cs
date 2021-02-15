@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Savedata : MonoBehaviour
 {
 
@@ -19,7 +20,7 @@ public class Savedata : MonoBehaviour
 
     private Savedata saveInstance;
 
-    public GameObject name;
+    public GameObject name1;
     public GameObject nivel;
     public GameObject clase;
     public GameObject fecha;
@@ -27,47 +28,103 @@ public class Savedata : MonoBehaviour
     public GameObject realizado;
     public GameObject recibido;
     public GameObject porcentaje;
+    public GameObject GuardarBoton;
+    public GameObject Input1;
+    public GameObject Input2;
 
 
     public void SalvarDatos()
     {
-        SaveManager.Salvar(this);
-    }
-    public void CargarDatos()
-    {
-        Savedata data = SaveManager.Cargar();
+        mageName = Input1.GetComponent<InputField>().text;
+        mageClass = Input2.GetComponent<InputField>().text;
+        if(mageName == "" || mageClass == "")
+        {
 
-        slot = data.slot;
-        mageName = data.mageName;
-        level = data.level;
-        mageClass = data.mageClass;
-        date = data.date;
-        progress = data.progress;
-        dmgDone = data.dmgDone;
-        dmgReceived = data.dmgReceived;
-        hitP = data.hitP;
+        } else{
+            //SaveFile sv = new SaveFile(slot, mageName, 1, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "A0B0C0D0", 0, 0, 0);
+            //SaveManager.Salvar(sv);
+            Debug.Log("Has de cuenta que ya corrio el juego");
+        }
+        
     }
-    public void NewGame()
+    public void CargarDatos(int casilla)
     {
-        slot = 1;
-        mageName = "0ofM4ster69";
-        level = 1;
-        mageClass = "Jiler XD";
-        date = "Hoy";
-        progress = ".-.XD";
-        dmgDone = 0;
-        dmgReceived = 0;
-        hitP = 0;
+        slot = casilla;
+        SaveFile data = SaveManager.Cargar(casilla);
+        if (data == null)
+        {
+            OcultarDatos();
+            MostrarInputs();
+        }
+        else
+        {
+            OcultarInputs();
+            slot = data.slot;
+            mageName = data.mageName;
+            level = data.level;
+            mageClass = data.mageClass;
+            date = data.date;
+            progress = data.progress;
+            dmgDone = data.dmgDone;
+            dmgReceived = data.dmgReceived;
+            hitP = data.hitP;
+            RefreshData();
+            MostrarDatos();
+        }
+    }
 
-        RefreshData();
-    }
-    public void LevelUp()
+    /*public void NewGame()
     {
-        level++;
+        this.slot = 1;
+        this.mageName = "0ofM4ster69";
+        this.level = 1;
+        this.mageClass = "Jiler XD";
+        this.date = "Hoy";
+        this.progress = ".-.XD";
+        this.dmgDone = 0;
+        this.dmgReceived = 0;
+        this.hitP = 0;
+    }*/
+    
+    public void MostrarInputs()
+    {
+        GuardarBoton.SetActive(true);
+        Input1.SetActive(true);
+        Input2.SetActive(true);
     }
+    public void MostrarDatos()
+    {
+        name1.SetActive(true);
+        nivel.SetActive(true);
+        clase.SetActive(true);
+        progreso.SetActive(true);
+        realizado.SetActive(true);
+        recibido.SetActive(true);
+        porcentaje.SetActive(true);
+        fecha.SetActive(true);
+    }
+    public void OcultarInputs()
+    {
+        GuardarBoton.SetActive(false);
+        Input1.SetActive(false);
+        Input2.SetActive(false);
+    }
+    public void OcultarDatos()
+    {
+        name1.SetActive(false);
+        nivel.SetActive(false);
+        clase.SetActive(false);
+        progreso.SetActive(false);
+        realizado.SetActive(false);
+        recibido.SetActive(false);
+        porcentaje.SetActive(false);
+        fecha.SetActive(false);
+    }
+
     public void RefreshData()
     {
-        name.GetComponent<Text>().text = "Nombre: "+mageName;
+        fecha.GetComponent<Text>().text = "Fecha: " + date;
+        name1.GetComponent<Text>().text = "Nombre: "+mageName;
         nivel.GetComponent<Text>().text = "Nivel: "+level.ToString();
         clase.GetComponent<Text>().text = "Clase: "+mageClass;
         progreso.GetComponent<Text>().text = "Progreso: \n"+progress;

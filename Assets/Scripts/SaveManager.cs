@@ -4,34 +4,34 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveManager {
 
-    public static void Salvar(Savedata sv)
+    public static void Salvar(SaveFile sv)
     {
+        
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/file1.qlo";
+
+        string path = Application.persistentDataPath + "/file"+sv.slot.ToString()+".qlo";
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        Savedata data = sv;
-
+        SaveFile data = sv;
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public static Savedata Cargar()
+    public static SaveFile Cargar(int casilla)
     {
-        string path = Application.persistentDataPath + "/file1.qlo";
+        string path = Application.persistentDataPath + "/file"+casilla+".qlo";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            Savedata sv = formatter.Deserialize(stream) as Savedata;
+            SaveFile sv = formatter.Deserialize(stream) as SaveFile;
             stream.Close();
-
             return sv;
         }
         else
         {
-            Debug.LogError("save error not found in: " + path);
+            Debug.Log("save error not found in: " + path);
             return null;
         }
     }

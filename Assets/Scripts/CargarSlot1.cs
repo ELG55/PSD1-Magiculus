@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class CargarSlot1 : MonoBehaviour
 {
-    Savedata currSv = SaveManager.Cargar();
+
 }
