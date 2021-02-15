@@ -41,8 +41,8 @@ public class Savedata : MonoBehaviour
         {
 
         } else{
-            //SaveFile sv = new SaveFile(slot, mageName, 1, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "A0B0C0D0", 0, 0, 0);
-            //SaveManager.Salvar(sv);
+            SaveFile sv = new SaveFile(slot, mageName, 1, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "A0B0C0D0", 0, 0, 0);
+            SaveManager.Salvar(sv);
             Debug.Log("Has de cuenta que ya corrio el juego");
         }
         
