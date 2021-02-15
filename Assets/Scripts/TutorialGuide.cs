@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class TutorialGuide : MonoBehaviour
 {
-    public List<TutorialSlide> guide;
+    public List<Sprite> spriteList;
+    public List<string> stringList;
 }
