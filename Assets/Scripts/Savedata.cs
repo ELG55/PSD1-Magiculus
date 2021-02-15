@@ -31,6 +31,9 @@ public class Savedata : MonoBehaviour
     public GameObject GuardarBoton;
     public GameObject Input1;
     public GameObject Input2;
+    public GameObject ComenzarBoton;
+    public GameObject BorrarBoton;
+    public GameObject MagoImagen;
 
 
     public void SalvarDatos()
@@ -73,6 +76,23 @@ public class Savedata : MonoBehaviour
         }
     }
 
+    public void BorrarDatos()
+    {
+        SaveManager.Borrar(slot);
+        slot = 0;
+        mageName = "";
+        level = 0;
+        mageClass = "";
+        date = "";
+        progress = "";
+        dmgDone = 0;
+        dmgReceived = 0;
+        hitP = 0;
+        OcultarDatos();
+        OcultarInputs();
+
+    }
+
     /*public void NewGame()
     {
         this.slot = 1;
@@ -85,7 +105,12 @@ public class Savedata : MonoBehaviour
         this.dmgReceived = 0;
         this.hitP = 0;
     }*/
-    
+
+    public static void Yell()
+    {
+        Debug.Log("Brgaaaaaaaaaaaaaaa Comienza");
+    }
+
     public void MostrarInputs()
     {
         GuardarBoton.SetActive(true);
@@ -102,6 +127,9 @@ public class Savedata : MonoBehaviour
         recibido.SetActive(true);
         porcentaje.SetActive(true);
         fecha.SetActive(true);
+        ComenzarBoton.SetActive(true);
+        BorrarBoton.SetActive(true);
+        MagoImagen.SetActive(true);
     }
     public void OcultarInputs()
     {
@@ -119,7 +147,11 @@ public class Savedata : MonoBehaviour
         recibido.SetActive(false);
         porcentaje.SetActive(false);
         fecha.SetActive(false);
+        ComenzarBoton.SetActive(false);
+        BorrarBoton.SetActive(false);
+        MagoImagen.SetActive(false);
     }
+
 
     public void RefreshData()
     {

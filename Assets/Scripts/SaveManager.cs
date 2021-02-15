@@ -16,6 +16,15 @@ public static class SaveManager {
         formatter.Serialize(stream, data);
         stream.Close();
     }
+    public static void Borrar(int casilla)
+    {
+
+        string path = Application.persistentDataPath + "/file" + casilla.ToString() + ".qlo";
+        Debug.Log("momentos antes de la funacion");
+        File.Delete(path);
+        Debug.Log("momentos despues de la funacion");
+
+    }
 
     public static SaveFile Cargar(int casilla)
     {
@@ -35,4 +44,24 @@ public static class SaveManager {
             return null;
         }
     }
+
+    public static void SalvarConfig(Config cf)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        string path = Application.persistentDataPath + "/config.ini";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        Config data = cf;
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
+
+
+
+    /*public static Config CargarConfig()
+    {
+
+    }*/
+
 }
