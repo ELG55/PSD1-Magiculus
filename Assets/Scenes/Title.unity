@@ -1551,7 +1551,6 @@ MonoBehaviour:
   hideCanvases:
   - {fileID: 1476141522}
   - {fileID: 1294699174}
-  saveData: {fileID: 991685087}
 --- !u!4 &685234064
 Transform:
   m_ObjectHideFlags: 0
@@ -2330,7 +2329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 510
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2755,11 +2754,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
   stringList:
   - 01C
---- !u!1 &991685087 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 126825341923641897, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
-  m_PrefabInstance: {fileID: 1357534430}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1104725033
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,7 +3089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 560
+      value: 570
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3793,7 +3787,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
   m_PrefabInstance: {fileID: 1357534430}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 991685087}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29089afc4fdf2f4b9bf88d42195cfd2, type: 3}
