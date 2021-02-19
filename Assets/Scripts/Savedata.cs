@@ -17,7 +17,7 @@ public class Savedata : MonoBehaviour
     public float dmgReceived;
     public float hitP;
 
-    private Savedata saveInstance;
+    private static Savedata saveInstance;
 
     public GameObject name1;
     public GameObject nivel;
@@ -34,6 +34,10 @@ public class Savedata : MonoBehaviour
     public GameObject BorrarBoton;
     public GameObject MagoImagen;
 
+    public void acomodarInterfaz()
+    {
+        name1 = GameObject.Find("CargarCanvas/DataBox/StoredData/Nombre");
+    }
 
     public void SalvarDatos()
     {
@@ -176,5 +180,11 @@ public class Savedata : MonoBehaviour
         {
             Destroy(gameObject); // Used Destroy instead of DestroyObject
         }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        Debug.Log("oof sí loadeó");
+        acomodarInterfaz();
     }
 }

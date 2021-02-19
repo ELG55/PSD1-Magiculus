@@ -44,7 +44,7 @@ public static class SaveManager {
             return null;
         }
     }
-
+    /*
     public static void SalvarConfig(Config cf)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -56,7 +56,7 @@ public static class SaveManager {
         formatter.Serialize(stream, data);
         stream.Close();
     }
-
+    */
 
 
     /*public static Config CargarConfig()

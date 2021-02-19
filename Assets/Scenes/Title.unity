@@ -1137,7 +1137,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Comenzar
+  m_Text: Borrar
 --- !u!222 &450508096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1551,6 +1551,7 @@ MonoBehaviour:
   hideCanvases:
   - {fileID: 1476141522}
   - {fileID: 1294699174}
+  saveData: {fileID: 991685087}
 --- !u!4 &685234064
 Transform:
   m_ObjectHideFlags: 0
@@ -2056,6 +2057,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1357534431}
         m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
         m_MethodName: OcultarInputs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1357534431}
+        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
+        m_MethodName: acomodarInterfaz
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2742,6 +2755,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
   stringList:
   - 01C
+--- !u!1 &991685087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 126825341923641897, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
+  m_PrefabInstance: {fileID: 1357534430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1104725033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,7 +2885,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1171521354}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1357534431}
+        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
+        m_MethodName: BorrarDatos
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1171521354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3378,6 +3408,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: CargarCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5039211558044124580, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3385,6 +3439,26 @@ PrefabInstance:
     - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CargarDatos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3413,6 +3487,26 @@ PrefabInstance:
     - target: {fileID: 5039211558794170359, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3462,6 +3556,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1179098884}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3605,13 +3719,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1294699180}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
+      propertyPath: MagoImagen
+      value: 
+      objectReference: {fileID: 2121666118}
+    - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: porcentaje
       value: 
       objectReference: {fileID: 1294699178}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
+      propertyPath: BorrarBoton
+      value: 
+      objectReference: {fileID: 1171521351}
+    - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: GuardarBoton
       value: 
       objectReference: {fileID: 1294699177}
+    - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
+      propertyPath: ComenzarBoton
+      value: 
+      objectReference: {fileID: 1892748106}
     - target: {fileID: 126825341923641895, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3667,7 +3793,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
   m_PrefabInstance: {fileID: 1357534430}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 991685087}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29089afc4fdf2f4b9bf88d42195cfd2, type: 3}
@@ -4504,7 +4630,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1892748109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 292285848}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: loadNextScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WorldMap
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1892748109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4622,6 +4760,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050394736}
   m_CullTransparentMesh: 0
+--- !u!1 &2079477227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2079477228}
+  - component: {fileID: 2079477229}
+  m_Layer: 5
+  m_Name: CargarCanvasController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2079477228
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079477227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1294699189}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2079477229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079477227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50553a2a4fb31b249952a4385b13d2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2085635992
 GameObject:
   m_ObjectHideFlags: 0
