@@ -2041,8 +2041,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1357534431}
-        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
+      - m_Target: {fileID: 1833857541}
+        m_TargetAssemblyTypeName: CargarController, Assembly-CSharp
         m_MethodName: OcultarDatos
         m_Mode: 1
         m_Arguments:
@@ -2053,21 +2053,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1357534431}
-        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
+      - m_Target: {fileID: 1833857541}
+        m_TargetAssemblyTypeName: CargarController, Assembly-CSharp
         m_MethodName: OcultarInputs
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1357534431}
-        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
-        m_MethodName: acomodarInterfaz
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3717,6 +3705,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2121666118}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 1833857540}
+    - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: porcentaje
       value: 
       objectReference: {fileID: 1294699178}
@@ -4464,6 +4456,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 911356938705697913, guid: a91e15293a7cfe54b8a5ea2d8156c2e3, type: 3}
   m_PrefabInstance: {fileID: 911356939306940011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1833857540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1833857542}
+  - component: {fileID: 1833857541}
+  m_Layer: 0
+  m_Name: CargarController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1833857541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833857540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c946da361f8692b468dc835648a56a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name1: {fileID: 1294699185}
+  nivel: {fileID: 1294699184}
+  clase: {fileID: 1294699183}
+  fecha: {fileID: 1294699182}
+  progreso: {fileID: 1294699181}
+  realizado: {fileID: 1294699180}
+  recibido: {fileID: 1294699179}
+  porcentaje: {fileID: 1294699178}
+  GuardarBoton: {fileID: 1294699177}
+  Input1: {fileID: 1294699176}
+  Input2: {fileID: 1294699175}
+  ComenzarBoton: {fileID: 1892748106}
+  BorrarBoton: {fileID: 1171521351}
+  MagoImagen: {fileID: 2121666118}
+--- !u!4 &1833857542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833857540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1523993, y: -0.016524985, z: 60.315628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1835390073
 GameObject:
   m_ObjectHideFlags: 0
@@ -4754,54 +4803,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2050394736}
   m_CullTransparentMesh: 0
---- !u!1 &2079477227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2079477228}
-  - component: {fileID: 2079477229}
-  m_Layer: 5
-  m_Name: CargarCanvasController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2079477228
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079477227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1294699189}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2079477229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079477227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50553a2a4fb31b249952a4385b13d2ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2085635992
 GameObject:
   m_ObjectHideFlags: 0
