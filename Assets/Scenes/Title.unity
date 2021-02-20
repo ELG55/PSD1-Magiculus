@@ -2868,9 +2868,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1357534431}
-        m_TargetAssemblyTypeName: Savedata, Assembly-CSharp
-        m_MethodName: BorrarDatos
+      - m_Target: {fileID: 1833857541}
+        m_TargetAssemblyTypeName: CargarController, Assembly-CSharp
+        m_MethodName: callBorrar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3269,18 +3269,22 @@ PrefabInstance:
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1357534431}
+      objectReference: {fileID: 1833857541}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 292285848}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SalvarDatos
+      value: callSalvar
       objectReference: {fileID: 0}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: loadNextScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CargarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -3417,10 +3421,14 @@ PrefabInstance:
     - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1357534431}
+      objectReference: {fileID: 1833857541}
     - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CargarDatos
+      value: callCargar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558485999316, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CargarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -3445,10 +3453,14 @@ PrefabInstance:
     - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1357534431}
+      objectReference: {fileID: 1833857541}
     - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CargarDatos
+      value: callCargar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558575286345, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CargarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5039211558794170358, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_Name
@@ -3493,10 +3505,14 @@ PrefabInstance:
     - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1357534431}
+      objectReference: {fileID: 1833857541}
     - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CargarDatos
+      value: callCargar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211558866656720, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CargarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5039211559157911711, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -3561,10 +3577,14 @@ PrefabInstance:
     - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1357534431}
+      objectReference: {fileID: 1833857541}
     - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CargarDatos
+      value: callCargar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039211559655532664, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CargarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8905272656715316837, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3774,17 +3794,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
---- !u!114 &1357534431 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
-  m_PrefabInstance: {fileID: 1357534430}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d29089afc4fdf2f4b9bf88d42195cfd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1365732629
 GameObject:
   m_ObjectHideFlags: 0
@@ -4499,6 +4508,7 @@ MonoBehaviour:
   ComenzarBoton: {fileID: 1892748106}
   BorrarBoton: {fileID: 1171521351}
   MagoImagen: {fileID: 2121666118}
+  savedata: {fileID: 0}
 --- !u!4 &1833857542
 Transform:
   m_ObjectHideFlags: 0
