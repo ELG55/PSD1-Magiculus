@@ -19,31 +19,14 @@ public class Savedata : MonoBehaviour
 
     private static Savedata saveInstance;
 
-    public GameObject name1;
-    public GameObject nivel;
-    public GameObject clase;
-    public GameObject fecha;
-    public GameObject progreso;
-    public GameObject realizado;
-    public GameObject recibido;
-    public GameObject porcentaje;
-    public GameObject GuardarBoton;
-    public GameObject Input1;
-    public GameObject Input2;
-    public GameObject ComenzarBoton;
-    public GameObject BorrarBoton;
-    public GameObject MagoImagen;
+    public GameObject controller;
 
-    public void acomodarInterfaz()
-    {
-        name1 = GameObject.Find("CargarCanvas/DataBox/StoredData/Nombre");
-    }
 
     public void SalvarDatos()
     {
-        mageName = Input1.GetComponent<InputField>().text;
-        mageClass = Input2.GetComponent<InputField>().text;
-        if(mageName == "" || mageClass == "")
+        mageName = controller.GetComponent<CargarController>().getInputName();
+        mageClass = controller.GetComponent<CargarController>().getInputClase();
+        if (mageName == "" || mageClass == "")
         {
 
         } else{
@@ -59,12 +42,12 @@ public class Savedata : MonoBehaviour
         SaveFile data = SaveManager.Cargar(casilla);
         if (data == null)
         {
-            OcultarDatos();
-            MostrarInputs();
+            controller.GetComponent<CargarController>().OcultarDatos();
+            controller.GetComponent<CargarController>().MostrarInputs();
         }
         else
         {
-            OcultarInputs();
+            controller.GetComponent<CargarController>().OcultarInputs();
             slot = data.slot;
             mageName = data.mageName;
             level = data.level;
@@ -74,8 +57,8 @@ public class Savedata : MonoBehaviour
             dmgDone = data.dmgDone;
             dmgReceived = data.dmgReceived;
             hitP = data.hitP;
-            RefreshData();
-            MostrarDatos();
+            controller.GetComponent<CargarController>().RefreshData(date, mageName, level.ToString(), mageClass, progress, dmgDone.ToString(), dmgReceived.ToString(), hitP.ToString());
+            controller.GetComponent<CargarController>().MostrarDatos();
         }
     }
 
@@ -91,81 +74,14 @@ public class Savedata : MonoBehaviour
         dmgDone = 0;
         dmgReceived = 0;
         hitP = 0;
-        OcultarDatos();
-        OcultarInputs();
+        controller.GetComponent<CargarController>().OcultarDatos();
+        controller.GetComponent<CargarController>().OcultarInputs();
 
     }
-
-    /*public void NewGame()
-    {
-        this.slot = 1;
-        this.mageName = "0ofM4ster69";
-        this.level = 1;
-        this.mageClass = "Jiler XD";
-        this.date = "Hoy";
-        this.progress = ".-.XD";
-        this.dmgDone = 0;
-        this.dmgReceived = 0;
-        this.hitP = 0;
-    }*/
 
     public static void Yell()
     {
         Debug.Log("Brgaaaaaaaaaaaaaaa Comienza");
-    }
-
-    public void MostrarInputs()
-    {
-        GuardarBoton.SetActive(true);
-        Input1.SetActive(true);
-        Input2.SetActive(true);
-    }
-    public void MostrarDatos()
-    {
-        name1.SetActive(true);
-        nivel.SetActive(true);
-        clase.SetActive(true);
-        progreso.SetActive(true);
-        realizado.SetActive(true);
-        recibido.SetActive(true);
-        porcentaje.SetActive(true);
-        fecha.SetActive(true);
-        ComenzarBoton.SetActive(true);
-        BorrarBoton.SetActive(true);
-        MagoImagen.SetActive(true);
-    }
-    public void OcultarInputs()
-    {
-        GuardarBoton.SetActive(false);
-        Input1.SetActive(false);
-        Input2.SetActive(false);
-    }
-    public void OcultarDatos()
-    {
-        name1.SetActive(false);
-        nivel.SetActive(false);
-        clase.SetActive(false);
-        progreso.SetActive(false);
-        realizado.SetActive(false);
-        recibido.SetActive(false);
-        porcentaje.SetActive(false);
-        fecha.SetActive(false);
-        ComenzarBoton.SetActive(false);
-        BorrarBoton.SetActive(false);
-        MagoImagen.SetActive(false);
-    }
-
-
-    public void RefreshData()
-    {
-        fecha.GetComponent<Text>().text = "Fecha: " + date;
-        name1.GetComponent<Text>().text = "Nombre: "+mageName;
-        nivel.GetComponent<Text>().text = "Nivel: "+level.ToString();
-        clase.GetComponent<Text>().text = "Clase: "+mageClass;
-        progreso.GetComponent<Text>().text = "Progreso: \n"+progress;
-        realizado.GetComponent<Text>().text = "DMG realizado: \n"+dmgDone.ToString();
-        recibido.GetComponent<Text>().text = "DMG recibido: \n"+dmgReceived.ToString();
-        porcentaje.GetComponent<Text>().text = "Hit% total: \n"+hitP.ToString();
     }
 
     void Awake()
@@ -184,7 +100,6 @@ public class Savedata : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        Debug.Log("oof sí loadeó");
-        acomodarInterfaz();
+        controller = GameObject.Find("CargarController");
     }
 }
