@@ -44,3 +44,6 @@ TagManager:
   - name: HUD
     uniqueID: 2760751313
     locked: 0
+  - name: AnimationRectangles
+    uniqueID: 24373049
+    locked: 0
