@@ -17,6 +17,8 @@ public class Savedata : MonoBehaviour
     public float dmgReceived;
     public float hitP;
 
+    public string currentLevel;
+
     private static Savedata saveInstance;
 
     public GameObject controller;

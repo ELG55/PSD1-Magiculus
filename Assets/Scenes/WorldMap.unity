@@ -1149,6 +1149,7 @@ MonoBehaviour:
   areaMenuCanvas: {fileID: 597302844}
   areaMenuSubtitle: {fileID: 964003432}
   worldMapController: {fileID: 1508875542}
+  currentLevel: 
 --- !u!1 &964003432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5276003603542460276, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_Name
-      value: BaseMenuButtonSalir
+      value: BaseMenuButtonEntrar
       objectReference: {fileID: 0}
     - target: {fileID: 6282246102728715461, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1368,15 +1369,35 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 803306891}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 803306891}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: menuEntrar
+      value: MenuEntrar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetLevel
       objectReference: {fileID: 0}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AreaMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: AreaMenuController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
@@ -1384,7 +1405,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: A00
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1535,7 +1564,7 @@ PrefabInstance:
       objectReference: {fileID: 803306891}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: menuCancelar
+      value: MenuCancelar
       objectReference: {fileID: 0}
     - target: {fileID: 6834214572010344810, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1972,7 +2001,7 @@ GameObject:
   - component: {fileID: 1749098062}
   - component: {fileID: 1749098061}
   m_Layer: 5
-  m_Name: AreaButtonA01
+  m_Name: AreaButtonA0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2042,7 +2071,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 803306891}
         m_TargetAssemblyTypeName: AreaMenuController, Assembly-CSharp
-        m_MethodName: menuMostrar
+        m_MethodName: MenuMostrar
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2050,6 +2079,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Norte 01
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 803306891}
+        m_TargetAssemblyTypeName: AreaMenuController, Assembly-CSharp
+        m_MethodName: SetLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: B3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1749098062
