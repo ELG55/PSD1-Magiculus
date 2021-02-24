@@ -52,12 +52,12 @@ public class Timer
         return false; //The timer couldn't resume, because there is no more time remaining
     }
 
-    public void SetTimerTimer(float time)
+    public void SetTimerTime(float time)
     {
         this.timeRemaining = time;
     }
 
-    public bool isTimerDone()
+    public bool IsTimerDone()
     {
         if (timeRemaining > 0 )
         {

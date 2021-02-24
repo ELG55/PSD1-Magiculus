@@ -10,7 +10,9 @@ public class AreaMenuController : MonoBehaviour
     public GameObject areaMenuSubtitle;
     public GameObject worldMapController;
 
-    public void menuMostrar(string areaName)
+    public string currentLevel;
+
+    public void MenuMostrar(string areaName)
     {
         if (!worldMapController.GetComponent<WorldMapController>().isAMenuShowing)
         {
@@ -20,14 +22,20 @@ public class AreaMenuController : MonoBehaviour
         }
     }
 
-    public void menuCancelar()
+    public void MenuCancelar()
     {
         areaMenuCanvas.SetActive(false);
         worldMapController.GetComponent<WorldMapController>().isAMenuShowing = false;
     }
 
-    public void menuEntrar()
+    public void MenuEntrar()
     {
+        GameObject.Find("Savedata").GetComponent<Savedata>().currentLevel = currentLevel;
         SceneManager.LoadScene("Battle");
+    }
+
+    public void SetLevel(string level)
+    {
+        currentLevel = level;
     }
 }
