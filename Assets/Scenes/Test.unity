@@ -248,7 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149c8b9b54c0bae4db8083ea0d508754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleSprite: {fileID: 21300000, guid: 83122278cf725944dbafedc5a7107bd9, type: 3}
+  circleSprite: {fileID: 21300000, guid: be820231c1c0ba9458868d0a07c95396, type: 3}
+  objectiveSprite: {fileID: 21300000, guid: 83122278cf725944dbafedc5a7107bd9, type: 3}
+  circleSize: 40
+  hitDistance: 20
 --- !u!1 &397203907
 GameObject:
   m_ObjectHideFlags: 0

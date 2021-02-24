@@ -6,60 +6,236 @@ using UnityEngine.UI;
 public class GraphManager : MonoBehaviour
 {
     [SerializeField] private Sprite circleSprite;
+    [SerializeField] private Sprite objectiveSprite;
     private RectTransform container;
-
+    public int circleSize;
+    public int hitDistance;
+    private float[] xd = new float[201];
+    private bool Rx; private bool Rseno; private float RmultCuad; private float RsumaX; private float Radicion; private float[] RxValues;
     private void Awake()
     {
+        for (int i = 0; i < xd.Length; i++)
+        {
+            xd[i] = (i - 100)/10f;
+        }
         container = transform.Find("container").GetComponent<RectTransform>();
         //(bool x, float multCuad,float sumaX, bool signoCuad, float adicion, float[] valores )
-        float[] xd = new float[] { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        Vector2[] listaCua = CrearListaCuadratica(true, 1, 0, 0, xd);
-        UnirPuntos(listaCua);
+        //float[] xd = new float[] { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        RandomizeFunction();
+        RandomValidFloatsCub(Rx, RmultCuad, RsumaX, Radicion, 5);
+        Vector2[] RNGPoints = CrearListaCubica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
+        MostrarPuntos(RNGPoints, 1);
 
-
-        //Vector2[] listaCub = CrearListaCubica(true, 1, 5, 10,xd);
-        //UnirPuntos(listaCub);
+        //Vector2[] listaCua = CrearListaCuadratica(false, 1, 0, 0, xd);
+        //UnirPuntos(listaCua);
+        Vector2[] listaCub = CrearListaCubica(false, 1, 5, 10, xd);
+        UnirPuntos(listaCub);
         //Vector2[] listaTri = CrearListaTrigonometrica(true,true, 10, 5, 10,xd);
         //UnirPuntos(listaTri);
-        //Vector2[] listaLin = CrearListaLineal(true, 10, 0,xd);
+        //Vector2[] listaLin = CrearListaLineal(true, 10, 0, xd);
         //UnirPuntos(listaLin);
-        //float[] xd2 = new float[] { RNG(0, 200, 10)-10, RNG(0, 200, 10) - 10, RNG(0, 200, 10) - 10};
-        //Vector2[] listaRNG = CrearListaCuadratica((Random.value > 0.5f), RNG(0, 200, 10) - 10, RNG(0, 200, 10) - 10, RNG(0, 200, 10) - 10, xd2);
-        //MostrarPuntos(listaRNG);
-        //int[] hitP = CompareFunctionsCuad(true, 1, 0, 0, xd2,listaRNG);
+        //int[] listaRNG = CompareFunctionsCub(false, 1, 5, 10, RNGPoints);
+        compareHard(RNGPoints, listaCub);
 
 
     }
 
-    private int[] CompareFunctionsCuad(bool x, float multCuad, float sumaX, float adicion, float[] valores, Vector2[] points)
+    private int[] compareHard(Vector2[] points, Vector2[] HardList)
     {
-        int[] hitP = new int[] {0,0};
-        Vector2[] comparables = CrearListaCuadratica(x, multCuad, sumaX, adicion, valores);
-        MostrarPuntos(comparables);
-        for (int i = 0; i < valores.Length; i++)
+        int hitP = 0;
+        for (int i = 0; i < points.Length; i++)
         {
-            if (Vector2.Distance(points[i],comparables[i])<10)
+            for (int j = 0; j < HardList.Length; j++)
             {
-                hitP[0]++;
+                if (Vector2.Distance(points[i],HardList[j])<hitDistance)
+                {
+                    hitP++;
+                    break;
+                }
             }
-            else
-            {
-                hitP[1]++;
-            }
-            Debug.Log("x1:" + points[i].x + " y1:" + points[i].y + " y x2:" + comparables[i].x + " y2:" + comparables[i].y);
-            Debug.Log("distancia:" + Vector2.Distance(points[i], comparables[i]));
         }
-        Debug.Log("HitP: " + hitP[0] + "aciertos , " + hitP[1] + " fallos");
-        return hitP;
+        return new int[] {hitP,points.Length-hitP};
     }
-    private int[] CompareFunctionsCub(bool x, float multCuad, float sumaX, float adicion, float[] valores, Vector2[] points)
+    private void RandomizeFunction()
     {
+        Rx = (Random.value > 0.5f); Rseno = (Random.value > 0.5f); RmultCuad = RNG(10, 190, 10) - 10; RsumaX = RNG(10, 190, 10) - 10; Radicion = RNG(10, 190, 10) - 10;
+    }
+
+    private void RandomValidFloatsCuad(bool x, float multCuad, float sumaX, float adicion, int n)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        Vector2[] points = new Vector2[n];
+        float[] deck = new float[200];
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+        int l = deck.Length;
+        while (l > 1)
+        {
+            l--;
+            int k = Random.Range(0, deck.Length);
+            float value = deck[k];
+            deck[k] = deck[l];
+            deck[l] = value;
+        }
+        float[] values = new float[n];
+        int q = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            values[i] = (deck[q] - 100) / 10;
+            q++;
+            points[i] = CrearListaCuadratica(x, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            while (points[i].y >= Altura || points[i].y <= 0 || points[i].x >= Ancho || points[i].x <= 0)
+            {
+                values[i] = (deck[q] - 100) / 10;
+                q++;
+                points[i] = CrearListaCuadratica(x, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            }
+        }
+        RxValues = values;
+    }
+    private void RandomValidFloatsCub(bool x, float multCuad, float sumaX, float adicion, int n)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        Vector2[] points = new Vector2[n];
+        float[] deck = new float[200];
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+        int l = deck.Length;
+        while (l > 1)
+        {
+            l--;
+            int k = Random.Range(0, deck.Length);
+            float value = deck[k];
+            deck[k] = deck[l];
+            deck[l] = value;
+        }
+        float[] values = new float[n];
+        int q = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            values[i] = (deck[q] - 100) / 10;
+            q++;
+            points[i] = CrearListaCubica(x, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            while (points[i].y >= Altura || points[i].y <= 0 || points[i].x >= Ancho || points[i].x <= 0)
+            {
+                values[i] = (deck[q] - 100) / 10;
+                q++;
+                points[i] = CrearListaCubica(x, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            }
+        }
+        RxValues = values;
+    }
+    private void RandomValidFloatsTri(bool x, bool seno, float multCuad, float sumaX, float adicion, int n)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        Vector2[] points = new Vector2[n];
+        float[] deck = new float[200];
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+        int l = deck.Length;
+        while (l > 1)
+        {
+            l--;
+            int k = Random.Range(0, deck.Length);
+            float value = deck[k];
+            deck[k] = deck[l];
+            deck[l] = value;
+        }
+        float[] values = new float[n];
+        int q = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            values[i] = (deck[q] - 100) / 10;
+            q++;
+            points[i] = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            while (points[i].y >= Altura || points[i].y <= 0 || points[i].x >= Ancho || points[i].x <= 0)
+            {
+                values[i] = (deck[q] - 100) / 10;
+                q++;
+                points[i] = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, new float[] { values[i] })[0];
+            }
+        }
+        RxValues = values;
+    }
+    private void RandomValidFloatsLin(bool x, float multCuad, float adicion, int n)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        Vector2[] points = new Vector2[n];
+        float[] deck = new float[200];
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+        int l = deck.Length;
+        while (l > 1)
+        {
+            l--;
+            int k = Random.Range(0, deck.Length);
+            float value = deck[k];
+            deck[k] = deck[l];
+            deck[l] = value;
+        }
+        float[] values = new float[n];
+        int q = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            values[i] = (deck[q] - 100) / 10;
+            q++;
+            points[i] = CrearListaLineal(x, multCuad, adicion, new float[] { values[i] })[0];
+            while (points[i].y >= Altura || points[i].y <= 0 || points[i].x >= Ancho || points[i].x <= 0)
+            {
+                values[i] = (deck[q] - 100) / 10;
+                q++;
+                points[i] = CrearListaLineal(x, multCuad, adicion, new float[] { values[i] })[0];
+            }
+        }
+        RxValues = values;
+    }
+    //previous Comparing
+    /*
+    private int[] CompareFunctionsCuad(bool x, float multCuad, float sumaX, float adicion, Vector2[] points)
+    {
+        float Ancho = container.sizeDelta.x;
+        float Altura = container.sizeDelta.y;
         int[] hitP = new int[] { 0, 0 };
-        Vector2[] comparables = CrearListaCubica(x, multCuad, sumaX, adicion, valores);
-        MostrarPuntos(comparables);
-        for (int i = 0; i < valores.Length; i++)
+        float[] values = new float[points.Length * 5];
+        if (x)
         {
-            if (Vector2.Distance(points[i], comparables[i]) < 10)
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].x - (Ancho / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].x - (Ancho / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].x - (Ancho / 2)) / 35f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f)));
+                values[(i * 5) + 3] = ((points[i].x - (Ancho / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].x - (Ancho / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].y - (Altura / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].y - (Altura / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].y - (Altura / 2)) / 35f;
+                values[(i * 5) + 3] = ((points[i].y - (Altura / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].y - (Altura / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        Vector2[] comparables = CrearListaCuadratica(x, multCuad, sumaX, adicion, values);
+        MostrarPuntos(comparables, 3);
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (Vector2.Distance(comparables[(i * 5) + 0], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 1], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 2], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 3], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 4], points[i]) < hitDistance)
             {
                 hitP[0]++;
             }
@@ -67,21 +243,43 @@ public class GraphManager : MonoBehaviour
             {
                 hitP[1]++;
             }
-            Debug.Log("x1:" + points[i].x + " y1:" + points[i].y + " y x2:" + comparables[i].x + " y2:" + comparables[i].y);
-            Debug.Log("distancia:" + Vector2.Distance(points[i], comparables[i]));
         }
         Debug.Log("HitP: " + hitP[0] + "aciertos , " + hitP[1] + " fallos");
         return hitP;
-
     }
-    private int[] CompareFunctionsTri(bool x, bool seno, float multCuad, float sumaX, float adicion, float[] valores, Vector2[] points)
+    private int[] CompareFunctionsCub(bool x, float multCuad, float sumaX, float adicion, Vector2[] points)
     {
+        float Ancho = container.sizeDelta.x;
+        float Altura = container.sizeDelta.y;
         int[] hitP = new int[] { 0, 0 };
-        Vector2[] comparables = CrearListaTrigonometrica(x,seno, multCuad, sumaX, adicion, valores);
-        MostrarPuntos(comparables);
-        for (int i = 0; i < valores.Length; i++)
+        float[] values = new float[points.Length * 5];
+        if (x)
         {
-            if (Vector2.Distance(points[i], comparables[i]) < 10)
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].x - (Ancho / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].x - (Ancho / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].x - (Ancho / 2)) / 35f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f)));
+                values[(i * 5) + 3] = ((points[i].x - (Ancho / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].x - (Ancho / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].y - (Altura / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].y - (Altura / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].y - (Altura / 2)) / 35f;
+                values[(i * 5) + 3] = ((points[i].y - (Altura / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].y - (Altura / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        Vector2[] comparables = CrearListaCubica(x, multCuad, sumaX, adicion, values);
+        MostrarPuntos(comparables, 3); Debug.Log("" + comparables.Length);
+        for (int i = 0; i < points.Length; i++)
+        {
+            if (Vector2.Distance(comparables[(i * 5) + 0], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 1], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 2], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 3], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 4], points[i]) < hitDistance)
             {
                 hitP[0]++;
             }
@@ -89,21 +287,43 @@ public class GraphManager : MonoBehaviour
             {
                 hitP[1]++;
             }
-            Debug.Log("x1:" + points[i].x + " y1:" + points[i].y + " y x2:" + comparables[i].x + " y2:" + comparables[i].y);
-            Debug.Log("distancia:" + Vector2.Distance(points[i], comparables[i]));
         }
         Debug.Log("HitP: " + hitP[0] + "aciertos , " + hitP[1] + " fallos");
         return hitP;
-
     }
-    private int[] CompareFunctionsLin(bool x, float multCuad, float adicion, float[] valores, Vector2[] points)
+    private int[] CompareFunctionsTri(bool x, bool seno, float multCuad, float sumaX, float adicion, Vector2[] points)
     {
+        float Ancho = container.sizeDelta.x;
+        float Altura = container.sizeDelta.y;
         int[] hitP = new int[] { 0, 0 };
-        Vector2[] comparables = CrearListaLineal(x, multCuad, adicion, valores);
-        MostrarPuntos(comparables);
-        for (int i = 0; i < valores.Length; i++)
+        float[] values = new float[points.Length * 5];
+        if (x)
         {
-            if (Vector2.Distance(points[i], comparables[i]) < 10)
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].x - (Ancho / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].x - (Ancho / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].x - (Ancho / 2)) / 35f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f)));
+                values[(i * 5) + 3] = ((points[i].x - (Ancho / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].x - (Ancho / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].y - (Altura / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].y - (Altura / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].y - (Altura / 2)) / 35f;
+                values[(i * 5) + 3] = ((points[i].y - (Altura / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].y - (Altura / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        Vector2[] comparables = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, values);
+        MostrarPuntos(comparables, 3);
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (Vector2.Distance(comparables[(i * 5) + 0], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 1], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 2], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 3], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 4], points[i]) < hitDistance)
             {
                 hitP[0]++;
             }
@@ -111,27 +331,65 @@ public class GraphManager : MonoBehaviour
             {
                 hitP[1]++;
             }
-            Debug.Log("x1:" + points[i].x + " y1:" + points[i].y + " y x2:" + comparables[i].x + " y2:" + comparables[i].y);
-            Debug.Log("distancia:" + Vector2.Distance(points[i], comparables[i]));
         }
         Debug.Log("HitP: " + hitP[0] + "aciertos , " + hitP[1] + " fallos");
         return hitP;
     }
-
-    private int RNG(int a, int b)
+    private int[] CompareFunctionsLin(bool x, float multCuad, float adicion, Vector2[] points)
     {
-        return Random.Range(a, b);
+        float Ancho = container.sizeDelta.x;
+        float Altura = container.sizeDelta.y;
+        int[] hitP = new int[] { 0, 0 };
+        float[] values = new float[points.Length * 5];
+        if (x)
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].x - (Ancho / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].x - (Ancho / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].x - (Ancho / 2)) / 35f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f)));
+                values[(i * 5) + 3] = ((points[i].x - (Ancho / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].x - (Ancho / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < points.Length; i++)
+            {
+                values[(i * 5) + 0] = ((points[i].y - (Altura / 2)) / 35f) - .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .2f));
+                values[(i * 5) + 1] = ((points[i].y - (Altura / 2)) / 35f) - .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) - .1f));
+                values[(i * 5) + 2] = (points[i].y - (Altura / 2)) / 35f;
+                values[(i * 5) + 3] = ((points[i].y - (Altura / 2)) / 35f) + .1f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .1f));
+                values[(i * 5) + 4] = ((points[i].y - (Altura / 2)) / 35f) + .2f; Debug.Log("" + (((points[i].x - (Ancho / 2)) / 35f) + .2f));
+            }
+        }
+        Vector2[] comparables = CrearListaLineal(x, multCuad, adicion, values);
+        MostrarPuntos(comparables, 3);
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (Vector2.Distance(comparables[(i * 5) + 0], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 1], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 2], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 3], points[i]) < hitDistance || Vector2.Distance(comparables[(i * 5) + 4], points[i]) < hitDistance)
+            {
+                hitP[0]++;
+            }
+            else
+            {
+                hitP[1]++;
+            }
+        }
+        Debug.Log("HitP: " + hitP[0] + "aciertos , " + hitP[1] + " fallos");
+        return hitP;
     }
+    */
     private float RNG(int a, int b, int c)
     {
         return Random.Range(a, b) / c;
     }
 
-    private void MostrarPuntos(Vector2[] lista)
+    private void MostrarPuntos(Vector2[] lista, int type)
     {
         for (int i = 0; i < lista.Length; i++)
         {
-            GameObject Circulo = CrearCirculo(lista[i]);
+            GameObject Circulo = CrearCirculo(lista[i], type);
         }
     }
     private void UnirPuntos(Vector2[] lista)
@@ -140,7 +398,7 @@ public class GraphManager : MonoBehaviour
         GameObject lastCircle = null;
         for (int i = 0; i < lista.Length; i++)
         {
-            GameObject Circulo = CrearCirculo(lista[i]);
+            GameObject Circulo = CrearCirculo(lista[i], 2);
             if (lastCircle != null)
             {
                 Union(lastCircle.GetComponent<RectTransform>().anchoredPosition, Circulo.GetComponent<RectTransform>().anchoredPosition);
@@ -169,7 +427,7 @@ public class GraphManager : MonoBehaviour
         }
 
     }
-    private GameObject CrearCirculo(Vector2 posicion)
+    private GameObject CrearCirculo(Vector2 posicion, int type)
     {
         float Altura = container.sizeDelta.y;
         float Ancho = container.sizeDelta.x;
@@ -177,12 +435,24 @@ public class GraphManager : MonoBehaviour
         objeto.transform.SetParent(container, false);
         RectTransform rectTrans = objeto.GetComponent<RectTransform>();
         rectTrans.anchoredPosition = posicion;
-        rectTrans.sizeDelta = new Vector2(11, 11);
+        rectTrans.sizeDelta = new Vector2(circleSize, circleSize);
         rectTrans.anchorMin = new Vector2(0, 0);
         rectTrans.anchorMax = new Vector2(0, 0);
         if ((posicion.x <= Ancho && posicion.x >= 0) && (posicion.y <= Altura && posicion.y >= 0))
         {
-            objeto.GetComponent<Image>().sprite = circleSprite;
+            switch (type)
+            {
+                case 0:
+                    objeto.GetComponent<Image>().sprite = circleSprite;
+                    break;
+                case 1:
+                    objeto.GetComponent<Image>().sprite = objectiveSprite;
+                    break;
+                default:
+                    objeto.GetComponent<Image>().sprite = null;
+                    objeto.GetComponent<Image>().color = new Color(1, 1, 1, 0f);
+                    break;
+            }
         }
         else
         {
@@ -262,14 +532,14 @@ public class GraphManager : MonoBehaviour
             {       //Aqui se decide la posicion de los puntos en x, y
                 float xPos = valores[i] * xSize + Ancho / 2;
                 float yPos;
-                    if (seno)
-                    {
-                        yPos = ((multCuad * (Mathf.Sin(valores[i] + sumaX))) + adicion) * xSize / 10 + Altura / 2;
-                    }
-                    else
-                    {
-                        yPos = ((multCuad * (Mathf.Cos(valores[i] + sumaX))) + adicion) * xSize / 10 + Altura / 2;
-                    }
+                if (seno)
+                {
+                    yPos = ((multCuad * (Mathf.Sin(valores[i] + sumaX))) + adicion) * xSize / 10 + Altura / 2;
+                }
+                else
+                {
+                    yPos = ((multCuad * (Mathf.Cos(valores[i] + sumaX))) + adicion) * xSize / 10 + Altura / 2;
+                }
                 lista[i] = new Vector2(xPos, yPos);
             }
         }
@@ -279,14 +549,14 @@ public class GraphManager : MonoBehaviour
             {       //Aqui se decide la posicion de los puntos en x, y
                 float yPos = valores[i] * xSize + Altura / 2;
                 float xPos;
-                    if (seno)
-                    {
-                        xPos = ((multCuad * (Mathf.Sin(valores[i] + sumaX))) + adicion) * xSize / 10 + Ancho / 2;
-                    }
-                    else
-                    {
-                        xPos = ((multCuad * (Mathf.Cos(valores[i] + sumaX))) + adicion) * xSize / 10 + Ancho / 2;
-                    }
+                if (seno)
+                {
+                    xPos = ((multCuad * (Mathf.Sin(valores[i] + sumaX))) + adicion) * xSize / 10 + Ancho / 2;
+                }
+                else
+                {
+                    xPos = ((multCuad * (Mathf.Cos(valores[i] + sumaX))) + adicion) * xSize / 10 + Ancho / 2;
+                }
                 lista[i] = new Vector2(xPos, yPos);
             }
         }
@@ -322,7 +592,7 @@ public class GraphManager : MonoBehaviour
         return lista;
     }
 
-      public static float GetAngleFromVectorFloat(Vector3 dir)
+    public static float GetAngleFromVectorFloat(Vector3 dir)
     {
         dir = dir.normalized;
         float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
