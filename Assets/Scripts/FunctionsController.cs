@@ -39,8 +39,17 @@ public class FunctionsController : MonoBehaviour
 
     //Elementos de funcion lineal
     public GameObject linealEspacio01;
-    public GameObject linealEspacio02;
+    public GameObject linealEspacio03;
     public GameObject linealVariable;
+
+    //Elementos de la graficadora
+    public GameObject grapherObject;
+    private GraphManager graphManager;
+
+    public GameObject battleController;
+
+    int hits;
+    int misses;
 
     //CANCELADO
     /*Elementos de funcion exponencial
@@ -63,15 +72,25 @@ public class FunctionsController : MonoBehaviour
 
     public FunctionType currentFunctionType = FunctionType.Cuadratica;
 
+    public void Awake()
+    {
+        graphManager = grapherObject.GetComponent<GraphManager>();
+    }
+
     public void AddSmallVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] += 0.1m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
         //Sound.play(snd_cursor_up);
     }
 
     public void SubtractSmallVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] -= 0.1m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        //Sound.play(snd_cursor_up);
     }
 
     public void AddMediumVariableEspacio(int variableEspacio)
@@ -257,6 +276,27 @@ public class FunctionsController : MonoBehaviour
         canvas.SetActive(true);
     }
 
+    public void GenerateGraph()
+    {
+        switch (currentFunctionType)
+        {
+            case FunctionType.Cuadratica:
+                graphManager.GenerateUserGraphCuadratica(!isXYswitched, (float)variablesEspacio[0], (float)variablesEspacio[1], (float)variablesEspacio[2]);
+                break;
+            case FunctionType.Cubica:
+                graphManager.GenerateUserGraphCubica(!isXYswitched, (float)variablesEspacio[0], (float)variablesEspacio[1], (float)variablesEspacio[2]);
+                break;
+            case FunctionType.Trigonometrica:
+                graphManager.GenerateUserGraphTrigonometrica(!isXYswitched, !isSenCosSwitched, (float)variablesEspacio[0], (float)variablesEspacio[1], (float)variablesEspacio[2]);
+                break;
+            case FunctionType.Lineal:
+                graphManager.GenerateUserGraphLineal(!isXYswitched, (float)variablesEspacio[0], (float)variablesEspacio[2]);
+                break;
+            default:
+                Debug.Log("Algo pudo haber salir mal al pasar los valores de la gráfica.");
+                break;
+        }
+    }
 
     /*OLD
     public void ChangeSmallVariableEspacio(int variableEspacio, bool add)

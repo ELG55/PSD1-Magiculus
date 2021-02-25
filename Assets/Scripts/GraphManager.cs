@@ -12,6 +12,9 @@ public class GraphManager : MonoBehaviour
     public int hitDistance;
     private float[] xd = new float[201];
     private bool Rx; private bool Rseno; private float RmultCuad; private float RsumaX; private float Radicion; private float[] RxValues;
+
+    Vector2[] RNGPoints;
+    Vector2[] listaUsuario;
     private void Awake()
     {
         for (int i = 0; i < xd.Length; i++)
@@ -21,40 +24,44 @@ public class GraphManager : MonoBehaviour
         container = transform.Find("container").GetComponent<RectTransform>();
         //(bool x, float multCuad,float sumaX, bool signoCuad, float adicion, float[] valores )
         //float[] xd = new float[] { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        RandomizeFunction();
+        /*RandomizeFunction();
         RandomValidFloatsCub(Rx, RmultCuad, RsumaX, Radicion, 5);
         Vector2[] RNGPoints = CrearListaCubica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
-        MostrarPuntos(RNGPoints, 1);
+        MostrarPuntos(RNGPoints, 1);*/
 
         //Vector2[] listaCua = CrearListaCuadratica(false, 1, 0, 0, xd);
         //UnirPuntos(listaCua);
-        Vector2[] listaCub = CrearListaCubica(false, 1, 5, 10, xd);
-        UnirPuntos(listaCub);
+        /*Vector2[] listaCub = CrearListaCubica(false, 1, 5, 10, xd);
+        UnirPuntos(listaCub);*/
         //Vector2[] listaTri = CrearListaTrigonometrica(true,true, 10, 5, 10,xd);
         //UnirPuntos(listaTri);
         //Vector2[] listaLin = CrearListaLineal(true, 10, 0, xd);
         //UnirPuntos(listaLin);
         //int[] listaRNG = CompareFunctionsCub(false, 1, 5, 10, RNGPoints);
-        compareHard(RNGPoints, listaCub);
+        ///compareHard(RNGPoints, listaCub);
 
 
     }
 
-    private int[] compareHard(Vector2[] points, Vector2[] HardList)
+    public int[] compareHard()
     {
-        int hitP = 0;
-        for (int i = 0; i < points.Length; i++)
+        if (listaUsuario == null || listaUsuario.Length == 0)
         {
-            for (int j = 0; j < HardList.Length; j++)
+            return new int[] { 0, RNGPoints.Length };
+        }
+        int hitP = 0;
+        for (int i = 0; i < RNGPoints.Length; i++)
+        {
+            for (int j = 0; j < listaUsuario.Length; j++)
             {
-                if (Vector2.Distance(points[i],HardList[j])<hitDistance)
+                if (Vector2.Distance(RNGPoints[i], listaUsuario[j])<hitDistance)
                 {
                     hitP++;
                     break;
                 }
             }
         }
-        return new int[] {hitP,points.Length-hitP};
+        return new int[] {hitP, RNGPoints.Length-hitP};
     }
     private void RandomizeFunction()
     {
@@ -601,4 +608,35 @@ public class GraphManager : MonoBehaviour
         return n;
     }
 
+    public void GenerateRandomTargets()
+    {
+        RandomizeFunction();
+        RandomValidFloatsCub(Rx, RmultCuad, RsumaX, Radicion, 5);
+        RNGPoints = CrearListaCubica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
+        MostrarPuntos(RNGPoints, 1);
+    }
+
+    public void GenerateUserGraphCuadratica(bool x, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaCuadratica(x, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphCubica(bool x, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaCuadratica(x, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphTrigonometrica(bool x, bool seno, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphLineal(bool x, float multCuad, float adicion)
+    {
+        listaUsuario = CrearListaLineal(x, multCuad, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
 }
