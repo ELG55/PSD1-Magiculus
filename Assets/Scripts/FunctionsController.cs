@@ -35,6 +35,7 @@ public class FunctionsController : MonoBehaviour
     public GameObject trinomialEspacio02;
     public GameObject trinomialEspacio03;
     public GameObject trinomialEspacio04;
+    public GameObject trinomialEspacio05;
     public GameObject trinomialVariable;
 
     //Elementos de funcion lineal
@@ -47,6 +48,7 @@ public class FunctionsController : MonoBehaviour
     private GraphManager graphManager;
 
     public GameObject battleController;
+    public GameObject buttonSwitchXY;
 
     int hits;
     int misses;
@@ -66,7 +68,7 @@ public class FunctionsController : MonoBehaviour
     public enum FunctionType { Cuadratica, Cubica, Trigonometrica, Trinomial, Lineal}
 
     public List<GameObject> canvases;
-    public decimal[] variablesEspacio = new decimal[4] { 1, 1, 1, 1 };
+    public decimal[] variablesEspacio = new decimal[5] { 1, 1, 1, 1 , 1};
     public bool isXYswitched = false;
     public bool isSenCosSwitched = false;
 
@@ -83,7 +85,6 @@ public class FunctionsController : MonoBehaviour
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
-        //Sound.play(snd_cursor_up);
     }
 
     public void SubtractSmallVariableEspacio(int variableEspacio)
@@ -92,7 +93,6 @@ public class FunctionsController : MonoBehaviour
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
-        //Sound.play(snd_cursor_down);
     }
 
     public void AddMediumVariableEspacio(int variableEspacio)
@@ -101,7 +101,6 @@ public class FunctionsController : MonoBehaviour
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
-        //Sound.play(snd_cursor_up);
     }
 
     public void SubtractMediumVariableEspacio(int variableEspacio)
@@ -110,27 +109,38 @@ public class FunctionsController : MonoBehaviour
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
-        //Sound.play(snd_cursor_down);
     }
 
     public void AddBigVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] += 10.0m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
     }
 
     public void SubtractBigVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] -= 10.0m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
     }
 
     public void SwitchXY()
     {
         isXYswitched = !isXYswitched;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
     }
 
     public void SwitchSenCos()
     {
         isSenCosSwitched = !isSenCosSwitched;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
     }
 
     public void RefreshAllTexts()
@@ -146,7 +156,7 @@ public class FunctionsController : MonoBehaviour
         else
         {
             cuadraticaVariable.GetComponent<Text>().text = "X";
-        }/*
+        }
         //Cúbica
         cubicaEspacio01.GetComponent<Text>().text = variablesEspacio[0].ToString();
         cubicaEspacio02.GetComponent<Text>().text = variablesEspacio[1].ToString();
@@ -158,7 +168,7 @@ public class FunctionsController : MonoBehaviour
         else
         {
             cubicaVariable.GetComponent<Text>().text = "X";
-        }
+        }/*
         //Trigonométrica
         trigonometricaEspacio01.GetComponent<Text>().text = variablesEspacio[0].ToString();
         trigonometricaEspacio02.GetComponent<Text>().text = variablesEspacio[1].ToString();
@@ -270,6 +280,7 @@ public class FunctionsController : MonoBehaviour
 
     public void HideAllCanvases()
     {
+        buttonSwitchXY.SetActive(false);
         for (int i = 0; i < canvases.Count; i++)
         {
             canvases[i].SetActive(false);
@@ -284,6 +295,8 @@ public class FunctionsController : MonoBehaviour
     public void ShowCanvas(GameObject canvas)
     {
         canvas.SetActive(true);
+        buttonSwitchXY.SetActive(true);
+        buttonSwitchXY.GetComponent<Button>().interactable = true;
         SetAllVariablesEspacioToOne();
     }
 
@@ -300,6 +313,9 @@ public class FunctionsController : MonoBehaviour
                 break;
             case FunctionType.Trigonometrica:
                 graphManager.GenerateUserGraphTrigonometrica(!isXYswitched, !isSenCosSwitched, (float)variablesEspacio[0], (float)variablesEspacio[1], (float)variablesEspacio[2]);
+                break;
+            case FunctionType.Trinomial:
+                graphManager.GenerateUserGraphTrinomial(!isXYswitched, (float)variablesEspacio[0], (float)variablesEspacio[1], (float)variablesEspacio[2], (float)variablesEspacio[3], (float)variablesEspacio[4]);
                 break;
             case FunctionType.Lineal:
                 graphManager.GenerateUserGraphLineal(!isXYswitched, (float)variablesEspacio[0], (float)variablesEspacio[2]);

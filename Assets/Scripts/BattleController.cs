@@ -64,10 +64,15 @@ public class BattleController : MonoBehaviour
     int hits;
     int misses;
     public GameObject hitPercentageObject;
+    public GameObject okButton;
+
+    public GameObject soundManagerObject;
+    public ControllerAudio soundManager;
 
     //DamageAnimation variables
     private enum DamageAnimationPart { PercentageMessageShow, PercentageMessageHide, RoundMessageShow, RoundMessageHide, RoundMessageWait, EndBattle }
     private DamageAnimationPart damageAnimationPart = DamageAnimationPart.PercentageMessageShow;
+    private bool DamageAnimationPartRoundMessageWaitDone = true;
     /*bool isPercentageMessageShown = false;
     bool isPercentageMessageHidden = false;
     bool isRoundMessageShown = false;
@@ -82,6 +87,8 @@ public class BattleController : MonoBehaviour
         functionsController = objectFunctionsController.GetComponent<FunctionsController>();
         functionsController.HideAllCanvases();
         DisableFunctionTypeButtons();
+
+        soundManager = soundManagerObject.GetComponent<ControllerAudio>();
 
         playerHealthBarMaskStartPosition = playerHealthBarMask.GetComponent<Transform>().position;
         enemyHealthBarMaskStartPosition = enemyHealthBarMask.GetComponent<Transform>().position;
@@ -109,6 +116,7 @@ public class BattleController : MonoBehaviour
                     centerMessageText.GetComponent<Text>().fontSize = -1;
                     timer.SetTimerTime(timerTime);
                     timer.ResumeTimer();
+                    okButton.GetComponent<Button>().interactable = true;
                     functionsController.SetAllVariablesEspacioToOne();
                     graphManager.DeleteTargetCircles();
                     graphManager.GenerateRandomTargets(Random.Range(0, 5));
@@ -126,10 +134,12 @@ public class BattleController : MonoBehaviour
                     DamageAnimationStartDone = true;
                     timer.SetTimerTime(1.5f);
                     timer.StopTimer();
+                    okButton.GetComponent<Button>().interactable = false;
                     graphManager.DeleteUserCircles();
                     graphManager.DeleteTargetCircles();
                     playerHealth -= Mathf.Round(100.0f - hitPercentage);
                     enemyHealth -= Mathf.Round(hitPercentage);
+                    soundManager.PlaySound(soundManager.sndDamage);
                 }
                 UpdatePlayerHealth();
                 UpdateEnemyHealth();
@@ -154,7 +164,15 @@ public class BattleController : MonoBehaviour
                             timer.ResumeTimer();
                             if (timer.IsTimerDone())
                             {
-                                timer.SetTimerTime(1.5f);
+                                if (currentPlayerHealth == 0)
+                                {
+                                    timer.SetTimerTime(2.5f);
+                                }
+                                else
+                                {
+                                    timer.SetTimerTime(1.5f);
+                                }
+                                DamageAnimationPartRoundMessageWaitDone = false;
                                 damageAnimationPart = DamageAnimationPart.RoundMessageWait;
                             }
                         }
@@ -163,6 +181,22 @@ public class BattleController : MonoBehaviour
                         Debug.Log("RoundMessageWait");
                         if ((currentPlayerHealth == playerHealth) && (currentEnemyHealth == enemyHealth))
                         {
+                            if (!DamageAnimationPartRoundMessageWaitDone)
+                            {
+                                DamageAnimationPartRoundMessageWaitDone = true;
+                                if ((currentPlayerHealth == 0) && (currentEnemyHealth == 0))
+                                {
+                                    soundManager.PlaySound(soundManager.sndDraw);
+                                }
+                                else if (currentPlayerHealth == 0)
+                                {
+                                    soundManager.PlaySound(soundManager.sndDefeat);
+                                }
+                                else if (currentEnemyHealth == 0)
+                                {
+                                    soundManager.PlaySound(soundManager.sndWin);
+                                }
+                            }
                             if ((currentPlayerHealth == 0) && (currentEnemyHealth == 0))
                             {
                                 playerWon = false;
@@ -219,6 +253,7 @@ public class BattleController : MonoBehaviour
                             if (timer.IsTimerDone())
                             {
                                 timer.SetTimerTime(0.5f);
+                                soundManager.PlaySound(soundManager.sndNewRound);
                                 damageAnimationPart = DamageAnimationPart.RoundMessageHide;
                             }
                         }

@@ -11,7 +11,17 @@ public class ControllerAudio : MonoBehaviour
     /*Ejemplo
      * public AudioClip SonidoAcierto;
      */
-    public AudioClip sound1;
+    public AudioClip sndClick;
+    public AudioClip sndCursorDown;
+    public AudioClip sndCursorUp;
+    public AudioClip sndDamage;
+    public AudioClip sndDefeat;
+    public AudioClip sndDraw;
+    public AudioClip sndEnteringBattle;
+    public AudioClip sndNewRound;
+    public AudioClip sndWin;
+    public AudioClip sndWindow;
+
     public AudioClip sound2;
     public AudioClip Coin;
     public bool checador = false;
@@ -37,15 +47,17 @@ public class ControllerAudio : MonoBehaviour
 
     private void InicializarVolumen() {
             audioSrc.volume = PlayerPrefs.GetFloat("SoundVolumen", 1.0f);
-            SliderSound.value = audioSrc.volume;
+            //SliderSound.value = audioSrc.volume;
         
     }
+    /*
     void Update() {
             audioSrc.volume = SliderSound.value;
             PlayerPrefs.SetFloat("SoundVolumen", audioSrc.volume);
             PlayerPrefs.Save();
     }
-
+    */
+    /*
     public void PMusic() {
         audioSrc.PlayOneShot(sound1);
 
@@ -56,6 +68,11 @@ public class ControllerAudio : MonoBehaviour
 
     public void coin() {
         audioSrc.PlayOneShot(Coin);
+    }
+    */
+    public void PlaySound(AudioClip audioClip)
+    {
+        audioSrc.PlayOneShot(audioClip);
     }
 
     /*Crear un metodo para reproducir ese sonido especifico

@@ -498,6 +498,7 @@ public class GraphManager : MonoBehaviour
                 default:
                     objeto.GetComponent<Image>().sprite = null;
                     objeto.GetComponent<Image>().color = new Color(1, 1, 1, 0f);
+                    objeto.gameObject.tag = "UserCircle";
                     break;
             }
         }
@@ -717,13 +718,19 @@ public class GraphManager : MonoBehaviour
 
     public void GenerateUserGraphCubica(bool x, float multCuad, float sumaX, float adicion)
     {
-        listaUsuario = CrearListaCuadratica(x, multCuad, sumaX, adicion, xd);
+        listaUsuario = CrearListaCubica(x, multCuad, sumaX, adicion, xd);
         UnirPuntos(listaUsuario);
     }
 
     public void GenerateUserGraphTrigonometrica(bool x, bool seno, float multCuad, float sumaX, float adicion)
     {
         listaUsuario = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphTrinomial(bool x, float multCuad, float sumaX, float sumaX2, float sumaX3, float adicion)
+    {
+        listaUsuario = CrearListaTrinomial(x, multCuad, sumaX, sumaX2, sumaX3, adicion, xd);
         UnirPuntos(listaUsuario);
     }
 
