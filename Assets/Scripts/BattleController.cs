@@ -59,6 +59,12 @@ public class BattleController : MonoBehaviour
     private bool DamageAnimationStartDone = false;
     private float bigFontCurrentSize = 180;
 
+    public GameObject grapherObject;
+    private GraphManager graphManager;
+    int hits;
+    int misses;
+    public GameObject hitPercentageObject;
+
     //DamageAnimation variables
     private enum DamageAnimationPart { PercentageMessageShow, PercentageMessageHide, RoundMessageShow, RoundMessageHide, RoundMessageWait, EndBattle }
     private DamageAnimationPart damageAnimationPart = DamageAnimationPart.PercentageMessageShow;
@@ -79,6 +85,8 @@ public class BattleController : MonoBehaviour
 
         playerHealthBarMaskStartPosition = playerHealthBarMask.GetComponent<Transform>().position;
         enemyHealthBarMaskStartPosition = enemyHealthBarMask.GetComponent<Transform>().position;
+
+        graphManager = grapherObject.GetComponent<GraphManager>();
 
         timer = new Timer(timerTime, false);
     }
@@ -101,8 +109,14 @@ public class BattleController : MonoBehaviour
                     centerMessageText.GetComponent<Text>().fontSize = -1;
                     timer.SetTimerTime(timerTime);
                     timer.ResumeTimer();
-                    EnableeFunctionTypeButtons();
-                }
+                    functionsController.SetAllVariablesEspacioToOne();
+                    graphManager.DeleteTargetCircles();
+                    graphManager.GenerateRandomTargets(Random.Range(0, 5));
+                    GetHitsAndMisses();
+                    Debug.Log("hits: " + hits);
+                    Debug.Log("misses: " + misses);
+                    EnableFunctionTypeButtons();
+                }                
                 UserInputUpdate();
                 break;
             case BattleStage.DamageAnimation:
@@ -112,8 +126,10 @@ public class BattleController : MonoBehaviour
                     DamageAnimationStartDone = true;
                     timer.SetTimerTime(1.5f);
                     timer.StopTimer();
-                    playerHealth -= 20;
-                    enemyHealth -= 400;
+                    graphManager.DeleteUserCircles();
+                    graphManager.DeleteTargetCircles();
+                    playerHealth -= Mathf.Round(100.0f - hitPercentage);
+                    enemyHealth -= Mathf.Round(hitPercentage);
                 }
                 UpdatePlayerHealth();
                 UpdateEnemyHealth();
@@ -121,7 +137,7 @@ public class BattleController : MonoBehaviour
                 {
                     case DamageAnimationPart.PercentageMessageShow:
                         Debug.Log("PercentageMessageShow");
-                        if (ShowMidScreenMessage((Mathf.Round(100.0f - hitPercentage)) + "% / " + (Mathf.Round(hitPercentage))+ "%", 200f, Color.red))
+                        if (ShowMidScreenMessage((Mathf.Round(100.0f - hitPercentage)) + "%     " + (Mathf.Round(hitPercentage))+ "%", 200f, Color.red))
                         {
                             timer.ResumeTimer();
                             if (timer.IsTimerDone())
@@ -250,7 +266,18 @@ public class BattleController : MonoBehaviour
             functionsController.HideAllCanvases();
             currentStage = BattleStage.DamageAnimation;
         }
+        UpdateHitPercentage();
         RefreshTimerText();
+    }
+
+    private void UpdateHitPercentage()
+    {
+        //GetHitsAndMisses();
+        Debug.Log("hits: " + hits);
+        Debug.Log("misses: " + misses);
+        hitPercentage = Mathf.Round(((float)hits / ((float)hits + (float)misses)) * 100f);
+        Debug.Log("hitPercentage: " + hitPercentage);
+        hitPercentageObject.GetComponent<Text>().text = hitPercentage.ToString();
     }
 
     private void EntranceAnimationUpdate()
@@ -350,7 +377,7 @@ public class BattleController : MonoBehaviour
         buttonLineal.GetComponent<Button>().interactable = false;
     }
 
-    private void EnableeFunctionTypeButtons()
+    private void EnableFunctionTypeButtons()
     {
         buttonCuadratica.GetComponent<Button>().interactable = true;
         buttonCubica.GetComponent<Button>().interactable = true;
@@ -362,9 +389,13 @@ public class BattleController : MonoBehaviour
     public void RefreshTimerText()
     {
         string temp = System.Math.Round(timer.timeRemaining, 2).ToString();
+        if (System.Math.Round(timer.timeRemaining, 2) < 10f)
+        {
+            temp = "0" + temp;
+        }
         if (temp.Contains("."))
         {
-            while (temp.Length < 4)
+            while (temp.Length < 5)
             {
                 temp += "0";
             }
@@ -380,7 +411,7 @@ public class BattleController : MonoBehaviour
     private void PrepareEnemy()
     {
         //DEBUG ONLY
-        string currentLevel = "C3";
+        string currentLevel = "C2";
         //string currentLevel = GameObject.Find("Savedata").GetComponent<Savedata>().currentLevel;
         char[] currentLevelChars = currentLevel.ToCharArray();
         char area = currentLevelChars[0];
@@ -485,5 +516,17 @@ public class BattleController : MonoBehaviour
             //The enemy moves the mask to the right
             enemyHealthBarMask.GetComponent<Transform>().position = enemyHealthBarMaskStartPosition + tempMove;
         }
+    }
+
+    public void GetHitsAndMisses()
+    {
+        int[] hitsAndMisses = graphManager.compareHard();
+        hits = hitsAndMisses[0];
+        misses = hitsAndMisses[1];
+    }
+
+    public void EndTimer()
+    {
+        timer.timeRemaining = 0;
     }
 }

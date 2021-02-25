@@ -11,7 +11,10 @@ public class GraphManager : MonoBehaviour
     public int circleSize;
     public int hitDistance;
     private float[] xd = new float[201];
-    private bool Rx; private bool Rseno; private float RmultCuad; private float RsumaX; private float Radicion; private float[] RxValues;
+    private bool Rx; private bool Rseno; private float RmultCuad; private float RsumaX; private float RsumaX2; private float RsumaX3; private float Radicion; private float[] RxValues;
+
+    Vector2[] RNGPoints;
+    Vector2[] listaUsuario;
     private void Awake()
     {
         for (int i = 0; i < xd.Length; i++)
@@ -21,44 +24,48 @@ public class GraphManager : MonoBehaviour
         container = transform.Find("container").GetComponent<RectTransform>();
         //(bool x, float multCuad,float sumaX, bool signoCuad, float adicion, float[] valores )
         //float[] xd = new float[] { -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        RandomizeFunction();
+        /*RandomizeFunction();
         RandomValidFloatsCub(Rx, RmultCuad, RsumaX, Radicion, 5);
         Vector2[] RNGPoints = CrearListaCubica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
-        MostrarPuntos(RNGPoints, 1);
+        MostrarPuntos(RNGPoints, 1);*/
 
         //Vector2[] listaCua = CrearListaCuadratica(false, 1, 0, 0, xd);
         //UnirPuntos(listaCua);
-        Vector2[] listaCub = CrearListaCubica(false, 1, 5, 10, xd);
-        UnirPuntos(listaCub);
+        /*Vector2[] listaCub = CrearListaCubica(false, 1, 5, 10, xd);
+        UnirPuntos(listaCub);*/
         //Vector2[] listaTri = CrearListaTrigonometrica(true,true, 10, 5, 10,xd);
         //UnirPuntos(listaTri);
         //Vector2[] listaLin = CrearListaLineal(true, 10, 0, xd);
         //UnirPuntos(listaLin);
         //int[] listaRNG = CompareFunctionsCub(false, 1, 5, 10, RNGPoints);
-        compareHard(RNGPoints, listaCub);
+        ///compareHard(RNGPoints, listaCub);
 
 
     }
 
-    private int[] compareHard(Vector2[] points, Vector2[] HardList)
+    public int[] compareHard()
     {
-        int hitP = 0;
-        for (int i = 0; i < points.Length; i++)
+        if (listaUsuario == null || listaUsuario.Length == 0)
         {
-            for (int j = 0; j < HardList.Length; j++)
+            return new int[] { 0, RNGPoints.Length };
+        }
+        int hitP = 0;
+        for (int i = 0; i < RNGPoints.Length; i++)
+        {
+            for (int j = 0; j < listaUsuario.Length; j++)
             {
-                if (Vector2.Distance(points[i],HardList[j])<hitDistance)
+                if (Vector2.Distance(RNGPoints[i], listaUsuario[j])<hitDistance)
                 {
                     hitP++;
                     break;
                 }
             }
         }
-        return new int[] {hitP,points.Length-hitP};
+        return new int[] {hitP, RNGPoints.Length-hitP};
     }
     private void RandomizeFunction()
     {
-        Rx = (Random.value > 0.5f); Rseno = (Random.value > 0.5f); RmultCuad = RNG(10, 190, 10) - 10; RsumaX = RNG(10, 190, 10) - 10; Radicion = RNG(10, 190, 10) - 10;
+        Rx = (Random.value > 0.5f); Rseno = (Random.value > 0.5f); RmultCuad = RNG(10, 190, 10) - 10; RsumaX = RNG(10, 190, 10) - 10; RsumaX2 = RNG(10, 190, 10) - 10; RsumaX3 = RNG(10, 190, 10) - 10; Radicion = RNG(10, 190, 10) - 10;
     }
 
     private void RandomValidFloatsCuad(bool x, float multCuad, float sumaX, float adicion, int n)
@@ -166,6 +173,43 @@ public class GraphManager : MonoBehaviour
         }
         RxValues = values;
     }
+
+    private void RandomValidFloatsTrino(bool x, float multCuad, float sumaX1, float sumaX2, float sumaX3, float adicion, int n)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        Vector2[] points = new Vector2[n];
+        float[] deck = new float[200];
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+        int l = deck.Length;
+        while (l > 1)
+        {
+            l--;
+            int k = Random.Range(0, deck.Length);
+            float value = deck[k];
+            deck[k] = deck[l];
+            deck[l] = value;
+        }
+        float[] values = new float[n];
+        int q = 0;
+        for (int i = 0; i < points.Length; i++)
+        {
+            values[i] = (deck[q] - 100) / 10;
+            q++;
+            points[i] = CrearListaTrinomial(x, multCuad, sumaX1, sumaX2, sumaX3, adicion, new float[] { values[i] })[0];
+            while (points[i].y >= Altura || points[i].y <= 0 || points[i].x >= Ancho || points[i].x <= 0)
+            {
+                values[i] = (deck[q] - 100) / 10;
+                q++;
+                points[i] = CrearListaTrinomial(x, multCuad, sumaX1, sumaX2, sumaX3, adicion, new float[] { values[i] })[0];
+            }
+        }
+        RxValues = values;
+    }
+
     private void RandomValidFloatsLin(bool x, float multCuad, float adicion, int n)
     {
         float Altura = container.sizeDelta.y;
@@ -414,6 +458,7 @@ public class GraphManager : MonoBehaviour
         if (((puntoA.x >= 0 && puntoA.x <= Ancho) && (puntoA.y >= 0 && puntoA.y <= Altura)) || ((puntoB.x >= 0 && puntoB.x <= Ancho) && (puntoB.y >= 0 && puntoB.y <= Altura)))
         {
             GameObject objeto1 = new GameObject("dotConnection", typeof(Image));
+            objeto1.gameObject.tag = "UserCircle";
             objeto1.transform.SetParent(container, false);
             objeto1.GetComponent<Image>().color = new Color(1, 1, 1, .5f);
             RectTransform transformarRect = objeto1.GetComponent<RectTransform>();
@@ -444,9 +489,11 @@ public class GraphManager : MonoBehaviour
             {
                 case 0:
                     objeto.GetComponent<Image>().sprite = circleSprite;
+                    objeto.gameObject.tag = "UserCircle";
                     break;
                 case 1:
                     objeto.GetComponent<Image>().sprite = objectiveSprite;
+                    objeto.gameObject.tag = "TargetCircle";
                     break;
                 default:
                     objeto.GetComponent<Image>().sprite = null;
@@ -563,6 +610,35 @@ public class GraphManager : MonoBehaviour
         return lista;
     }
 
+    private Vector2[] CrearListaTrinomial(bool x, float multCuad, float sumaX1, float sumaX2, float sumaX3, float adicion, float[] valores)
+    {
+        float Altura = container.sizeDelta.y;
+        float Ancho = container.sizeDelta.x;
+        float xSize = 35f;
+        Vector2[] lista = new Vector2[valores.Length];
+        if (x)
+        {
+            for (int i = 0; i < valores.Length; i++)
+            {       //Aqui se decide la posicion de los puntos en x, y
+                float xPos = valores[i] * xSize + Ancho / 2;
+                float yPos;
+                yPos = ((multCuad * (sumaX1 + valores[i]) * (sumaX2 + valores[i]) * (sumaX3 + valores[i])) + adicion) * xSize / 10 + Altura / 2;
+                lista[i] = new Vector2(xPos, yPos);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < valores.Length; i++)
+            {       //Aqui se decide la posicion de los puntos en x, y
+                float yPos = valores[i] * xSize + Altura / 2;
+                float xPos;
+                xPos = ((multCuad * (sumaX1 + valores[i]) * (sumaX2 + valores[i]) * (sumaX3 + valores[i])) + adicion) * xSize / 10 + Ancho / 2;
+                lista[i] = new Vector2(xPos, yPos);
+            }
+        }
+        return lista;
+    }
+
     private Vector2[] CrearListaLineal(bool x, float multCuad, float adicion, float[] valores)
     {
         float Altura = container.sizeDelta.y;
@@ -601,4 +677,79 @@ public class GraphManager : MonoBehaviour
         return n;
     }
 
+    public void GenerateRandomTargets(int type)
+    {
+        RandomizeFunction();
+        switch (type)
+        {
+            case 0:
+                RandomValidFloatsCuad(Rx, RmultCuad, RsumaX, Radicion, 5);
+                RNGPoints = CrearListaCuadratica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
+                break;
+            case 1:
+                RandomValidFloatsCub(Rx, RmultCuad, RsumaX, Radicion, 5);
+                RNGPoints = CrearListaCubica(Rx, RmultCuad, RsumaX, Radicion, RxValues);
+                break;
+            case 2:
+                RandomValidFloatsTri(Rx, Rseno, RmultCuad, RsumaX, Radicion, 5);
+                RNGPoints = CrearListaTrigonometrica(Rx, Rseno, RmultCuad, RsumaX, Radicion, RxValues);
+                break;
+            case 3:
+                RandomValidFloatsTrino(Rx, RmultCuad, RsumaX, RsumaX2, RsumaX3, Radicion, 5);
+                RNGPoints = CrearListaTrinomial(Rx, RmultCuad, RsumaX, RsumaX2, RsumaX3, Radicion, RxValues);
+                break;
+            case 4:
+                RandomValidFloatsLin(Rx, RmultCuad, Radicion, 5);
+                RNGPoints = CrearListaLineal(Rx, RmultCuad, Radicion, RxValues);
+                break;
+            default:
+                Debug.Log("Algo pudo salir mal al generar los targets aleatorios.");
+                break;
+        }
+        MostrarPuntos(RNGPoints, 1);
+    }
+
+    public void GenerateUserGraphCuadratica(bool x, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaCuadratica(x, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphCubica(bool x, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaCuadratica(x, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphTrigonometrica(bool x, bool seno, float multCuad, float sumaX, float adicion)
+    {
+        listaUsuario = CrearListaTrigonometrica(x, seno, multCuad, sumaX, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void GenerateUserGraphLineal(bool x, float multCuad, float adicion)
+    {
+        listaUsuario = CrearListaLineal(x, multCuad, adicion, xd);
+        UnirPuntos(listaUsuario);
+    }
+
+    public void DeleteUserCircles()
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("UserCircle");
+
+        for (var i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
+    }
+
+    public void DeleteTargetCircles()
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("TargetCircle");
+
+        for (var i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
+    }
 }
