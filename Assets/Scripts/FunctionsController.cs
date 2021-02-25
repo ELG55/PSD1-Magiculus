@@ -82,6 +82,7 @@ public class FunctionsController : MonoBehaviour
         variablesEspacio[variableEspacio] += 0.1m;
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
         //Sound.play(snd_cursor_up);
     }
 
@@ -90,17 +91,26 @@ public class FunctionsController : MonoBehaviour
         variablesEspacio[variableEspacio] -= 0.1m;
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
-        //Sound.play(snd_cursor_up);
+        RefreshAllTexts();
+        //Sound.play(snd_cursor_down);
     }
 
     public void AddMediumVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] += 1.0m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
+        //Sound.play(snd_cursor_up);
     }
 
     public void SubtractMediumVariableEspacio(int variableEspacio)
     {
         variablesEspacio[variableEspacio] -= 1.0m;
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
+        //Sound.play(snd_cursor_down);
     }
 
     public void AddBigVariableEspacio(int variableEspacio)
@@ -274,10 +284,12 @@ public class FunctionsController : MonoBehaviour
     public void ShowCanvas(GameObject canvas)
     {
         canvas.SetActive(true);
+        SetAllVariablesEspacioToOne();
     }
 
     public void GenerateGraph()
     {
+        graphManager.DeleteUserCircles();
         switch (currentFunctionType)
         {
             case FunctionType.Cuadratica:
@@ -295,6 +307,40 @@ public class FunctionsController : MonoBehaviour
             default:
                 Debug.Log("Algo pudo haber salir mal al pasar los valores de la gráfica.");
                 break;
+        }
+    }
+
+    public int GetCurrentFunctionTypeAsInt()
+    {
+        switch (currentFunctionType)
+        {
+            case FunctionType.Cuadratica:
+                return 0;
+                break;
+            case FunctionType.Cubica:
+                return 1;
+                break;
+            case FunctionType.Trigonometrica:
+                return 2;
+                break;
+            case FunctionType.Trinomial:
+                return 3;
+                break;
+            case FunctionType.Lineal:
+                return 4;
+                break;
+            default:
+                return -1;
+                Debug.Log("Algo pudo salir mal al pasar de FunctionType a int.");
+                break;
+        }
+    }
+
+    public void SetAllVariablesEspacioToOne()
+    {
+        for (int i = 0; i < variablesEspacio.Length; i++)
+        {
+            variablesEspacio[i] = 1;
         }
     }
 
