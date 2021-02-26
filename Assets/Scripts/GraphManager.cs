@@ -506,6 +506,7 @@ public class GraphManager : MonoBehaviour
         {
             objeto.GetComponent<Image>().sprite = null;
             objeto.GetComponent<Image>().color = new Color(1, 1, 1, 0f);
+            objeto.gameObject.tag = "UserCircle";
         }
         return objeto;
     }

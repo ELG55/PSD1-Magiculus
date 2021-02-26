@@ -36,7 +36,9 @@ public class FunctionsController : MonoBehaviour
     public GameObject trinomialEspacio03;
     public GameObject trinomialEspacio04;
     public GameObject trinomialEspacio05;
-    public GameObject trinomialVariable;
+    public GameObject trinomialVariable01;
+    public GameObject trinomialVariable02;
+    public GameObject trinomialVariable03;
 
     //Elementos de funcion lineal
     public GameObject linealEspacio01;
@@ -168,7 +170,7 @@ public class FunctionsController : MonoBehaviour
         else
         {
             cubicaVariable.GetComponent<Text>().text = "X";
-        }/*
+        }
         //Trigonométrica
         trigonometricaEspacio01.GetComponent<Text>().text = variablesEspacio[0].ToString();
         trigonometricaEspacio02.GetComponent<Text>().text = variablesEspacio[1].ToString();
@@ -193,18 +195,23 @@ public class FunctionsController : MonoBehaviour
         trinomialEspacio01.GetComponent<Text>().text = variablesEspacio[0].ToString();
         trinomialEspacio02.GetComponent<Text>().text = variablesEspacio[1].ToString();
         trinomialEspacio03.GetComponent<Text>().text = variablesEspacio[2].ToString();
-        trinomialEspacio04.GetComponent<Text>().text = variablesEspacio[2].ToString();
+        trinomialEspacio04.GetComponent<Text>().text = variablesEspacio[3].ToString();
+        trinomialEspacio05.GetComponent<Text>().text = variablesEspacio[4].ToString();
         if (isXYswitched)
         {
-            trinomialVariable.GetComponent<Text>().text = "Y";
+            trinomialVariable01.GetComponent<Text>().text = "Y";
+            trinomialVariable02.GetComponent<Text>().text = "Y";
+            trinomialVariable03.GetComponent<Text>().text = "Y";
         }
         else
         {
-            trinomialVariable.GetComponent<Text>().text = "X";
+            trinomialVariable01.GetComponent<Text>().text = "X";
+            trinomialVariable02.GetComponent<Text>().text = "X";
+            trinomialVariable03.GetComponent<Text>().text = "X";
         }
         //Lineal
         linealEspacio01.GetComponent<Text>().text = variablesEspacio[0].ToString();
-        linealEspacio01.GetComponent<Text>().text = variablesEspacio[1].ToString();
+        linealEspacio03.GetComponent<Text>().text = variablesEspacio[2].ToString();
         if (isXYswitched)
         {
             linealVariable.GetComponent<Text>().text = "Y";
@@ -213,7 +220,6 @@ public class FunctionsController : MonoBehaviour
         {
             linealVariable.GetComponent<Text>().text = "X";
         }
-        */
     }
 
     public void ChangeEspacioTextToEspacio0(GameObject textObject)
