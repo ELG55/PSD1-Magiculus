@@ -324,6 +324,10 @@ public class FunctionsController : MonoBehaviour
                 this.currentFunctionType = FunctionType.Lineal;
                 break;
         }
+        SetAllVariablesEspacioToOne();
+        GenerateGraph();
+        battleController.GetComponent<BattleController>().GetHitsAndMisses();
+        RefreshAllTexts();
     }
 
     public void HideAllCanvases()
@@ -345,7 +349,6 @@ public class FunctionsController : MonoBehaviour
         canvas.SetActive(true);
         buttonSwitchXY.SetActive(true);
         buttonSwitchXY.GetComponent<Button>().interactable = true;
-        SetAllVariablesEspacioToOne();
     }
 
     public void GenerateGraph()
@@ -400,6 +403,8 @@ public class FunctionsController : MonoBehaviour
         {
             variablesEspacio[i] = 1;
         }
+        isXYswitched = false;
+        isSenCosSwitched = false;
     }
 
     /*OLD

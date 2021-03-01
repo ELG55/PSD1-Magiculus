@@ -131,8 +131,7 @@ public class BattleController : MonoBehaviour
                     graphManager.DeleteTargetCircles();
                     graphManager.GenerateRandomTargets(Random.Range(0, 5));
                     GetHitsAndMisses();
-                    Debug.Log("hits: " + hits);
-                    Debug.Log("misses: " + misses);
+                    hits = 0; //This was cancelled to avoid percentage when beginning (when there is no function)
                     EnableFunctionTypeButtons();
                 }                
                 UserInputUpdate();
@@ -157,7 +156,7 @@ public class BattleController : MonoBehaviour
                 {
                     case DamageAnimationPart.PercentageMessageShow:
                         Debug.Log("PercentageMessageShow");
-                        if (ShowMidScreenMessage((Mathf.Round(100.0f - hitPercentage)) + "%     " + (Mathf.Round(hitPercentage))+ "%", 200f, Color.red))
+                        if (ShowMidScreenMessage("-" + (Mathf.Round(100.0f - hitPercentage)) + "        -" + (Mathf.Round(hitPercentage)), 200f, Color.red))
                         {
                             timer.ResumeTimer();
                             if (timer.IsTimerDone())
@@ -320,11 +319,7 @@ public class BattleController : MonoBehaviour
 
     private void UpdateHitPercentage()
     {
-        //GetHitsAndMisses();
-        Debug.Log("hits: " + hits);
-        Debug.Log("misses: " + misses);
         hitPercentage = Mathf.Round(((float)hits / ((float)hits + (float)misses)) * 100f);
-        Debug.Log("hitPercentage: " + hitPercentage);
         hitPercentageObject.GetComponent<Text>().text = hitPercentage.ToString();
     }
 
