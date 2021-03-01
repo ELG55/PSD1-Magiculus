@@ -16,6 +16,8 @@ public class Savedata : MonoBehaviour
     public float dmgDone;
     public float dmgReceived;
     public float hitP;
+    public float percentSum;
+    public float percentTimes;
 
     public string currentLevel;
 
@@ -31,13 +33,31 @@ public class Savedata : MonoBehaviour
         if (mageName == "" || mageClass == "")
         {
 
-        } else{
-            SaveFile sv = new SaveFile(slot, mageName, 1, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "A0B0C0D0", 0, 0, 0);
+        }
+        else
+        {
+            SaveFile sv = new SaveFile(slot, mageName, 1, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), "A0B0C0D0", 0, 0, 0, 0, 0);
             SaveManager.Salvar(sv);
             Debug.Log("Has de cuenta que ya corrio el juego");
+            UpdateSavedata(sv);
         }
-        
+
     }
+    public void UpdateSavedata(SaveFile sv)
+    {
+        slot = sv.slot;
+        mageName = sv.mageName;
+        level = sv.level;
+        mageClass = sv.mageClass;
+        date = sv.date;
+        progress = sv.progress;
+        dmgDone = sv.dmgDone;
+        dmgReceived = sv.dmgReceived;
+        hitP = sv.hitP;
+        percentSum = sv.percentSum;
+        percentTimes = sv.percentTimes;
+    }
+
     public void CargarDatos(int casilla)
     {
         slot = casilla;
@@ -59,11 +79,12 @@ public class Savedata : MonoBehaviour
             dmgDone = data.dmgDone;
             dmgReceived = data.dmgReceived;
             hitP = data.hitP;
+            percentSum = data.percentSum;
+            percentTimes = data.percentTimes;
             controller.GetComponent<CargarController>().RefreshData(date, mageName, level.ToString(), mageClass, progress, dmgDone.ToString(), dmgReceived.ToString(), hitP.ToString());
             controller.GetComponent<CargarController>().MostrarDatos();
         }
     }
-
     public void BorrarDatos()
     {
         SaveManager.Borrar(slot);
@@ -80,10 +101,30 @@ public class Savedata : MonoBehaviour
         controller.GetComponent<CargarController>().OcultarInputs();
 
     }
-
     public static void Yell()
     {
         Debug.Log("Brgaaaaaaaaaaaaaaa Comienza");
+    }
+
+    public void SalvarProgreso(int selectSlot)
+    {
+        if (selectSlot==slot)
+        {        }
+        else
+        {
+            slot = selectSlot;
+        }
+        if (percentTimes == 0)
+        {
+            hitP = 0;
+        }
+        else
+        {
+            hitP = (percentTimes / percentTimes);
+        }
+        SaveFile sv = new SaveFile(slot, mageName, level, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), progress, dmgDone, dmgReceived, hitP, percentSum, percentTimes);
+        SaveManager.Salvar(sv);
+        UpdateSavedata(sv);
     }
 
     void Awake()
