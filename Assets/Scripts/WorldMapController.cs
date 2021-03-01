@@ -21,6 +21,7 @@ public class WorldMapController : MonoBehaviour
     public Toggle toggleVentana;
 
     public Savedata savedata;
+    public GameObject textCampeon;
 
     void Awake()
     {
@@ -36,6 +37,16 @@ public class WorldMapController : MonoBehaviour
         sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
         sliderSound.value = PlayerPrefs.GetFloat("SoundVolume", 0.4f);
         controllerAudioMusic.PlaySong(controllerAudioMusic.bgmWorldMap);
+        if (PlayerPrefs.GetInt("Fullscreen", 1) == 1)
+        {
+            toggleCompleta.isOn = true;
+            toggleVentana.isOn = false;
+        }
+        else
+        {
+            toggleCompleta.isOn = false;
+            toggleVentana.isOn = true;
+        }
         string savedataProgress = savedata.progress;
         char[] savedataProgressChars = savedataProgress.ToCharArray();
         Debug.Log("Showing and hiding buttons");
@@ -61,15 +72,13 @@ public class WorldMapController : MonoBehaviour
             }
         }
 
-        if (PlayerPrefs.GetInt("Fullscreen", 1) == 1)
+        if (savedata.level >= 20)
         {
-            toggleCompleta.isOn = true;
-            toggleVentana.isOn = false;
+            textCampeon.SetActive(true);
         }
         else
         {
-            toggleCompleta.isOn = false;
-            toggleVentana.isOn = true;
+            textCampeon.SetActive(false);
         }
     }
 

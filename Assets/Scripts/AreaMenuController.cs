@@ -31,7 +31,7 @@ public class AreaMenuController : MonoBehaviour
     {
         audioController = soundManager.GetComponent<ControllerAudio>();
         //Animation's end wait time
-        timer = new Timer(1.0f, false);
+        timer = new Timer(0.5f, false);
     }
 
     void Update()

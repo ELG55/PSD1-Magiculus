@@ -4027,7 +4027,6 @@ GameObject:
   m_Component:
   - component: {fileID: 316498677}
   - component: {fileID: 316498676}
-  - component: {fileID: 316498678}
   m_Layer: 0
   m_Name: BattleController
   m_TagString: Untagged
@@ -4081,6 +4080,9 @@ MonoBehaviour:
   soundManager: {fileID: 0}
   musicController: {fileID: 0}
   controllerAudioMusic: {fileID: 0}
+  savedata: {fileID: 0}
+  playerAnimationObject: {fileID: 1277832377}
+  enemyAnimationObject: {fileID: 618282284}
 --- !u!4 &316498677
 Transform:
   m_ObjectHideFlags: 0
@@ -4095,18 +4097,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &316498678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316498675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30463521c64c1aa49a22c5fe999a3f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &335941069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6423,6 +6413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 618282286}
   - component: {fileID: 618282285}
+  - component: {fileID: 618282287}
   m_Layer: 0
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -6495,6 +6486,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &618282287
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618282284}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ca9992e8bc394c4cbce661c4c5bc689, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &646536786 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5276003603542460276, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
@@ -13988,6 +13998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1277832379}
   - component: {fileID: 1277832378}
+  - component: {fileID: 1277832380}
   m_Layer: 0
   m_Name: PlayerMage
   m_TagString: Untagged
@@ -14060,6 +14071,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1277832380
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277832377}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5f0907292b270574f9d21cd689090a2a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1278621454
 GameObject:
   m_ObjectHideFlags: 0

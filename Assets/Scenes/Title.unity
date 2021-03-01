@@ -2139,9 +2139,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: 6363ec8f10f85f94d9fae5a59e388524, type: 3}
+  - {fileID: 21300000, guid: fef5251a0611f0d45ad4de17d13abe9d, type: 3}
+  - {fileID: 21300000, guid: d80db2cf7fbd96b459c1d01602dd982b, type: 3}
   stringList:
-  - temp
+  - "Al comenzar la partida se mostrar\xE1 el mapa con las localizaciones en las
+    que habr\xE1 enemigos que derrotar. En un principio s\xF3lo contar\xE1s con cuatro
+    localizaciones."
+  - "Conforme vayas derrotando enemigos nuevas \xE1reas se ir\xE1n desbloqueando
+    hasta llegar al jefe de zona."
+  - "Una vez todos los jefes de zona hayan sido derrotados habr\xE1s terminado la
+    aventura y ser\xE1s el nuevo campe\xF3n."
 --- !u!1 &811940515
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,7 +3439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 570
+      value: 580
       objectReference: {fileID: 0}
     - target: {fileID: 6289479687256489336, guid: 408d7355766eb704f8c5c237e9c6db4e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4275,6 +4283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1368292874}
   - component: {fileID: 1368292873}
+  - component: {fileID: 1368292875}
   m_Layer: 0
   m_Name: TitleController
   m_TagString: Untagged
@@ -4316,6 +4325,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1368292875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368292872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30463521c64c1aa49a22c5fe999a3f27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434548478
 GameObject:
   m_ObjectHideFlags: 0

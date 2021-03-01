@@ -76,6 +76,10 @@ public class BattleController : MonoBehaviour
     private char area;
     private int level;
 
+    //Animation objects
+    public GameObject playerAnimationObject;
+    public GameObject enemyAnimationObject;
+
     //DamageAnimation variables
     private enum DamageAnimationPart { PercentageMessageShow, PercentageMessageHide, RoundMessageShow, RoundMessageHide, RoundMessageWait, EndBattle }
     private DamageAnimationPart damageAnimationPart = DamageAnimationPart.PercentageMessageShow;
@@ -555,6 +559,11 @@ public class BattleController : MonoBehaviour
             currentPlayerHealth = 0;
             playerHealth = currentPlayerHealth;
             playerHealthBarHeart.GetComponent<SpriteRenderer>().sprite = playerHealthBarBrokenHeart;
+            Animator playerAnimator = playerAnimationObject.GetComponent<Animator>();
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("isPlayerDefeated", true);
+            }
         }
         if (currentPlayerHealth > playerHealth)
         {
@@ -582,6 +591,11 @@ public class BattleController : MonoBehaviour
             currentEnemyHealth = 0;
             enemyHealth = currentEnemyHealth;
             enemyHealthBarHeart.GetComponent<SpriteRenderer>().sprite = enemyHealthBarBrokenHeart;
+            Animator enemyAnimator = enemyAnimationObject.GetComponent<Animator>();
+            if (enemyAnimator != null)
+            {
+                enemyAnimator.SetBool("isEnemyDefeated", true);
+            }
         }
         if (currentEnemyHealth > enemyHealth)
         {
