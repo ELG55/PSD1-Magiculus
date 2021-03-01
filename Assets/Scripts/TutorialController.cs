@@ -15,8 +15,30 @@ public class TutorialController : MonoBehaviour
     public GameObject nextButton;
     public GameObject previousButton;
 
+    public GameObject soundManager;
+    public ControllerAudio audioController;
+
+    void Awake()
+    {
+        soundManager = GameObject.Find("SoundManager");
+    }
+
+    private void Start()
+    {
+        audioController = soundManager.GetComponent<ControllerAudio>();
+    }
+
     public void ShowInitialSlide()
     {
+        if (audioController == null)
+        {
+            if (soundManager == null)
+            {
+                soundManager = GameObject.Find("SoundManager");
+            }
+            audioController = soundManager.GetComponent<ControllerAudio>();
+        }
+        audioController.PlaySound(audioController.sndClick);
         currentSlide = 0;
         imageHolder.GetComponent<Image>().overrideSprite = guideList[currentGuide].spriteList[currentSlide];
         textHolder.GetComponent<Text>().text = guideList[currentGuide].stringList[currentSlide];
@@ -25,6 +47,7 @@ public class TutorialController : MonoBehaviour
 
     public void NextSlide()
     {
+        audioController.PlaySound(audioController.sndCursorUp);
         if (currentSlide + 1 <= guideList[currentGuide].spriteList.Count)
         {
             currentSlide++;
@@ -39,6 +62,7 @@ public class TutorialController : MonoBehaviour
 
     public void PreviousSlide()
     {
+        audioController.PlaySound(audioController.sndCursorDown);
         if (currentSlide - 1 >= 0)
         {
             currentSlide--;

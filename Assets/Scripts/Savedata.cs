@@ -120,7 +120,7 @@ public class Savedata : MonoBehaviour
         }
         else
         {
-            hitP = (percentTimes / percentTimes);
+            hitP = Mathf.Round(percentSum / percentTimes);
         }
         SaveFile sv = new SaveFile(slot, mageName, level, mageClass, System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), progress, dmgDone, dmgReceived, hitP, percentSum, percentTimes);
         SaveManager.Salvar(sv);

@@ -72,6 +72,10 @@ public class BattleController : MonoBehaviour
     public GameObject musicController;
     public ControllerAudioMusic controllerAudioMusic;
 
+    public Savedata savedata;
+    private char area;
+    private int level;
+
     //DamageAnimation variables
     private enum DamageAnimationPart { PercentageMessageShow, PercentageMessageHide, RoundMessageShow, RoundMessageHide, RoundMessageWait, EndBattle }
     private DamageAnimationPart damageAnimationPart = DamageAnimationPart.PercentageMessageShow;
@@ -84,6 +88,7 @@ public class BattleController : MonoBehaviour
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
+        savedata = GameObject.Find("Savedata").GetComponent<Savedata>();
     }
 
     // Start is called before the first frame update
@@ -146,8 +151,15 @@ public class BattleController : MonoBehaviour
                     okButton.GetComponent<Button>().interactable = false;
                     graphManager.DeleteUserCircles();
                     graphManager.DeleteTargetCircles();
-                    playerHealth -= Mathf.Round(100.0f - hitPercentage);
-                    enemyHealth -= Mathf.Round(hitPercentage);
+                    float playerHealthDifference = Mathf.Round(100.0f - hitPercentage);
+                    playerHealth -= playerHealthDifference;
+                    savedata.dmgReceived += playerHealthDifference;
+                    float enemyHealthDifference = Mathf.Round(hitPercentage);
+                    enemyHealth -= enemyHealthDifference;
+                    savedata.dmgDone += enemyHealthDifference;
+                    savedata.percentSum += Mathf.Round(hitPercentage);
+                    savedata.percentTimes++;
+                    savedata.hitP = Mathf.Round(savedata.percentSum / savedata.percentTimes);
                     soundManager.PlaySound(soundManager.sndDamage);
                 }
                 UpdatePlayerHealth();
@@ -155,7 +167,6 @@ public class BattleController : MonoBehaviour
                 switch (damageAnimationPart)
                 {
                     case DamageAnimationPart.PercentageMessageShow:
-                        Debug.Log("PercentageMessageShow");
                         if (ShowMidScreenMessage("-" + (Mathf.Round(100.0f - hitPercentage)) + "        -" + (Mathf.Round(hitPercentage)), 200f, Color.red))
                         {
                             timer.ResumeTimer();
@@ -167,7 +178,6 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.PercentageMessageHide:
-                        Debug.Log("PercentageMessageHide");
                         if (HideMidScreenMessage(200f))
                         {
                             timer.ResumeTimer();
@@ -187,7 +197,6 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.RoundMessageWait:
-                        Debug.Log("RoundMessageWait");
                         if ((currentPlayerHealth == playerHealth) && (currentEnemyHealth == enemyHealth))
                         {
                             if (!DamageAnimationPartRoundMessageWaitDone)
@@ -258,7 +267,6 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.RoundMessageShow:
-                        Debug.Log("RoundMessageShow");
                         if (ShowMidScreenMessage("NUEVA RONDA", 200f, Color.white))
                         {
                             timer.ResumeTimer();
@@ -271,7 +279,6 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.RoundMessageHide:
-                        Debug.Log("RoundMessageHide");
                         if (HideMidScreenMessage(200f))
                         {
                             timer.ResumeTimer();
@@ -284,8 +291,10 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.EndBattle:
-                        Debug.Log("EndBattle");
-                        Debug.Log("Aquí hay que continuar.");
+                        if (playerWon)
+                        {
+                            SaveProgress();
+                        }
                         if (HideMidScreenMessage(200f))
                         {
                             timer.ResumeTimer();
@@ -454,12 +463,13 @@ public class BattleController : MonoBehaviour
     private void PrepareEnemy()
     {
         //DEBUG ONLY
-        string currentLevel = "A4";
-        //string currentLevel = GameObject.Find("Savedata").GetComponent<Savedata>().currentLevel;
+        //string currentLevel = "A4";
+        string currentLevel = savedata.currentLevel;
+        Debug.Log("Current level: " + currentLevel);
         char[] currentLevelChars = currentLevel.ToCharArray();
-        char area = currentLevelChars[0];
-        int level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
-        if (level == 4)
+        area = currentLevelChars[0];
+        level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
+        if (level == 5)
         {
             controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
         }
@@ -486,24 +496,29 @@ public class BattleController : MonoBehaviour
         }
         switch (level)
         {
-            case 0:
+            case 1:
                 enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy0;
                 enemyMaxHealth = 200;
-                break;
-            case 1:
-                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy1;
-                enemyMaxHealth = 300;
+                timerTime = 40.0f;
                 break;
             case 2:
-                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy2;
-                enemyMaxHealth = 400;
+                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy1;
+                enemyMaxHealth = 250;
+                timerTime = 38.0f;
                 break;
             case 3:
-                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy3;
-                enemyMaxHealth = 600;
+                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy2;
+                enemyMaxHealth = 300;
+                timerTime = 34.0f;
                 break;
             case 4:
-                enemyMaxHealth = 1000;
+                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy3;
+                enemyMaxHealth = 350;
+                timerTime = 30.0f;
+                break;
+            case 5:
+                enemyMaxHealth = 400;
+                timerTime = 25.0f;
                 switch (area)
                 {
                     case 'A':
@@ -596,5 +611,46 @@ public class BattleController : MonoBehaviour
     public void EndTimer()
     {
         timer.timeRemaining = 0;
+    }
+
+    public void SaveProgress()
+    {
+        string savedataProgress = savedata.progress;
+        char[] savedataProgressChars = savedataProgress.ToCharArray();
+        int saveCharNumber = 1;
+        switch (area)
+        {
+            case 'A':
+                saveCharNumber = 1;
+                break;
+            case 'B':
+                saveCharNumber = 3;
+                break;
+            case 'C':
+                saveCharNumber = 5;
+                break;
+            case 'D':
+                saveCharNumber = 7;
+                break;
+            default:
+                Debug.Log("Algo pudo salir mal al preparar el sprite de jefe.");
+                break;
+        }
+        int progressAreaLevel = (int)System.Char.GetNumericValue(savedataProgressChars[saveCharNumber]);
+        if (level > progressAreaLevel)
+        {
+            savedataProgressChars[saveCharNumber] = level.ToString().ToCharArray()[0];
+            savedata.progress = new string(savedataProgressChars);
+            Debug.Log("New progress string: " + savedata.progress);
+        }
+        int totalLevel = 0;
+        totalLevel += (int)System.Char.GetNumericValue(savedataProgressChars[1]);
+        totalLevel += (int)System.Char.GetNumericValue(savedataProgressChars[3]);
+        totalLevel += (int)System.Char.GetNumericValue(savedataProgressChars[5]);
+        totalLevel += (int)System.Char.GetNumericValue(savedataProgressChars[7]);
+        if (totalLevel > savedata.level)
+        {
+            savedata.level = totalLevel;
+        }
     }
 }

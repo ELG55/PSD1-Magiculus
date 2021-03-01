@@ -14,13 +14,18 @@ public class TitleController : MonoBehaviour
     public Toggle toggleCompleta;
     public Toggle toggleVentana;
 
+    public GameObject soundManager;
+    public ControllerAudio audioController;
+
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
+        soundManager = GameObject.Find("SoundManager");
     }
     // Start is called before the first frame update
     void Start()
     {
+        audioController = soundManager.GetComponent<ControllerAudio>();
         controllerAudioMusic = musicController.GetComponent<ControllerAudioMusic>();
         sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
         sliderSound.value = PlayerPrefs.GetFloat("SoundVolume", 0.4f);
@@ -29,14 +34,14 @@ public class TitleController : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Fullscreen", 1) == 1)
         {
-            toggleCompleta.isOn = false;
-            toggleVentana.isOn = true;
+            toggleCompleta.isOn = true;
+            toggleVentana.isOn = false;
             SetFullscreen(true);
         }
         else
         {
-            toggleCompleta.isOn = true;
-            toggleVentana.isOn = false;
+            toggleCompleta.isOn = false;
+            toggleVentana.isOn = true;
             SetFullscreen(false);
         }
     }
@@ -63,6 +68,7 @@ public class TitleController : MonoBehaviour
 
     public void TogglePantalla()
     {
+        audioController.PlaySound(audioController.sndClick);
         if (toggleCompleta.isOn)
         {
             PlayerPrefs.SetInt("Fullscreen", 1);

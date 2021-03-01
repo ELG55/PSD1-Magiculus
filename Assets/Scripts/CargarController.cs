@@ -24,6 +24,20 @@ public class CargarController : MonoBehaviour
 
     public GameObject savedata;
 
+    public GameObject soundManager;
+    public ControllerAudio audioController;
+
+    void Awake()
+    {
+        savedata = GameObject.Find("Savedata");
+        soundManager = GameObject.Find("SoundManager");
+    }
+
+    private void Start()
+    {
+        audioController = soundManager.GetComponent<ControllerAudio>();
+    }
+
     public string getInputName()
     {
         return Input1.GetComponent<InputField>().text;
@@ -83,23 +97,29 @@ public class CargarController : MonoBehaviour
         progreso.GetComponent<Text>().text = "Progreso: \n"+progress;
         realizado.GetComponent<Text>().text = "DMG realizado: \n"+dmgDone;
         recibido.GetComponent<Text>().text = "DMG recibido: \n"+dmgReceived;
-        porcentaje.GetComponent<Text>().text = "Hit% total: \n"+hitP;
+        Debug.Log("Savedata hitP: " + savedata.GetComponent<Savedata>().hitP);
+        Debug.Log("Cargar controller hitP: " + hitP);
+        porcentaje.GetComponent<Text>().text = "Precisión: \n" + hitP;
     }
 
     public void callCargar(int casilla)
     {
+        audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().CargarDatos(casilla);
     }
     public void callSalvar()
     {
+        audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().SalvarDatos();
     }
     public void callBorrar()
     {
+        audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().BorrarDatos();
     }
     public void callGuardarProgreso()
     {
+        audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().SalvarProgreso(SelectedSlot);
         RefreshData(
         savedata.GetComponent<Savedata>().date,
@@ -113,6 +133,7 @@ public class CargarController : MonoBehaviour
     }
     public void showFileInfo(int slot)
     {
+        audioController.PlaySound(audioController.sndClick);
         SaveFile sv = SaveManager.Cargar(slot);
         if (sv==null)
         {
@@ -135,10 +156,4 @@ public class CargarController : MonoBehaviour
             SelectedSlot = slot;
         }
     }
-
-    private void Awake()
-    {
-        savedata = GameObject.Find("Savedata");
-    }
-
 }

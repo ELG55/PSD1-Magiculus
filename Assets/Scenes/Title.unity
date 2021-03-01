@@ -574,13 +574,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: b82c89b3f63cc524fa8b2348ba7f4766, type: 3}
-  - {fileID: 21300000, guid: c0ce13599c0f18a44b616139ac0ea3a5, type: 3}
-  - {fileID: 21300000, guid: b82c89b3f63cc524fa8b2348ba7f4766, type: 3}
+  - {fileID: 21300000, guid: 46dcfe1021568e04ab509224dba19128, type: 3}
+  - {fileID: 21300000, guid: 511ccaa152389094dbcb399787cc38c1, type: 3}
+  - {fileID: 21300000, guid: 4a311af1e113bd9409f4b4a88d1f71e7, type: 3}
+  - {fileID: 21300000, guid: 2968cbe060c269a4187fe4bbc40e47f5, type: 3}
+  - {fileID: 21300000, guid: e8aa04721de954041ab592838f10b295, type: 3}
+  - {fileID: 21300000, guid: 48e0b94142b496e48a40081250ea459c, type: 3}
+  - {fileID: 21300000, guid: e69ab7bad0538ca45a5ee7fea6707bba, type: 3}
+  - {fileID: 21300000, guid: 17c9debb705942f4f9102e838113532c, type: 3}
+  - {fileID: 21300000, guid: 423c29109ac304d46b2bf0643ec25615, type: 3}
+  - {fileID: 21300000, guid: f11df59fabd671e4cbd183227d9d3bdb, type: 3}
   stringList:
-  - 01B
-  - 02B
-  - 03C
+  - 'Al iniciar la pelea se te mostraran una serie de puntos por donde debera pasar
+    la funcion que crees, eligiendo una de las 5 distintas. '
+  - Modifica la funcion para acertar al mayor numero de puntos con los botones correspondientes
+    sumando 0.1, 1, y 10 unidades con estos. Una vez estes listo utiliza el boton
+    "OK" o se tomara la funcion actual.
+  - "Se te mostrara el da\xF1o realizado en proporcion de los puntos a los que hayas
+    acertado."
+  - Continuaras ronda tras ronda hasta que termines el nivel con un nuevo set de
+    puntos cada ronda.
+  - Si se te comienza a acabar el tiempo, pero no consigues acertar a todos los puntos,
+    siempre puedes utilizarla como la tienes con el boton "OK" o se utilizara automaticamente.
+  - "Los puntos que hayas fallado se te aplicaran como da\xF1o a ti y los que acertaste
+    se aplicaran tambien al oponente."
+  - Cuando finalmente hayas derrotado a tu oponente veras la barra de vida destruida.
+  - Y finalmente la pantalla de victoria que te llevara al mapa habiendo progresado
+    en este.
+  - En caso de que tu vida sea la que se acabe.
+  - Obtendras una pantalla de derrota y volveras al mapa sin progresar.
 --- !u!1001 &213991035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -789,9 +811,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: 66b6718d3a4cb854d936af50341c8c8f, type: 3}
+  - {fileID: 21300000, guid: b8cc21952c83ec843a517a8636670cbc, type: 3}
+  - {fileID: 21300000, guid: ded3558cc25f18e49b23109ca8846592, type: 3}
+  - {fileID: 21300000, guid: 50b2e0f70e021b34884131386c334e55, type: 3}
   stringList:
-  - 01D
+  - "La funci\xF3n Cubica funciona desde un punto central imaginario, dictado por
+    la formula, llamado el punto de inflexi\xF3n."
+  - "Moviendo la variable que multiplica al cubo aumentara que tan CERCA esta del
+    punto, y cuando el valor sea negativo se invertira Horizontalmente, todo esto
+    sin mover el punto de inflexi\xF3n."
+  - "El valor que sume a la X dentro del cubo movera el punto de inflexi\xF3n HORIZONTALMENTE,
+    mientras que el valor fuera de la ecuacion lo movera VERTICALMENTE."
+  - Cuando presiones el boton "x/y" cambiaras el uso de la Variable X y Girara la
+    funcion 90 grados. Funcionando igualmente.
+--- !u!1 &220268259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7124463712726060979, guid: d1a0b05104c1323438a2865298aec179, type: 3}
+  m_PrefabInstance: {fileID: 1856208601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &243080617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,9 +1397,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: 8735bcf755355074ba6091e414c739fd, type: 3}
+  - {fileID: 21300000, guid: a59094ffde17b954c8b1e7866ab9836e, type: 3}
+  - {fileID: 21300000, guid: 3f6227e8798f2ab429afec33297baf47, type: 3}
+  - {fileID: 21300000, guid: 492508186539b704d9c15069f4f44e42, type: 3}
+  - {fileID: 21300000, guid: 5840ca476e3803d499da22e983e6af67, type: 3}
+  - {fileID: 21300000, guid: f84fdf2b2c9c9164d895aa5ad34d64bf, type: 3}
   stringList:
-  - 01G
+  - "La funci\xF3n lineal funciona en base a un punto central imaginario dentro de
+    la linea de Y."
+  - "El valor sumado a la X movera toda la linea VERTICALMENTE sin modificar su inclinaci\xF3n."
+  - "Modificar el valor que multiplica a la X inclinara la recta hacia ARRIBA cuanto
+    m\xE1s aumente y hacia ABAJO con los negativos."
+  - Cuando presiones el boton "x/y" cambiaras el uso de la Variable X y Girara la
+    funcion 90 grados. Funcionando igualmente.
+  - "El valor que suma a la Y ahora movera la linea HORIZONTALMENTE sin cambiar su
+    inclinaci\xF3n."
+  - "Y ahora cuando muevas el valor que multiplica a la Y se inclinara hacia la DERECHA
+    cuanto m\xE1s aumente y hacia la IZQUIERDA con los negativos."
 --- !u!114 &511554420 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2407262094118475325, guid: d4165426c39ec604b9b4ce376508f916, type: 3}
@@ -1712,6 +1765,8 @@ MonoBehaviour:
   - {fileID: 1476141522}
   - {fileID: 1294699174}
   - {fileID: 285203960}
+  soundManager: {fileID: 220268259}
+  audioController: {fileID: 0}
 --- !u!4 &685234064
 Transform:
   m_ObjectHideFlags: 0
@@ -1724,7 +1779,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &714138765
 GameObject:
@@ -2084,17 +2139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: b249ea9e55bd96041a8d296557f4360d, type: 3}
-  - {fileID: 21300000, guid: bcf2f388330b12848ab34441ea4c4594, type: 3}
-  - {fileID: 21300000, guid: b249ea9e55bd96041a8d296557f4360d, type: 3}
-  - {fileID: 21300000, guid: bcf2f388330b12848ab34441ea4c4594, type: 3}
-  - {fileID: 21300000, guid: b249ea9e55bd96041a8d296557f4360d, type: 3}
+  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
   stringList:
-  - 00A
-  - 00B
-  - 00C
-  - 00D
-  - 00E
+  - temp
 --- !u!1 &811940515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2340,7 +2387,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &863505889
 GameObject:
@@ -2629,9 +2676,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: b3db9616198ecc3438025c7552d5016a, type: 3}
+  - {fileID: 21300000, guid: c2edee053e1cd1141bd29caf220bb775, type: 3}
+  - {fileID: 21300000, guid: 7113c02b48bc0c442b67a4d2d0766c64, type: 3}
+  - {fileID: 21300000, guid: 1398b134b3c84c645926686e65756b8a, type: 3}
+  - {fileID: 21300000, guid: 06957aef75a728f4582c1de1225164fa, type: 3}
+  - {fileID: 21300000, guid: 8c6f1189e968e4f41a62d4f79d87472b, type: 3}
+  - {fileID: 21300000, guid: 99564ba25207f3149ba5889f98758e58, type: 3}
+  - {fileID: 21300000, guid: 9c6d0215d39d50f44b177faa7d4aad46, type: 3}
   stringList:
-  - 01F
+  - "La trinomial funciona a base de 3 \"nomios\" cada uno funcionando independientemente,
+    cuando todos ellos valen lo mismo esta es una funcion cubica como cualquier otra
+    con un punto de inflexi\xF3n en el mismo punto imaginario."
+  - "El valor fuera de ecuaci\xF3n movera este punto de inflexi\xF3n VERTICALMENTE."
+  - "El valor que multiplica al Trinomio hara m\xE1s ANGOSTA o ANCHA la curva, y
+    cuando uses negativos la reflejara HORIZONTALMENTE."
+  - Utilizar "x/y" asi rotara la grafica 90 grados.
+  - Cuando los valores de cada "nomio" sean diferentes representaran puntos imaginarios
+    independientes que se moveran HORIZONTALMENTE creando una parabola hacia el siguiente
+    punto.
+  - "Cambiar el valor fuera de la ecuaci\xF3n aqui, movera TODOS los puntos VERTICALMENTE
+    sin afectar la forma de la grafica."
+  - "El valor que multiplica al trinomio hara m\xE1s o menos pronunciadas las parabolas
+    y al usar negativos la invertiran VERTICALMENTE."
+  - Al usar el boton "x/y" se rotara la grafica 90 grados y todo funcionara de igual
+    manera.
 --- !u!1 &927032040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2761,8 @@ MonoBehaviour:
   textHolder: {fileID: 2085635992}
   nextButton: {fileID: 1434548478}
   previousButton: {fileID: 2116839903}
+  soundManager: {fileID: 220268259}
+  audioController: {fileID: 0}
 --- !u!1001 &941719264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2900,9 +2971,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: 3f8b4e03d206b154282cebb13e91a291, type: 3}
+  - {fileID: 21300000, guid: 173b42cba5da237468dcefaad7b45266, type: 3}
+  - {fileID: 21300000, guid: 9ffbe72c5cec31d428d296f6256e7caf, type: 3}
+  - {fileID: 21300000, guid: 87de954d7bfc761438f2fa7e920635b2, type: 3}
   stringList:
-  - 01C
+  - "La funci\xF3n Cuadratica funciona desde un punto central imaginario, dictado
+    por la formula."
+  - El valor que sume a la X dentro del cuadrado movera el punto HORIZONTALMENTE,
+    mientras que el valor fuera de la ecuacion movera el punto VERTICALMENTE.
+  - El valor que multiplica al cuadrado puede hacer una parabola ANGOSTA o ANCHA.
+    y cuando el valor cambie a negativo la invertira al lado contrario
+  - Cuando presiones el boton "x/y" cambiaras el uso de la Variable X y Girara la
+    funcion 90 grados. Funcionando igualmente.
 --- !u!1 &1022778691
 GameObject:
   m_ObjectHideFlags: 0
@@ -3501,9 +3582,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 90682e5fb503aef4fa7e3c1ee5c0a1dd, type: 3}
+  - {fileID: 21300000, guid: 234e4968efd5b2f42a712a57c476d75e, type: 3}
+  - {fileID: 21300000, guid: 36f6df2002bcc9544ae0ad5f82048bd6, type: 3}
+  - {fileID: 21300000, guid: b6c941e26746fd44dbba6853a08c09d7, type: 3}
+  - {fileID: 21300000, guid: 3c0956d76fb563346b25bf883f890f5d, type: 3}
+  - {fileID: 21300000, guid: 96941ecb7c423064e9183d0fd5710d22, type: 3}
   stringList:
-  - 01E
+  - "La funci\xF3n trigonometrica funciona con una serie de puntos imaginarios que
+    estan donde el valor llega al del numero que suma a la trigonometrica. Tiene
+    una forma de ondas."
+  - "Cambiar el multiplicador de la trigonometrica hara m\xE1s pronunciadas y visibles
+    las ondas VERTICALMENTE, y al utilizar negativos INVERTIRA la onda VERTICALMENTE."
+  - "El valor que sume a la X dentro de la trigonometrica movera TODA la onda HORIZONTALMENTE,
+    mientras que el valor fuera de la ecuaci\xF3n la movera TODA VERTICALMENTE."
+  - Al usar el Boton "x/y" rotaras la funcion 90 grados. Funcionando esta igualmente.
+  - Al usar el Boton "sen/cos" aunque no cambie mucho, este cambiara los valores
+    de la funcion haciendo que cuando en "Sen" valian 0, en "Cos" valgan 1 o -1 y
+    viceversa.
 --- !u!1001 &1294699173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3574,6 +3669,10 @@ PrefabInstance:
     - target: {fileID: 3639616407106407432, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_Text
       value: Comenzar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4062451525135702793, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
+      propertyPath: m_Text
+      value: "Precisi\xF3n:"
       objectReference: {fileID: 0}
     - target: {fileID: 5039211558009417352, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_Camera
@@ -4019,7 +4118,7 @@ PrefabInstance:
       objectReference: {fileID: 1892748106}
     - target: {fileID: 126825341923641895, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 126825341923641895, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4201,6 +4300,8 @@ MonoBehaviour:
   sliderSound: {fileID: 1164821944}
   toggleCompleta: {fileID: 1543792785}
   toggleVentana: {fileID: 511554420}
+  soundManager: {fileID: 0}
+  audioController: {fileID: 0}
 --- !u!4 &1368292874
 Transform:
   m_ObjectHideFlags: 0
@@ -4213,7 +4314,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1434548478
 GameObject:
@@ -4373,7 +4474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8591209995145853081, guid: cb60eba36a19ead4689acbe8174dfd62, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8591209995145853081, guid: cb60eba36a19ead4689acbe8174dfd62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5001,6 +5102,8 @@ MonoBehaviour:
   BorrarBoton: {fileID: 1171521351}
   MagoImagen: {fileID: 2121666118}
   savedata: {fileID: 0}
+  soundManager: {fileID: 220268259}
+  audioController: {fileID: 0}
 --- !u!4 &1833857542
 Transform:
   m_ObjectHideFlags: 0
@@ -5103,7 +5206,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7124463712726060977, guid: d1a0b05104c1323438a2865298aec179, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7124463712726060977, guid: d1a0b05104c1323438a2865298aec179, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5196,7 +5299,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7124463712726060990, guid: d1a0b05104c1323438a2865298aec179, type: 3}
   m_PrefabInstance: {fileID: 1856208601}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 220268259}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de0bae443a72b9499c52b2e95b5b92e, type: 3}
@@ -5551,7 +5654,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 597533ea5bb4c0244b7ab65414d05b95, type: 3}
-    m_FontSize: 30
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -5798,6 +5901,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2407262093079743960, guid: d4165426c39ec604b9b4ce376508f916, type: 3}
+      propertyPath: m_IsOn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2407262093079743960, guid: d4165426c39ec604b9b4ce376508f916, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
