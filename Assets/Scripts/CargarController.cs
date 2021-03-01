@@ -130,6 +130,16 @@ public class CargarController : MonoBehaviour
         savedata.GetComponent<Savedata>().dmgDone.ToString(),
         savedata.GetComponent<Savedata>().dmgReceived.ToString(),
         savedata.GetComponent<Savedata>().hitP.ToString());
+        //Testing, might not work
+        name1.SetActive(true);
+        nivel.SetActive(true);
+        clase.SetActive(true);
+        progreso.SetActive(true);
+        realizado.SetActive(true);
+        recibido.SetActive(true);
+        porcentaje.SetActive(true);
+        fecha.SetActive(true);
+        MagoImagen.SetActive(true);
     }
     public void showFileInfo(int slot)
     {
@@ -139,6 +149,7 @@ public class CargarController : MonoBehaviour
         {
             OcultarDatos();
             SelectedSlot = slot;
+            GuardarBoton.SetActive(true);
         }
         else
         {
