@@ -7,14 +7,22 @@ using UnityEngine.SceneManagement;
 public class ControllerAudioMusic : MonoBehaviour
 {
 
-    private AudioSource MusicSrc;
-    public AudioClip Music;
-    public AudioClip escenaPrueba;
-    public Slider SliderMusic;
+    public AudioSource MusicSrc;
+    //public AudioClip Music;
+    //public AudioClip escenaPrueba;
+    public AudioClip bgmAreaA;
+    public AudioClip bgmAreaB;
+    public AudioClip bgmAreaC;
+    public AudioClip bgmAreaD;
+    public AudioClip bgmAreaBoss;
+    public AudioClip bgmWorldMap;
+    public AudioClip bgmTitle;
 
-    private bool SongLoaded;
+    //public Slider SliderMusic;
+
+    /*private bool SongLoaded;
     private string lastScene;
-    private string currentScene;
+    private string currentScene;*/
     private static ControllerAudioMusic controladorMusica;
     //Aqui agregan mas si quieren mas musicas
     //public AudioClip Music1;
@@ -26,7 +34,7 @@ public class ControllerAudioMusic : MonoBehaviour
         MusicSrc = GetComponent<AudioSource>(); //Se asigna el audio que se controlara
         InicializarVolumenMusic();
         MusicSrc.Play();
-        lastScene = SceneManager.GetActiveScene().name;
+        //lastScene = SceneManager.GetActiveScene().name;
         DontDestroyOnLoad(this);
 
         if (controladorMusica == null)
@@ -41,17 +49,16 @@ public class ControllerAudioMusic : MonoBehaviour
 
 
 
-    private void InicializarVolumenMusic()
+    public void InicializarVolumenMusic()
     {
-        MusicSrc.volume = PlayerPrefs.GetFloat("MusicVolumen", 1.0f);
-        SliderMusic.value = MusicSrc.volume;
+        MusicSrc.volume = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
+        //SliderMusic.value = MusicSrc.volume;
     }
-    void Update()
+    /*void Update()
     {
-        MusicSrc.volume = SliderMusic.value;
-        PlayerPrefs.SetFloat("MusicVolumen", MusicSrc.volume);
-        PlayerPrefs.Save();
-
+        //MusicSrc.volume = SliderMusic.value;
+        //PlayerPrefs.SetFloat("MusicVolumen", MusicSrc.volume);
+        //PlayerPrefs.Save();
 
         currentScene = SceneManager.GetActiveScene().name;
         if (currentScene != lastScene)
@@ -59,10 +66,9 @@ public class ControllerAudioMusic : MonoBehaviour
             lastScene = currentScene;
             ChangeSong();
         }
+    }*/
 
-    }
-
-    void ChangeSong()
+    /*void ChangeSong()
     {
         if (lastScene == "prueba")
         {
@@ -81,5 +87,17 @@ public class ControllerAudioMusic : MonoBehaviour
         // Update is called once per frame
 
 
+    }*/
+
+    public void PlaySong(AudioClip clip)
+    {
+        MusicSrc.Stop();
+        MusicSrc.clip = clip;
+        MusicSrc.Play();
+    }
+
+    public void StopSong()
+    {
+        MusicSrc.Stop();
     }
 }

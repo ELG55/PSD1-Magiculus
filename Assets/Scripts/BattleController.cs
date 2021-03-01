@@ -69,6 +69,9 @@ public class BattleController : MonoBehaviour
     public GameObject soundManagerObject;
     public ControllerAudio soundManager;
 
+    public GameObject musicController;
+    public ControllerAudioMusic controllerAudioMusic;
+
     //DamageAnimation variables
     private enum DamageAnimationPart { PercentageMessageShow, PercentageMessageHide, RoundMessageShow, RoundMessageHide, RoundMessageWait, EndBattle }
     private DamageAnimationPart damageAnimationPart = DamageAnimationPart.PercentageMessageShow;
@@ -78,9 +81,16 @@ public class BattleController : MonoBehaviour
     bool isRoundMessageShown = false;
     bool isRoundMessageHidden = false;*/
 
+    void Awake()
+    {
+        musicController = GameObject.Find("MusicController");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        //Initialize music
+        controllerAudioMusic = musicController.GetComponent<ControllerAudioMusic>();
         //Set enemy sprite based on the savedata current level
         PrepareEnemy();
         //Hide all the function canvases at the start
@@ -186,14 +196,17 @@ public class BattleController : MonoBehaviour
                                 DamageAnimationPartRoundMessageWaitDone = true;
                                 if ((currentPlayerHealth == 0) && (currentEnemyHealth == 0))
                                 {
+                                    controllerAudioMusic.StopSong();
                                     soundManager.PlaySound(soundManager.sndDraw);
                                 }
                                 else if (currentPlayerHealth == 0)
                                 {
+                                    controllerAudioMusic.StopSong();
                                     soundManager.PlaySound(soundManager.sndDefeat);
                                 }
                                 else if (currentEnemyHealth == 0)
                                 {
+                                    controllerAudioMusic.StopSong();
                                     soundManager.PlaySound(soundManager.sndWin);
                                 }
                             }
@@ -446,11 +459,36 @@ public class BattleController : MonoBehaviour
     private void PrepareEnemy()
     {
         //DEBUG ONLY
-        string currentLevel = "C2";
+        string currentLevel = "A4";
         //string currentLevel = GameObject.Find("Savedata").GetComponent<Savedata>().currentLevel;
         char[] currentLevelChars = currentLevel.ToCharArray();
         char area = currentLevelChars[0];
         int level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
+        if (level == 4)
+        {
+            controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
+        }
+        else
+        {
+            switch (area)
+            {
+                case 'A':
+                    controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaA);
+                    break;
+                case 'B':
+                    controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaB);
+                    break;
+                case 'C':
+                    controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaC);
+                    break;
+                case 'D':
+                    controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaD);
+                    break;
+                default:
+                    Debug.Log("Algo pudo salir mal al preparar el sprite de jefe.");
+                    break;
+            }
+        }
         switch (level)
         {
             case 0:

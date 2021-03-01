@@ -3996,6 +3996,8 @@ MonoBehaviour:
   okButton: {fileID: 108574215}
   soundManagerObject: {fileID: 74629056}
   soundManager: {fileID: 0}
+  musicController: {fileID: 0}
+  controllerAudioMusic: {fileID: 0}
 --- !u!4 &316498677
 Transform:
   m_ObjectHideFlags: 0
@@ -6854,7 +6856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 167.9997, y: -378}
+  m_AnchoredPosition: {x: 167.99951, y: -378}
   m_SizeDelta: {x: -1781.3799, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &731234207
@@ -9184,7 +9186,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951526718}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &951526720
 Camera:
   m_ObjectHideFlags: 0

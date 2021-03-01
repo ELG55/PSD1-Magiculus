@@ -83,7 +83,14 @@ public class FunctionsController : MonoBehaviour
 
     public void AddSmallVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] += 0.1m;
+        if (variablesEspacio[variableEspacio] <= 100m - 0.1m)
+        {
+            variablesEspacio[variableEspacio] += 0.1m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = 100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -91,7 +98,14 @@ public class FunctionsController : MonoBehaviour
 
     public void SubtractSmallVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] -= 0.1m;
+        if (variablesEspacio[variableEspacio] >= -100m + 0.1m)
+        {
+            variablesEspacio[variableEspacio] -= 0.1m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = -100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -99,7 +113,14 @@ public class FunctionsController : MonoBehaviour
 
     public void AddMediumVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] += 1.0m;
+        if (variablesEspacio[variableEspacio] <= 100m - 1.0m)
+        {
+            variablesEspacio[variableEspacio] += 1.0m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = 100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -107,7 +128,14 @@ public class FunctionsController : MonoBehaviour
 
     public void SubtractMediumVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] -= 1.0m;
+        if (variablesEspacio[variableEspacio] >= -100m + 1.0m)
+        {
+            variablesEspacio[variableEspacio] -= 1.0m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = -100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -115,7 +143,14 @@ public class FunctionsController : MonoBehaviour
 
     public void AddBigVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] += 10.0m;
+        if (variablesEspacio[variableEspacio] <= 100m - 10.0m)
+        {
+            variablesEspacio[variableEspacio] += 10.0m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = 100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -123,7 +158,14 @@ public class FunctionsController : MonoBehaviour
 
     public void SubtractBigVariableEspacio(int variableEspacio)
     {
-        variablesEspacio[variableEspacio] -= 10.0m;
+        if (variablesEspacio[variableEspacio] >= -100m + 10.0m)
+        {
+            variablesEspacio[variableEspacio] -= 10.0m;
+        }
+        else
+        {
+            variablesEspacio[variableEspacio] = -100m;
+        }
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();
         RefreshAllTexts();
@@ -338,23 +380,17 @@ public class FunctionsController : MonoBehaviour
         {
             case FunctionType.Cuadratica:
                 return 0;
-                break;
             case FunctionType.Cubica:
                 return 1;
-                break;
             case FunctionType.Trigonometrica:
                 return 2;
-                break;
             case FunctionType.Trinomial:
                 return 3;
-                break;
             case FunctionType.Lineal:
                 return 4;
-                break;
             default:
-                return -1;
                 Debug.Log("Algo pudo salir mal al pasar de FunctionType a int.");
-                break;
+                return -1;
         }
     }
 

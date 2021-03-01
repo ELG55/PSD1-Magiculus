@@ -22,18 +22,19 @@ public class ControllerAudio : MonoBehaviour
     public AudioClip sndWin;
     public AudioClip sndWindow;
 
-    public AudioClip sound2;
-    public AudioClip Coin;
-    public bool checador = false;
+    //public AudioClip sound2;
+    //public AudioClip Coin;
+    //public bool checador = false;
 
-    public Slider SliderSound;
+    //public Slider SliderSound;
 
 
     void Awake()
     {
         audioSrc = GetComponent<AudioSource>(); //Se asigna el audio que se controlara
         InicializarVolumen();
-        DontDestroyOnLoad(this);
+        
+        /*DontDestroyOnLoad(this);
 
         if (controllerAudio == null)
         {
@@ -42,11 +43,11 @@ public class ControllerAudio : MonoBehaviour
         else
         {
             Destroy(this.gameObject); // Used Destroy instead of DestroyObject
-        }
+        }*/
     }
 
-    private void InicializarVolumen() {
-            audioSrc.volume = PlayerPrefs.GetFloat("SoundVolumen", 1.0f);
+    public void InicializarVolumen() {
+            audioSrc.volume = PlayerPrefs.GetFloat("SoundVolume", 0.4f);
             //SliderSound.value = audioSrc.volume;
         
     }
@@ -72,6 +73,7 @@ public class ControllerAudio : MonoBehaviour
     */
     public void PlaySound(AudioClip audioClip)
     {
+        InicializarVolumen();
         audioSrc.PlayOneShot(audioClip);
     }
 
