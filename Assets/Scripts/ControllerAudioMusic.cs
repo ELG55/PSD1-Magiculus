@@ -33,7 +33,7 @@ public class ControllerAudioMusic : MonoBehaviour
     {
         MusicSrc = GetComponent<AudioSource>(); //Se asigna el audio que se controlara
         InicializarVolumenMusic();
-        MusicSrc.Play();
+        //MusicSrc.Play();
         //lastScene = SceneManager.GetActiveScene().name;
         DontDestroyOnLoad(this);
 
@@ -91,9 +91,22 @@ public class ControllerAudioMusic : MonoBehaviour
 
     public void PlaySong(AudioClip clip)
     {
-        MusicSrc.Stop();
-        MusicSrc.clip = clip;
-        MusicSrc.Play();
+        InicializarVolumenMusic();
+        if (MusicSrc.clip != null)
+        {
+            if (MusicSrc.clip != clip)
+            {
+                MusicSrc.Stop();
+                MusicSrc.clip = clip;
+                MusicSrc.Play();
+            }
+        }
+        else
+        {
+            MusicSrc.Stop();
+            MusicSrc.clip = clip;
+            MusicSrc.Play();
+        }
     }
 
     public void StopSong()

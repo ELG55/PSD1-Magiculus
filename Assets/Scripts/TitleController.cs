@@ -14,14 +14,18 @@ public class TitleController : MonoBehaviour
     public Toggle toggleCompleta;
     public Toggle toggleVentana;
 
+    void Awake()
+    {
+        musicController = GameObject.Find("MusicController");
+    }
     // Start is called before the first frame update
     void Start()
     {
         controllerAudioMusic = musicController.GetComponent<ControllerAudioMusic>();
-        controllerAudioMusic.PlaySong(controllerAudioMusic.bgmTitle);
-
         sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
         sliderSound.value = PlayerPrefs.GetFloat("SoundVolume", 0.4f);
+        controllerAudioMusic.MusicSrc.volume = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
+        controllerAudioMusic.PlaySong(controllerAudioMusic.bgmTitle);
 
         if (PlayerPrefs.GetInt("Fullscreen", 1) == 1)
         {
@@ -41,20 +45,15 @@ public class TitleController : MonoBehaviour
     {
         if (PlayerPrefs.GetFloat("MusicVolume", 0.2f) != sliderMusic.value)
         {
-            controllerAudioMusic.MusicSrc.volume = sliderMusic.value;
-            PlayerPrefs.SetFloat("MusicVolumen", sliderMusic.value);
+            PlayerPrefs.SetFloat("MusicVolume", sliderMusic.value);
             PlayerPrefs.Save();
+            controllerAudioMusic.MusicSrc.volume = PlayerPrefs.GetFloat("MusicVolume", 0.2f);
         }
         if (PlayerPrefs.GetFloat("SoundVolume", 0.4f) != sliderSound.value)
         {
             PlayerPrefs.SetFloat("SoundVolume", sliderSound.value);
             PlayerPrefs.Save();
         }
-    }
-
-    void Awake()
-    {
-        musicController = GameObject.Find("MusicController");
     }
 
     public void SetFullscreen(bool fullscreen)
@@ -67,13 +66,20 @@ public class TitleController : MonoBehaviour
         if (toggleCompleta.isOn)
         {
             PlayerPrefs.SetInt("Fullscreen", 1);
+            PlayerPrefs.Save();
             SetFullscreen(true);
         }
         else
         {
             PlayerPrefs.SetInt("Fullscreen", 0);
+            PlayerPrefs.Save();
             SetFullscreen(false);
         }
         
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
