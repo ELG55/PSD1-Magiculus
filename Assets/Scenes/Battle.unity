@@ -4064,7 +4064,7 @@ MonoBehaviour:
   sprEnemyBossA: {fileID: 21300000, guid: 9af6e1ce5a7ac6141a568bf4650633a8, type: 3}
   sprEnemyBossB: {fileID: 21300000, guid: ea9c4cd90c1bee8458c126f4aae48aa1, type: 3}
   sprEnemyBossC: {fileID: 21300000, guid: c612d5c14f7801446aca0f5cb2a1d007, type: 3}
-  sprEnemyBossD: {fileID: 21300000, guid: cca55932ce59ed4459d2a76407f512b6, type: 3}
+  sprEnemyBossD: {fileID: 21300000, guid: 2df4660c409fabb4e974379ec914e385, type: 3}
   timerTime: 40
   hitPercentage: 0
   playerHealthBarMask: {fileID: 862288697}

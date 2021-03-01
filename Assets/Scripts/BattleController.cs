@@ -469,7 +469,7 @@ public class BattleController : MonoBehaviour
         //DEBUG ONLY
         //string currentLevel = "A4";
         string currentLevel = savedata.currentLevel;
-        Debug.Log("Current level: " + currentLevel);
+        //Debug.Log("Current level: " + currentLevel);
         char[] currentLevelChars = currentLevel.ToCharArray();
         area = currentLevelChars[0];
         level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
@@ -548,7 +548,7 @@ public class BattleController : MonoBehaviour
         }
         enemyHealth = enemyMaxHealth;
         currentEnemyHealth = enemyHealth;
-        Debug.Log("enemy health: " + enemyHealth);
+        //Debug.Log("enemy health: " + enemyHealth);
     }
 
     private void UpdatePlayerHealth()
@@ -655,7 +655,7 @@ public class BattleController : MonoBehaviour
         {
             savedataProgressChars[saveCharNumber] = level.ToString().ToCharArray()[0];
             savedata.progress = new string(savedataProgressChars);
-            Debug.Log("New progress string: " + savedata.progress);
+            //Debug.Log("New progress string: " + savedata.progress);
         }
         int totalLevel = 0;
         totalLevel += (int)System.Char.GetNumericValue(savedataProgressChars[1]);

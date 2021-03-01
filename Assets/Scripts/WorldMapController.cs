@@ -22,6 +22,10 @@ public class WorldMapController : MonoBehaviour
 
     public Savedata savedata;
     public GameObject textCampeon;
+    public GameObject starAreaA;
+    public GameObject starAreaB;
+    public GameObject starAreaC;
+    public GameObject starAreaD;
 
     void Awake()
     {
@@ -49,18 +53,28 @@ public class WorldMapController : MonoBehaviour
         }
         string savedataProgress = savedata.progress;
         char[] savedataProgressChars = savedataProgress.ToCharArray();
-        Debug.Log("Showing and hiding buttons");
+        //Debug.Log("Showing and hiding buttons");
         for (int i = 0; i < 4; i++)
         {
+            int areaActive = (int)System.Char.GetNumericValue(savedataProgressChars[1 + (i * 2)]);
+            if (areaActive >= 5)
+            {
+                GameObject.Find("StarArea" + savedataProgressChars[(i * 2)]).SetActive(true);
+                //Debug.Log("areaProgress: " + areaActive);
+            }
+            else
+            {
+                GameObject.Find("StarArea" + savedataProgressChars[(i * 2)]).SetActive(false);
+            }
             for (int j = 1; j <= 5; j++)
             {
-                int areaActive = (int)System.Char.GetNumericValue(savedataProgressChars[1 + (i * 2)]);
+                areaActive = (int)System.Char.GetNumericValue(savedataProgressChars[1 + (i * 2)]);
                 if (areaActive < 5)
                 {
                     areaActive++;
-                    Debug.Log("areaProgress: " + areaActive);
+                    //Debug.Log("areaProgress: " + areaActive);
                 }
-                Debug.Log("AreaButtonObject: " + "AreaButton" + savedataProgressChars[(i * 2)] + "" + j);
+                //Debug.Log("AreaButtonObject: " + "AreaButton" + savedataProgressChars[(i * 2)] + "" + j);
                 if (j <= areaActive)
                 {
                     GameObject.Find("AreaButton" + savedataProgressChars[(i * 2)] + "" + j).SetActive(true);

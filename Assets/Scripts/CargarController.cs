@@ -97,8 +97,8 @@ public class CargarController : MonoBehaviour
         progreso.GetComponent<Text>().text = "Progreso: \n"+progress;
         realizado.GetComponent<Text>().text = "DMG realizado: \n"+dmgDone;
         recibido.GetComponent<Text>().text = "DMG recibido: \n"+dmgReceived;
-        Debug.Log("Savedata hitP: " + savedata.GetComponent<Savedata>().hitP);
-        Debug.Log("Cargar controller hitP: " + hitP);
+        //Debug.Log("Savedata hitP: " + savedata.GetComponent<Savedata>().hitP);
+        //Debug.Log("Cargar controller hitP: " + hitP);
         porcentaje.GetComponent<Text>().text = "Precisión: \n" + hitP;
     }
 
