@@ -20,6 +20,8 @@ public class CargarController : MonoBehaviour
     public GameObject BorrarBoton;
     public GameObject MagoImagen;
 
+    private int SelectedSlot;
+
     public GameObject savedata;
 
     public string getInputName()
@@ -96,7 +98,43 @@ public class CargarController : MonoBehaviour
     {
         savedata.GetComponent<Savedata>().BorrarDatos();
     }
-
+    public void callGuardarProgreso()
+    {
+        savedata.GetComponent<Savedata>().SalvarProgreso(SelectedSlot);
+        RefreshData(
+        savedata.GetComponent<Savedata>().date,
+        savedata.GetComponent<Savedata>().mageName,
+        savedata.GetComponent<Savedata>().level.ToString(),
+        savedata.GetComponent<Savedata>().mageClass,
+        savedata.GetComponent<Savedata>().progress,
+        savedata.GetComponent<Savedata>().dmgDone.ToString(),
+        savedata.GetComponent<Savedata>().dmgReceived.ToString(),
+        savedata.GetComponent<Savedata>().hitP.ToString());
+    }
+    public void showFileInfo(int slot)
+    {
+        SaveFile sv = SaveManager.Cargar(slot);
+        if (sv==null)
+        {
+            OcultarDatos();
+            SelectedSlot = slot;
+        }
+        else
+        {
+            RefreshData(sv.date, sv.mageName, sv.level.ToString(), sv.mageClass, sv.progress, sv.dmgDone.ToString(), sv.dmgReceived.ToString(), sv.hitP.ToString());
+            name1.SetActive(true);
+            nivel.SetActive(true);
+            clase.SetActive(true);
+            progreso.SetActive(true);
+            realizado.SetActive(true);
+            recibido.SetActive(true);
+            porcentaje.SetActive(true);
+            fecha.SetActive(true);
+            GuardarBoton.SetActive(true);
+            MagoImagen.SetActive(true);
+            SelectedSlot = slot;
+        }
+    }
 
     private void Awake()
     {

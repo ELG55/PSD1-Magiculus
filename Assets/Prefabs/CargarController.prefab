@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4480710371164394855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4480710371164394853}
+  - component: {fileID: 4480710371164394854}
+  m_Layer: 0
+  m_Name: CargarController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4480710371164394853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480710371164394855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1523993, y: -0.016524985, z: 60.315628}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4480710371164394854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4480710371164394855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c946da361f8692b468dc835648a56a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name1: {fileID: 0}
+  nivel: {fileID: 0}
+  clase: {fileID: 0}
+  fecha: {fileID: 0}
+  progreso: {fileID: 0}
+  realizado: {fileID: 0}
+  recibido: {fileID: 0}
+  porcentaje: {fileID: 0}
+  GuardarBoton: {fileID: 0}
+  Input1: {fileID: 0}
+  Input2: {fileID: 0}
+  ComenzarBoton: {fileID: 0}
+  BorrarBoton: {fileID: 0}
+  MagoImagen: {fileID: 0}
+  savedata: {fileID: 0}
