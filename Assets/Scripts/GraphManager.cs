@@ -10,6 +10,10 @@ public class GraphManager : MonoBehaviour
     private RectTransform container;
     public int circleSize;
     public int hitDistance;
+    public float lineSize;
+    public float r;
+    public float g;
+    public float b;
     private float[] xd = new float[201];
     private bool Rx; private bool Rseno; private float RmultCuad; private float RsumaX; private float RsumaX2; private float RsumaX3; private float Radicion; private float[] RxValues;
 
@@ -460,13 +464,13 @@ public class GraphManager : MonoBehaviour
             GameObject objeto1 = new GameObject("dotConnection", typeof(Image));
             objeto1.gameObject.tag = "UserCircle";
             objeto1.transform.SetParent(container, false);
-            objeto1.GetComponent<Image>().color = new Color(1, 1, 1, .5f);
+            objeto1.GetComponent<Image>().color = new Color(r, g, b, .5f);
             RectTransform transformarRect = objeto1.GetComponent<RectTransform>();
             Vector2 dir = (puntoB - puntoA).normalized;
             float distancia = Vector2.Distance(puntoA, puntoB);
             transformarRect.anchorMin = new Vector2(0, 0);
             transformarRect.anchorMax = new Vector2(0, 0);
-            transformarRect.sizeDelta = new Vector2(distancia, 3f);
+            transformarRect.sizeDelta = new Vector2(distancia, lineSize);
             transformarRect.anchoredPosition = puntoA + dir * distancia * .5f;
             transformarRect.localEulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(dir));
         }

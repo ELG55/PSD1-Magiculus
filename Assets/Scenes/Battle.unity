@@ -14418,6 +14418,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 618032407980092313, guid: 6e369f665d35499428e7a467c46e1e63, type: 3}
+      propertyPath: b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618032407980092313, guid: 6e369f665d35499428e7a467c46e1e63, type: 3}
+      propertyPath: g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 618032407980092313, guid: 6e369f665d35499428e7a467c46e1e63, type: 3}
+      propertyPath: r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 618032407980092313, guid: 6e369f665d35499428e7a467c46e1e63, type: 3}
+      propertyPath: lineSize
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 618032407980092315, guid: 6e369f665d35499428e7a467c46e1e63, type: 3}
       propertyPath: m_Name
       value: Window
