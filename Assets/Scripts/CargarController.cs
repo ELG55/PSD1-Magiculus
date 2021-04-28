@@ -19,6 +19,8 @@ public class CargarController : MonoBehaviour
     public GameObject ComenzarBoton;
     public GameObject BorrarBoton;
     public GameObject MagoImagen;
+    public GameObject ErrorMsg;
+    public GameObject SceneController;
 
     private int SelectedSlot;
 
@@ -86,6 +88,7 @@ public class CargarController : MonoBehaviour
         ComenzarBoton.SetActive(false);
         BorrarBoton.SetActive(false);
         MagoImagen.SetActive(false);
+        ErrorMsg.SetActive(false);
     }
 
     public void RefreshData(string date, string mageName, string level, string mageClass, string progress, string dmgDone, string dmgReceived, string hitP)
@@ -109,6 +112,7 @@ public class CargarController : MonoBehaviour
     }
     public void callSalvar()
     {
+        ErrorMsg.SetActive(false);
         audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().SalvarDatos();
     }
@@ -166,5 +170,13 @@ public class CargarController : MonoBehaviour
             MagoImagen.SetActive(true);
             SelectedSlot = slot;
         }
+    }
+    public void showErrorMsg()
+    {
+        ErrorMsg.SetActive(true);
+    }
+    public void changeScene()
+    {
+        SceneController.GetComponent<ChangeScene>().loadNextScene("WorldMap");
     }
 }

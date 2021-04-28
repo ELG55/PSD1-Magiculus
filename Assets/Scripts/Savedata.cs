@@ -30,8 +30,9 @@ public class Savedata : MonoBehaviour
     {
         mageName = controller.GetComponent<CargarController>().getInputName();
         mageClass = controller.GetComponent<CargarController>().getInputClase();
-        if (mageName == "" || mageClass == "")
+        if ((mageName == "" && mageClass == "")||((mageName == "" || mageClass == "")) )
         {
+            controller.GetComponent<CargarController>().showErrorMsg();
 
         }
         else
@@ -40,6 +41,7 @@ public class Savedata : MonoBehaviour
             SaveManager.Salvar(sv);
             Debug.Log("Has de cuenta que ya corrio el juego");
             UpdateSavedata(sv);
+            controller.GetComponent<CargarController>().changeScene();
         }
 
     }

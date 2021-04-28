@@ -3636,7 +3636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1472334161442992170, guid: 0e96d0ba224bf2646bbc180fc1864261, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -4082,7 +4082,7 @@ PrefabInstance:
       objectReference: {fileID: 1294699175}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: mageName
-      value: Mage
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: progreso
@@ -4094,7 +4094,7 @@ PrefabInstance:
       objectReference: {fileID: 1294699179}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: mageClass
-      value: Mage
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 126825341923641894, guid: d2cd313bc47e1df4ca219cdf41bc3318, type: 3}
       propertyPath: realizado
@@ -5122,6 +5122,8 @@ MonoBehaviour:
   ComenzarBoton: {fileID: 1892748106}
   BorrarBoton: {fileID: 1171521351}
   MagoImagen: {fileID: 2121666118}
+  ErrorMsg: {fileID: 2003567587}
+  SceneController: {fileID: 292285847}
   savedata: {fileID: 0}
   soundManager: {fileID: 220268259}
   audioController: {fileID: 0}
@@ -5537,6 +5539,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934360376}
   m_CullTransparentMesh: 0
+--- !u!1 &2003567587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003567590}
+  - component: {fileID: 2003567589}
+  - component: {fileID: 2003567588}
+  m_Layer: 5
+  m_Name: ErrorMsg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2003567588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003567587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 597533ea5bb4c0244b7ab65414d05b95, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 50
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 0.7
+  m_Text: '-Nombre/Clase invalidos-
+
+    Reingrese sus datos'
+--- !u!222 &2003567589
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003567587}
+  m_CullTransparentMesh: 0
+--- !u!224 &2003567590
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003567587}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1577861834}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000019073, y: -288}
+  m_SizeDelta: {x: 714.3091, y: 58.702682}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2050394736
 GameObject:
   m_ObjectHideFlags: 0
