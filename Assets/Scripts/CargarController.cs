@@ -74,6 +74,7 @@ public class CargarController : MonoBehaviour
         GuardarBoton.SetActive(false);
         Input1.SetActive(false);
         Input2.SetActive(false);
+        ErrorMsg.SetActive(false);
     }
     public void OcultarDatos()
     {
