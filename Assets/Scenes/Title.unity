@@ -5590,9 +5590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.7
-  m_Text: '-Nombre/Clase invalidos-
-
-    Reingrese sus datos'
+  m_Text: "-Nombre/Clase invalidos (M\xE1x:10)-\nReingrese sus datos"
 --- !u!222 &2003567589
 CanvasRenderer:
   m_ObjectHideFlags: 0

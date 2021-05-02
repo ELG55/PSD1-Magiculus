@@ -30,7 +30,7 @@ public class Savedata : MonoBehaviour
     {
         mageName = controller.GetComponent<CargarController>().getInputName();
         mageClass = controller.GetComponent<CargarController>().getInputClase();
-        if ((mageName == "" && mageClass == "")||((mageName == "" || mageClass == "")) )
+        if (((mageName == "" && mageClass == "")||((mageName == "" || mageClass == "")))||((mageClass.Length>=11)||(mageName.Length>=11)))
         {
             controller.GetComponent<CargarController>().showErrorMsg();
 
