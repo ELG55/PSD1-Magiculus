@@ -19,6 +19,10 @@ public class CargarController : MonoBehaviour
     public GameObject ComenzarBoton;
     public GameObject BorrarBoton;
     public GameObject MagoImagen;
+    public GameObject ErrorMsg;
+    public GameObject SceneController;
+    public Timer timer;
+
 
     private int SelectedSlot;
 
@@ -36,6 +40,18 @@ public class CargarController : MonoBehaviour
     private void Start()
     {
         audioController = soundManager.GetComponent<ControllerAudio>();
+        timer = new Timer(3.0f, false);
+    }
+
+    private void Update()
+    {
+        timer.Update();
+        if (timer.IsTimerDone())
+        {
+            ErrorMsg.GetComponent<Text>().CrossFadeAlpha(0, 0.5f, false);
+            //ErrorMsg.SetActive(false);
+            timer.StopTimer();
+        }
     }
 
     public string getInputName()
@@ -72,6 +88,7 @@ public class CargarController : MonoBehaviour
         GuardarBoton.SetActive(false);
         Input1.SetActive(false);
         Input2.SetActive(false);
+        ErrorMsg.SetActive(false);
     }
     public void OcultarDatos()
     {
@@ -86,6 +103,7 @@ public class CargarController : MonoBehaviour
         ComenzarBoton.SetActive(false);
         BorrarBoton.SetActive(false);
         MagoImagen.SetActive(false);
+        ErrorMsg.SetActive(false);
     }
 
     public void RefreshData(string date, string mageName, string level, string mageClass, string progress, string dmgDone, string dmgReceived, string hitP)
@@ -109,6 +127,7 @@ public class CargarController : MonoBehaviour
     }
     public void callSalvar()
     {
+        ErrorMsg.SetActive(false);
         audioController.PlaySound(audioController.sndClick);
         savedata.GetComponent<Savedata>().SalvarDatos();
     }
@@ -167,4 +186,17 @@ public class CargarController : MonoBehaviour
             SelectedSlot = slot;
         }
     }
+    public void showErrorMsg()
+    {
+        ErrorMsg.SetActive(true);
+        ErrorMsg.GetComponent<Text>().CrossFadeAlpha(1, 1.0f, false);
+        timer.SetTimerTime(3.0f);
+        timer.ResumeTimer();
+
+    }
+    public void changeScene()
+    {
+        SceneController.GetComponent<ChangeScene>().loadNextScene("WorldMap");
+    }
+
 }
