@@ -17,6 +17,7 @@ public class ControllerAudioMusic : MonoBehaviour
     public AudioClip bgmAreaBoss;
     public AudioClip bgmWorldMap;
     public AudioClip bgmTitle;
+    public AudioClip bgmCredits;
 
     //public Slider SliderMusic;
 

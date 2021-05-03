@@ -17,10 +17,13 @@ public class TitleController : MonoBehaviour
     public GameObject soundManager;
     public ControllerAudio audioController;
 
+    public Savedata savedata;
+
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
         soundManager = GameObject.Find("SoundManager");
+        savedata = GameObject.Find("Savedata").GetComponent<Savedata>();
     }
     // Start is called before the first frame update
     void Start()
@@ -87,5 +90,10 @@ public class TitleController : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void SetAfterCreditsScene(string afterCreditsScene)
+    {
+        savedata.SetAfterCreditsScene(afterCreditsScene);
     }
 }
