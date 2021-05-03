@@ -25,6 +25,8 @@ public class Savedata : MonoBehaviour
 
     public GameObject controller;
 
+    public string afterCreditsScene;
+
 
     public void SalvarDatos()
     {
@@ -146,5 +148,10 @@ public class Savedata : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         controller = GameObject.Find("CargarController");
+    }
+
+    public void SetAfterCreditsScene(string afterCreditsScene)
+    {
+        this.afterCreditsScene = afterCreditsScene;
     }
 }
