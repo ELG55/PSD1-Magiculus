@@ -35,6 +35,17 @@ public class BattleController : MonoBehaviour
     public Sprite sprEnemyBossC;
     public Sprite sprEnemyBossD;
 
+    public GameObject enemyAttackIcon;
+    public Sprite sprEnemyAttackIcon;
+    public Sprite sprBossAttackIcon;
+
+    public GameObject playerElementIcon;
+    public Sprite sprPlayerFireIcon;
+    public Sprite sprPlayerIceIcon;
+    public Sprite sprPlayerWaterIcon;
+    public Sprite sprPlayerEarthIcon;
+    public Sprite sprPlayerWindIcon;
+
     public float timerTime = 5.0f;
     public float hitPercentage = 0;
     private float playerMaxHealth = 100;
@@ -107,6 +118,17 @@ public class BattleController : MonoBehaviour
         functionsController.HideAllCanvases();
         DisableFunctionTypeButtons();
 
+        //Set default attack icons
+        Color tempColor;
+        playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
+        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        tempColor.a = 0f;
+        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+
+        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        tempColor.a = 0f;
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+
         soundManager = soundManagerObject.GetComponent<ControllerAudio>();
 
         playerHealthBarMaskStartPosition = playerHealthBarMask.GetComponent<Transform>().position;
@@ -171,6 +193,7 @@ public class BattleController : MonoBehaviour
                 switch (damageAnimationPart)
                 {
                     case DamageAnimationPart.PercentageMessageShow:
+                        ShowMidScreenAttackIcons(2f);
                         if (ShowMidScreenMessage("-" + (Mathf.Round(100.0f - hitPercentage)) + "        -" + (Mathf.Round(hitPercentage)), 200f, Color.red))
                         {
                             timer.ResumeTimer();
@@ -182,6 +205,7 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.PercentageMessageHide:
+                        HideMidScreenAttackIcons(2f);
                         if (HideMidScreenMessage(200f))
                         {
                             timer.ResumeTimer();
@@ -388,6 +412,42 @@ public class BattleController : MonoBehaviour
         }
     }
 
+    private void ShowMidScreenAttackIcons(float speed)
+    {
+        Color tempColor;
+        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        if (tempColor.a < 1f)
+        {
+            tempColor.a += speed * Time.deltaTime;
+        }
+        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+
+        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        if (tempColor.a < 1f)
+        {
+            tempColor.a += speed * Time.deltaTime;
+        }
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+    }
+
+    private void HideMidScreenAttackIcons(float speed)
+    {
+        Color tempColor;
+        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        if (tempColor.a > 0f)
+        {
+            tempColor.a -= speed * Time.deltaTime;
+        }
+        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+
+        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        if (tempColor.a > 0f)
+        {
+            tempColor.a -= speed * Time.deltaTime;
+        }
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+    }
+
     private bool ShowMidScreenMessage(string message, float speed, Color color)
     {
         if (centerMessageText.GetComponent<Text>().fontSize < 180)
@@ -473,9 +533,11 @@ public class BattleController : MonoBehaviour
         char[] currentLevelChars = currentLevel.ToCharArray();
         area = currentLevelChars[0];
         level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
+        enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprEnemyAttackIcon;
         if (level == 5)
         {
             controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
+            enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprBossAttackIcon;
         }
         else
         {
@@ -665,6 +727,30 @@ public class BattleController : MonoBehaviour
         if (totalLevel > savedata.level)
         {
             savedata.level = totalLevel;
+        }
+    }
+
+    public void SetPlayerElementIcon(int elementNumber)
+    {
+        switch (elementNumber)
+        {
+            case 0:
+                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
+                break;
+            case 1:
+                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerIceIcon;
+                break;
+            case 2:
+                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWaterIcon;
+                break;
+            case 3:
+                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerEarthIcon;
+                break;
+            case 4:
+                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWindIcon;
+                break;
+            default:
+                break;
         }
     }
 }

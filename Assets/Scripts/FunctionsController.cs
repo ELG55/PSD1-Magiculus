@@ -310,20 +310,36 @@ public class FunctionsController : MonoBehaviour
         {
             case 0:
                 this.currentFunctionType = FunctionType.Cuadratica;
+                graphManager.r = 0.917f;
+                graphManager.g = 0.047f;
+                graphManager.b = 0.023f;
                 break;
             case 1:
                 this.currentFunctionType = FunctionType.Cubica;
+                graphManager.r = 0.325f;
+                graphManager.g = 0.427f;
+                graphManager.b = 0.976f;
                 break;
             case 2:
                 this.currentFunctionType = FunctionType.Trigonometrica;
+                graphManager.r = 0.345f;
+                graphManager.g = 0.741f;
+                graphManager.b = 0.933f;
                 break;
             case 3:
                 this.currentFunctionType = FunctionType.Trinomial;
+                graphManager.r = 0.933f;
+                graphManager.g = 0.792f;
+                graphManager.b = 0.345f;
                 break;
             case 4:
                 this.currentFunctionType = FunctionType.Lineal;
+                graphManager.r = 0.470f;
+                graphManager.g = 0.949f;
+                graphManager.b = 0.741f;
                 break;
         }
+        battleController.GetComponent<BattleController>().SetPlayerElementIcon(type);
         SetAllVariablesEspacioToOne();
         GenerateGraph();
         battleController.GetComponent<BattleController>().GetHitsAndMisses();

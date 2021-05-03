@@ -464,7 +464,7 @@ public class GraphManager : MonoBehaviour
             GameObject objeto1 = new GameObject("dotConnection", typeof(Image));
             objeto1.gameObject.tag = "UserCircle";
             objeto1.transform.SetParent(container, false);
-            objeto1.GetComponent<Image>().color = new Color(r, g, b, .5f);
+            objeto1.GetComponent<Image>().color = new Color(r, g, b, .8f);
             RectTransform transformarRect = objeto1.GetComponent<RectTransform>();
             Vector2 dir = (puntoB - puntoA).normalized;
             float distancia = Vector2.Distance(puntoA, puntoB);
