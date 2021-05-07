@@ -85,6 +85,7 @@ public class BattleController : MonoBehaviour
     public GameObject musicController;
     public ControllerAudioMusic controllerAudioMusic;
 
+    public DBInterface dbInterface;
     public Savedata savedata;
     private char area;
     private int level;
@@ -110,15 +111,16 @@ public class BattleController : MonoBehaviour
     private List<int> availableFunctionsNumbers = new List<int>();
 
     private bool isOKButtonPressed = false;
-    private float matchTime = 0f;
-    private float matchPercentSum = 0f;
-    private float matchPercentTimes = 0f;
-    private float matchHitP = 0f;
+    private double matchTime = 0f;
+    private double matchPercentSum = 0f;
+    private double matchPercentTimes = 0f;
+    private double matchHitP = 0f;
 
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
         savedata = GameObject.Find("Savedata").GetComponent<Savedata>();
+        dbInterface = GameObject.Find("DBInterface").GetComponent<DBInterface>();
     }
 
     // Start is called before the first frame update
@@ -216,7 +218,7 @@ public class BattleController : MonoBehaviour
                     savedata.hitP = Mathf.Round(savedata.percentSum / savedata.percentTimes);
                     matchPercentSum += Mathf.Round(hitPercentage);
                     matchPercentTimes++;
-                    matchHitP = Mathf.Round(matchPercentSum / matchPercentTimes);
+                    matchHitP = Mathf.Round((float)matchPercentSum / (float)matchPercentTimes);
                     soundManager.PlaySound(soundManager.sndDamage);
                     if (Mathf.Round(hitPercentage) == 0)
                     {
@@ -360,9 +362,9 @@ public class BattleController : MonoBehaviour
                             if (playerWon)
                             {
                                 SaveProgress();
-                                Debug.Log("Score: " + (float)System.Math.Round(matchHitP, 2));
+                                Debug.Log("Score: " + System.Math.Round(matchHitP, 2));
                                 Debug.Log("Time: " + System.Math.Round(matchTime, 2));
-                                UploadScore((float)System.Math.Round(matchTime, 2), (float)System.Math.Round(matchHitP, 2));
+                                UploadScore(System.Math.Round(matchTime, 2), System.Math.Round(matchHitP, 2));
                             }
                         }
                         if (HideMidScreenMessage(200f))
@@ -955,9 +957,8 @@ public class BattleController : MonoBehaviour
         availableFunctionsNumbers.Add(0);
     }
 
-    public void UploadScore(float time, float score)
+    public void UploadScore(double time, double score)
     {
-        //Agregar código para subir puntaje
-        //Ya se cuenta con el char del área y el nivel con las variables: area, level
+        dbInterface.InsertHighscore(savedata.mageName, savedata.mageClass, "" + area + level, score, time);
     }
 }
