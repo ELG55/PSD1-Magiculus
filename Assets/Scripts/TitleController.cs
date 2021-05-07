@@ -19,11 +19,18 @@ public class TitleController : MonoBehaviour
 
     public Savedata savedata;
 
+    public GameObject fieldConectar;
+    public GameObject buttonConectar;
+    public GameObject textStatus;
+
+    public DBInterface dbInterface;
+
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
         soundManager = GameObject.Find("SoundManager");
         savedata = GameObject.Find("Savedata").GetComponent<Savedata>();
+        dbInterface = GameObject.Find("DBInterface").GetComponent<DBInterface>();
     }
     // Start is called before the first frame update
     void Start()
@@ -47,6 +54,9 @@ public class TitleController : MonoBehaviour
             toggleVentana.isOn = true;
             SetFullscreen(false);
         }
+
+        fieldConectar.GetComponent<InputField>().text = PlayerPrefs.GetString("ServerIP", "");
+        UpdateButtonConnect();
     }
 
     void Update()
@@ -95,5 +105,49 @@ public class TitleController : MonoBehaviour
     public void SetAfterCreditsScene(string afterCreditsScene)
     {
         savedata.SetAfterCreditsScene(afterCreditsScene);
+    }
+
+    public void TryConnection()
+    {
+        dbInterface.Server = fieldConectar.GetComponent<InputField>().text;
+        dbInterface.UpdateConnectionString();
+        if (dbInterface.TryConnection())
+        {
+            PlayerPrefs.SetString("ServerIP", dbInterface.Server);
+            PlayerPrefs.SetInt("ServerAutoConnect", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetString("ServerIP", dbInterface.Server);
+            PlayerPrefs.SetInt("ServerAutoConnect", 0);
+        }
+    }
+
+    public void UpdateButtonConnect()
+    {
+        if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 0)
+        {
+            buttonConectar.transform.GetChild(0).GetComponent<Text>().text = "Conectar";
+            textStatus.GetComponent<Text>().text = "Estado: desconectado";
+        }
+        else
+        {
+            buttonConectar.transform.GetChild(0).GetComponent<Text>().text = "Desactivar";
+            textStatus.GetComponent<Text>().text = "Estado: conectado";
+        }
+    }
+
+    public void ButtonConnect()
+    {
+        audioController.PlaySound(audioController.sndClick);
+        if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 0)
+        {
+            TryConnection();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("ServerAutoConnect", 0);
+        }
+        UpdateButtonConnect();
     }
 }

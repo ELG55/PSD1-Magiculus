@@ -16,11 +16,7 @@ public class DBInterface : MonoBehaviour
 
     void Start()
     {
-        stringBuilder = new MySqlConnectionStringBuilder();
-        stringBuilder.Server = Server;
-        stringBuilder.Database = Database;
-        stringBuilder.UserID = UserID;
-        stringBuilder.Password = Password;
+        UpdateConnectionString();
     }
 
     public void InsertHighscore(string playerName, string playerClass, string levelID, double playerScore, double playerTime)
@@ -82,6 +78,31 @@ public class DBInterface : MonoBehaviour
         return topFive;
     }
 
+    public bool TryConnection()
+    {
+        using (MySqlConnection connection = new MySqlConnection(stringBuilder.ConnectionString))
+        {
+            try
+            {
+                connection.Open();
+                connection.Close();
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                return false;
+            }
+        }
+    }
+
+    public void UpdateConnectionString()
+    {
+        stringBuilder = new MySqlConnectionStringBuilder();
+        stringBuilder.Server = Server;
+        stringBuilder.Database = Database;
+        stringBuilder.UserID = UserID;
+        stringBuilder.Password = Password;
+    }
 
     void Awake()
     {
