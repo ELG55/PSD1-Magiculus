@@ -9,6 +9,8 @@ public class AreaMenuController : MonoBehaviour
     public GameObject areaMenuCanvas;
     public GameObject areaMenuSubtitle;
     public GameObject worldMapController;
+    public GameObject scoreboardElements;
+    public GameObject scoreboardNoConnect;
 
     public GameObject soundManager;
     public ControllerAudio audioController;
@@ -21,6 +23,8 @@ public class AreaMenuController : MonoBehaviour
     private Timer timer;
     public GameObject buttonEntrar;
     public GameObject buttonCancelar;
+
+    public GameObject DBController;
 
     void Awake()
     {
@@ -104,5 +108,17 @@ public class AreaMenuController : MonoBehaviour
     public void SetLevel(string level)
     {
         currentLevel = level;
+        DBController.GetComponent<DBController>().RetrieveTopFiveHighscores(level);
+        if (DBController.GetComponent<DBController>().highscores==null)
+        {
+            scoreboardElements.SetActive(false);
+            scoreboardNoConnect.SetActive(true);
+        }
+        else
+        {
+            scoreboardElements.SetActive(true);
+            scoreboardNoConnect.SetActive(false);
+        }
+
     }
 }
