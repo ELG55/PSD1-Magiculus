@@ -13,6 +13,8 @@ public class DBController : MonoBehaviour
     public List<System.Tuple<string, string, double, double>> highscores;
     public int page = 0;
 
+    public GameObject scoreboardButtonNext;
+    public GameObject scoreboardButtonPrev;
 
     DBInterface DBInterface;
 
@@ -73,12 +75,14 @@ public class DBController : MonoBehaviour
                     PlayerNames[i].text = "";
                     Scores[i].text = "";
                     Times[i].text = "";
+                    Numbers[i].text = "" + (i + 1);
                 }
                 else
                 {
                     PlayerNames[i].text = highscores[i].Item1 + " (" + highscores[i].Item2 + ")";
                     Scores[i].text = highscores[i].Item3.ToString();
                     Times[i].text = highscores[i].Item4.ToString();
+                    Numbers[i].text = "" + (i + 1);
                 }
             }
         }
@@ -101,13 +105,17 @@ public class DBController : MonoBehaviour
 
     public void nxtPage()
     {
-        if (page >= 2)
-        {
-
-        }
-        else
+        if (page < 2)
         {
             page += 1;
+            if (page >= 2)
+            {
+                scoreboardButtonNext.GetComponent<Button>().interactable = false;
+            }
+            if (page > 0)
+            {
+                scoreboardButtonPrev.GetComponent<Button>().interactable = true;
+            }
             clearScoreboard();
             for (int i = 0; i < PlayerNames.Count; i++)
             {
@@ -116,25 +124,31 @@ public class DBController : MonoBehaviour
                     PlayerNames[i].text = "";
                     Scores[i].text = "";
                     Times[i].text = "";
+                    Numbers[i].text = "" + (((page * PlayerNames.Count) + i) + 1);
                 }
                 else
                 {
                     PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + " (" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
                     Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
                     Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+                    Numbers[i].text = "" + (((page * PlayerNames.Count) + i) + 1);
                 }
             }
         }
     }
     public void bckPage()
     {
-        if (page <= 0)
-        {
-
-        }
-        else
+        if (page > 0)
         {
             page += -1;
+            if (page <= 0)
+            {
+                scoreboardButtonPrev.GetComponent<Button>().interactable = false;
+            }
+            if (page < 2)
+            {
+                scoreboardButtonNext.GetComponent<Button>().interactable = true;
+            }
             clearScoreboard();
             for (int i = 0; i < PlayerNames.Count; i++)
             {
@@ -143,12 +157,14 @@ public class DBController : MonoBehaviour
                     PlayerNames[i].text = "";
                     Scores[i].text = "";
                     Times[i].text = "";
+                    Numbers[i].text = "" + (((page * PlayerNames.Count) + i) + 1);
                 }
                 else
                 {
                     PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + " (" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
                     Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
                     Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+                    Numbers[i].text = "" + (((page * PlayerNames.Count) + i) + 1);
                 }
             }
         }

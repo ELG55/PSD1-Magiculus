@@ -1871,7 +1871,7 @@ GameObject:
   - component: {fileID: 207954823}
   - component: {fileID: 207954822}
   m_Layer: 5
-  m_Name: ButtonTutorialNext
+  m_Name: ButtonScoreboardlNext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4895,6 +4895,8 @@ MonoBehaviour:
   worldMapController: {fileID: 1508875542}
   scoreboardElements: {fileID: 2119274751}
   scoreboardNoConnect: {fileID: 2030301927}
+  scoreboardButtonNext: {fileID: 207954820}
+  scoreboardButtonPrev: {fileID: 1040970450}
   soundManager: {fileID: 1847677675}
   audioController: {fileID: 0}
   currentLevel: 
@@ -6152,7 +6154,7 @@ GameObject:
   - component: {fileID: 1040970453}
   - component: {fileID: 1040970452}
   m_Layer: 5
-  m_Name: ButtonTutorialPrevious
+  m_Name: ButtonScoreboardPrevious
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9041,6 +9043,8 @@ MonoBehaviour:
   - {fileID: 126732651}
   - {fileID: 1209582714}
   page: 0
+  scoreboardButtonNext: {fileID: 207954820}
+  scoreboardButtonPrev: {fileID: 1040970450}
 --- !u!4 &1634109064
 Transform:
   m_ObjectHideFlags: 0

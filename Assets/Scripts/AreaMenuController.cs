@@ -11,6 +11,8 @@ public class AreaMenuController : MonoBehaviour
     public GameObject worldMapController;
     public GameObject scoreboardElements;
     public GameObject scoreboardNoConnect;
+    public GameObject scoreboardButtonNext;
+    public GameObject scoreboardButtonPrev;
 
     public GameObject soundManager;
     public ControllerAudio audioController;
@@ -108,6 +110,9 @@ public class AreaMenuController : MonoBehaviour
     public void SetLevel(string level)
     {
         currentLevel = level;
+        DBController.GetComponent<DBController>().page = 0;
+        scoreboardButtonPrev.GetComponent<Button>().interactable = false;
+        scoreboardButtonNext.GetComponent<Button>().interactable = true;
         DBController.GetComponent<DBController>().RetrieveTopFiveHighscores(level);
         if (DBController.GetComponent<DBController>().highscores==null)
         {
