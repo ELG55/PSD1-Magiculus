@@ -68,9 +68,18 @@ public class DBController : MonoBehaviour
         {
             for (int i = 0; i < PlayerNames.Count; i++)
             {
-                PlayerNames[i].text = highscores[i].Item1 + "(" + highscores[i].Item2 + ")";
-                Scores[i].text = highscores[i].Item3.ToString();
-                Times[i].text = highscores[i].Item4.ToString();
+                if (i >= highscores.Count)
+                {
+                    PlayerNames[i].text = "";
+                    Scores[i].text = "";
+                    Times[i].text = "";
+                }
+                else
+                {
+                    PlayerNames[i].text = highscores[i].Item1 + " (" + highscores[i].Item2 + ")";
+                    Scores[i].text = highscores[i].Item3.ToString();
+                    Times[i].text = highscores[i].Item4.ToString();
+                }
             }
         }
     }
@@ -92,13 +101,29 @@ public class DBController : MonoBehaviour
 
     public void nxtPage()
     {
-        page += 1;
-        clearScoreboard();
-        for (int i = 0; i < PlayerNames.Count; i++)
+        if (page >= 2)
         {
-            PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + "(" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
-            Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
-            Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+
+        }
+        else
+        {
+            page += 1;
+            clearScoreboard();
+            for (int i = 0; i < PlayerNames.Count; i++)
+            {
+                if (((page * PlayerNames.Count) + i) >= highscores.Count)
+                {
+                    PlayerNames[i].text = "";
+                    Scores[i].text = "";
+                    Times[i].text = "";
+                }
+                else
+                {
+                    PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + " (" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
+                    Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
+                    Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+                }
+            }
         }
     }
     public void bckPage()
@@ -113,9 +138,18 @@ public class DBController : MonoBehaviour
             clearScoreboard();
             for (int i = 0; i < PlayerNames.Count; i++)
             {
-                PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + "(" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
-                Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
-                Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+                if (((page * PlayerNames.Count) + i) >= highscores.Count)
+                {
+                    PlayerNames[i].text = "";
+                    Scores[i].text = "";
+                    Times[i].text = "";
+                }
+                else
+                {
+                    PlayerNames[i].text = highscores[(page * PlayerNames.Count) + i].Item1 + " (" + highscores[(page * PlayerNames.Count) + i].Item2 + ")";
+                    Scores[i].text = highscores[(page * PlayerNames.Count) + i].Item3.ToString();
+                    Times[i].text = highscores[(page * PlayerNames.Count) + i].Item4.ToString();
+                }
             }
         }
     }

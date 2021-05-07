@@ -65,9 +65,9 @@ public class DBInterface : MonoBehaviour
                     ordinal = reader.GetOrdinal("PlayerClass");
                     string PlayerClass = reader.GetString(ordinal);
                     ordinal = reader.GetOrdinal("PlayerScore");
-                    double PlayerScore = reader.GetInt32(ordinal);
+                    double PlayerScore = reader.GetDouble(ordinal);
                     ordinal = reader.GetOrdinal("PlayerTime");
-                    double PlayerTime = reader.GetInt32(ordinal);
+                    double PlayerTime = reader.GetDouble(ordinal);
                     System.Tuple<string, string, double, double> entry = new System.Tuple<string, string, double, double>(PlayerName, PlayerClass, PlayerScore, PlayerTime);
                     topFive.Add(entry);
                 }
