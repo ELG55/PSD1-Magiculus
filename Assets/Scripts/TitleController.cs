@@ -56,6 +56,7 @@ public class TitleController : MonoBehaviour
         }
 
         fieldConectar.GetComponent<InputField>().text = PlayerPrefs.GetString("ServerIP", "");
+        dbInterface.Server = fieldConectar.GetComponent<InputField>().text;
         UpdateButtonConnect();
     }
 

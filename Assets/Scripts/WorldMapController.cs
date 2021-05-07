@@ -50,6 +50,7 @@ public class WorldMapController : MonoBehaviour
         sliderSound.value = PlayerPrefs.GetFloat("SoundVolume", 0.4f);
         controllerAudioMusic.PlaySong(controllerAudioMusic.bgmWorldMap);
         fieldConectar.GetComponent<InputField>().text = PlayerPrefs.GetString("ServerIP", "");
+        dbInterface.Server = fieldConectar.GetComponent<InputField>().text;
         UpdateButtonConnect();
         if (PlayerPrefs.GetInt("Fullscreen", 1) == 1)
         {

@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc1a6567d3b99e47b96c47b0b72131b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Server: 127.0.0.1
+  Server: 
   Database: magiculusdb
   UserID: playerUser
   Password: magiculusplayer
