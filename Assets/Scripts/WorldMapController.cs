@@ -26,6 +26,7 @@ public class WorldMapController : MonoBehaviour
     public GameObject starAreaB;
     public GameObject starAreaC;
     public GameObject starAreaD;
+    public GameObject finalZoneImage;
 
     void Awake()
     {
@@ -85,8 +86,17 @@ public class WorldMapController : MonoBehaviour
                 }
             }
         }
-
         if (savedata.level >= 20)
+        {
+            finalZoneImage.SetActive(true);
+            GameObject.Find("AreaButtonA6").SetActive(true);
+        }
+        else
+        {
+            finalZoneImage.SetActive(false);
+            GameObject.Find("AreaButtonA6").SetActive(false);
+        }
+        if (savedata.level >= 21)
         {
             textCampeon.SetActive(true);
         }
