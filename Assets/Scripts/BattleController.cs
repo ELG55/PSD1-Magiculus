@@ -686,7 +686,7 @@ public class BattleController : MonoBehaviour
         area = currentLevelChars[0];
         level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
         //enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprEnemyAttackIcon;
-        currentEnemyAttackIcon = sprBossAttackIcon;
+        currentEnemyAttackIcon = sprEnemyAttackIcon;
         if (level == 6)
         {
             controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
