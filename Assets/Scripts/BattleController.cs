@@ -16,7 +16,7 @@ public class BattleController : MonoBehaviour
     public GameObject buttonCuadratica;
     public GameObject buttonCubica;
     public GameObject buttonTrigonometrica;
-    public GameObject buttonExponencial;
+    public GameObject buttonTrinomial;
     public GameObject buttonLineal;
 
     public GameObject objectFunctionsController;
@@ -34,12 +34,13 @@ public class BattleController : MonoBehaviour
     public Sprite sprEnemyBossB;
     public Sprite sprEnemyBossC;
     public Sprite sprEnemyBossD;
+    public Sprite sprEnemyBossFinal;
 
-    public GameObject enemyAttackIcon;
+    //public GameObject enemyAttackIcon;
+    public GameObject attackIcon;
+    private Sprite currentEnemyAttackIcon;
     public Sprite sprEnemyAttackIcon;
     public Sprite sprBossAttackIcon;
-
-    public GameObject playerElementIcon;
     public Sprite sprPlayerFireIcon;
     public Sprite sprPlayerIceIcon;
     public Sprite sprPlayerWaterIcon;
@@ -68,6 +69,7 @@ public class BattleController : MonoBehaviour
 
     private bool UserInputStartDone = false;
     private bool DamageAnimationStartDone = false;
+    private bool EndBattleStartDone = false;
     private float bigFontCurrentSize = 180;
 
     public GameObject grapherObject;
@@ -100,6 +102,19 @@ public class BattleController : MonoBehaviour
     bool isRoundMessageShown = false;
     bool isRoundMessageHidden = false;*/
 
+    private bool isCuadraticaActive = true;
+    private bool isCubicaActive = true;
+    private bool isTrigonometricaActive = true;
+    private bool isTrinomialActive = true;
+    private bool isLinealActive = true;
+    private List<int> availableFunctionsNumbers = new List<int>();
+
+    private bool isOKButtonPressed = false;
+    private float matchTime = 0f;
+    private float matchPercentSum = 0f;
+    private float matchPercentTimes = 0f;
+    private float matchHitP = 0f;
+
     void Awake()
     {
         musicController = GameObject.Find("MusicController");
@@ -120,14 +135,14 @@ public class BattleController : MonoBehaviour
 
         //Set default attack icons
         Color tempColor;
-        playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
-        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
+        tempColor = attackIcon.GetComponent<SpriteRenderer>().color;
         tempColor.a = 0f;
-        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        attackIcon.GetComponent<SpriteRenderer>().color = tempColor;
 
-        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        /*tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
         tempColor.a = 0f;
-        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;*/
 
         soundManager = soundManagerObject.GetComponent<ControllerAudio>();
 
@@ -137,6 +152,8 @@ public class BattleController : MonoBehaviour
         graphManager = grapherObject.GetComponent<GraphManager>();
 
         timer = new Timer(timerTime, false);
+
+
     }
 
     // Update is called once per frame
@@ -160,10 +177,21 @@ public class BattleController : MonoBehaviour
                     okButton.GetComponent<Button>().interactable = true;
                     functionsController.SetAllVariablesEspacioToOne();
                     graphManager.DeleteTargetCircles();
-                    graphManager.GenerateRandomTargets(Random.Range(0, 5));
+                    if (level == 6)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            SetFunctionEnabledOrDisabled(i, true);
+                        }
+                        SetFunctionEnabledOrDisabled(Random.Range(0, 5), false);
+                        SetFunctionEnabledOrDisabled(Random.Range(0, 5), false);
+                    }
+                    UpdateBlockedAndEnabledFunctions();
+                    graphManager.GenerateRandomTargets(availableFunctionsNumbers[Random.Range(0, availableFunctionsNumbers.Count)]);
                     GetHitsAndMisses();
                     hits = 0; //This was cancelled to avoid percentage when beginning (when there is no function)
                     EnableFunctionTypeButtons();
+                    isOKButtonPressed = false;
                 }                
                 UserInputUpdate();
                 break;
@@ -186,7 +214,14 @@ public class BattleController : MonoBehaviour
                     savedata.percentSum += Mathf.Round(hitPercentage);
                     savedata.percentTimes++;
                     savedata.hitP = Mathf.Round(savedata.percentSum / savedata.percentTimes);
+                    matchPercentSum += Mathf.Round(hitPercentage);
+                    matchPercentTimes++;
+                    matchHitP = Mathf.Round(matchPercentSum / matchPercentTimes);
                     soundManager.PlaySound(soundManager.sndDamage);
+                    if (Mathf.Round(hitPercentage) == 0)
+                    {
+                        attackIcon.GetComponent<SpriteRenderer>().sprite = currentEnemyAttackIcon;
+                    }
                 }
                 UpdatePlayerHealth();
                 UpdateEnemyHealth();
@@ -319,16 +354,31 @@ public class BattleController : MonoBehaviour
                         }
                         break;
                     case DamageAnimationPart.EndBattle:
-                        if (playerWon)
+                        if (!EndBattleStartDone)
                         {
-                            SaveProgress();
+                            EndBattleStartDone = true;
+                            if (playerWon)
+                            {
+                                SaveProgress();
+                                Debug.Log("Score: " + (float)System.Math.Round(matchHitP, 2));
+                                Debug.Log("Time: " + System.Math.Round(matchTime, 2));
+                                UploadScore((float)System.Math.Round(matchTime, 2), (float)System.Math.Round(matchHitP, 2));
+                            }
                         }
                         if (HideMidScreenMessage(200f))
                         {
                             timer.ResumeTimer();
                             if (timer.IsTimerDone())
                             {
-                                SceneManager.LoadScene("WorldMap");
+                                if ((level == 6) && (playerWon))
+                                {
+                                    savedata.SetAfterCreditsScene("WorldMap");
+                                    SceneManager.LoadScene("Credits");
+                                }
+                                else
+                                {
+                                    SceneManager.LoadScene("WorldMap");
+                                }
                             }
                         }
                         break;
@@ -344,6 +394,10 @@ public class BattleController : MonoBehaviour
     {
         if (timer.IsTimerDone())
         {
+            if (!isOKButtonPressed)
+            {
+                matchTime += timerTime;
+            }
             timer.SetTimerTime(0);
             RefreshTimerText();
             DisableFunctionTypeButtons();
@@ -415,37 +469,37 @@ public class BattleController : MonoBehaviour
     private void ShowMidScreenAttackIcons(float speed)
     {
         Color tempColor;
-        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        tempColor = attackIcon.GetComponent<SpriteRenderer>().color;
         if (tempColor.a < 1f)
         {
             tempColor.a += speed * Time.deltaTime;
         }
-        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        attackIcon.GetComponent<SpriteRenderer>().color = tempColor;
 
-        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        /*tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
         if (tempColor.a < 1f)
         {
             tempColor.a += speed * Time.deltaTime;
         }
-        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;*/
     }
 
     private void HideMidScreenAttackIcons(float speed)
     {
         Color tempColor;
-        tempColor = playerElementIcon.GetComponent<SpriteRenderer>().color;
+        tempColor = attackIcon.GetComponent<SpriteRenderer>().color;
         if (tempColor.a > 0f)
         {
             tempColor.a -= speed * Time.deltaTime;
         }
-        playerElementIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        attackIcon.GetComponent<SpriteRenderer>().color = tempColor;
 
-        tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
+        /*tempColor = enemyAttackIcon.GetComponent<SpriteRenderer>().color;
         if (tempColor.a > 0f)
         {
             tempColor.a -= speed * Time.deltaTime;
         }
-        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;
+        enemyAttackIcon.GetComponent<SpriteRenderer>().color = tempColor;*/
     }
 
     private bool ShowMidScreenMessage(string message, float speed, Color color)
@@ -489,8 +543,82 @@ public class BattleController : MonoBehaviour
         buttonCuadratica.GetComponent<Button>().interactable = false;
         buttonCubica.GetComponent<Button>().interactable = false;
         buttonTrigonometrica.GetComponent<Button>().interactable = false;
-        buttonExponencial.GetComponent<Button>().interactable = false;
+        buttonTrinomial.GetComponent<Button>().interactable = false;
         buttonLineal.GetComponent<Button>().interactable = false;
+    }
+
+    /*public void HideFunctionType(int functionNumber)
+    {
+        switch (functionNumber)
+        {
+            case 0:
+                buttonCuadratica.SetActive(false);
+                break;
+            case 1:
+                buttonCubica.SetActive(false);
+                break;
+            case 2:
+                buttonTrigonometrica.SetActive(false);
+                break;
+            case 3:
+                buttonTrinomial.SetActive(false);
+                break;
+            case 4:
+                buttonLineal.SetActive(false);
+                break;
+            default:
+                break;
+        }
+    }*/
+
+    public void UpdateBlockedAndEnabledFunctions()
+    {
+        availableFunctionsNumbers = new List<int>();
+        if (isCuadraticaActive)
+        {
+            availableFunctionsNumbers.Add(0);
+            buttonCuadratica.SetActive(true);
+        }
+        else
+        {
+            buttonCuadratica.SetActive(false);
+        }
+        if (isCubicaActive)
+        {
+            availableFunctionsNumbers.Add(1);
+            buttonCubica.SetActive(true);
+        }
+        else
+        {
+            buttonCubica.SetActive(false);
+        }
+        if (isTrigonometricaActive)
+        {
+            availableFunctionsNumbers.Add(2);
+            buttonTrigonometrica.SetActive(true);
+        }
+        else
+        {
+            buttonTrigonometrica.SetActive(false);
+        }
+        if (isTrinomialActive)
+        {
+            availableFunctionsNumbers.Add(3);
+            buttonTrinomial.SetActive(true);
+        }
+        else
+        {
+            buttonTrinomial.SetActive(false);
+        }
+        if (isLinealActive)
+        {
+            availableFunctionsNumbers.Add(4);
+            buttonLineal.SetActive(true);
+        }
+        else
+        {
+            buttonLineal.SetActive(false);
+        }
     }
 
     private void EnableFunctionTypeButtons()
@@ -498,8 +626,32 @@ public class BattleController : MonoBehaviour
         buttonCuadratica.GetComponent<Button>().interactable = true;
         buttonCubica.GetComponent<Button>().interactable = true;
         buttonTrigonometrica.GetComponent<Button>().interactable = true;
-        buttonExponencial.GetComponent<Button>().interactable = true;
+        buttonTrinomial.GetComponent<Button>().interactable = true;
         buttonLineal.GetComponent<Button>().interactable = true;
+    }
+
+    private void SetFunctionEnabledOrDisabled(int functionNumberType, bool isEnabled)
+    {
+        switch (functionNumberType)
+        {
+            case 0:
+                isCuadraticaActive = isEnabled ? true : false;
+                break;
+            case 1:
+                isCubicaActive = isEnabled ? true : false;
+                break;
+            case 2:
+                isTrigonometricaActive = isEnabled ? true : false;
+                break;
+            case 3:
+                isTrinomialActive = isEnabled ? true : false;
+                break;
+            case 4:
+                isLinealActive = isEnabled ? true : false;
+                break;
+            default:
+                break;
+        }
     }
 
     public void RefreshTimerText()
@@ -533,11 +685,40 @@ public class BattleController : MonoBehaviour
         char[] currentLevelChars = currentLevel.ToCharArray();
         area = currentLevelChars[0];
         level = (int)System.Char.GetNumericValue(currentLevelChars[1]);
-        enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprEnemyAttackIcon;
-        if (level == 5)
+        //enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprEnemyAttackIcon;
+        currentEnemyAttackIcon = sprBossAttackIcon;
+        if (level == 6)
         {
             controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
-            enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprBossAttackIcon;
+            currentEnemyAttackIcon = sprBossAttackIcon;
+        }
+        else if (level == 5)
+        {
+            controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
+            //enemyAttackIcon.GetComponent<SpriteRenderer>().sprite = sprBossAttackIcon;
+            currentEnemyAttackIcon = sprBossAttackIcon;
+
+            switch (area)
+            {
+                case 'A':
+                    SetFunctionEnabledOrDisabled(0, false);
+                    SetFunctionEnabledOrDisabled(2, false);
+                    break;
+                case 'B':
+                    SetFunctionEnabledOrDisabled(1, false);
+                    SetFunctionEnabledOrDisabled(3, false);
+                    break;
+                case 'C':
+                    SetFunctionEnabledOrDisabled(2, false);
+                    SetFunctionEnabledOrDisabled(4, false);
+                    break;
+                case 'D':
+                    SetFunctionEnabledOrDisabled(0, false);
+                    SetFunctionEnabledOrDisabled(4, false);
+                    break;
+                default:
+                    break;
+            }
         }
         else
         {
@@ -560,31 +741,37 @@ public class BattleController : MonoBehaviour
                     break;
             }
         }
+        UpdateBlockedAndEnabledFunctions();
         switch (level)
         {
             case 1:
                 enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy0;
                 enemyMaxHealth = 200;
+                //enemyMaxHealth = 20;
                 timerTime = 40.0f;
                 break;
             case 2:
                 enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy1;
                 enemyMaxHealth = 250;
+                //enemyMaxHealth = 25;
                 timerTime = 38.0f;
                 break;
             case 3:
                 enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy2;
                 enemyMaxHealth = 300;
+                //enemyMaxHealth = 30;
                 timerTime = 34.0f;
                 break;
             case 4:
                 enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemy3;
                 enemyMaxHealth = 350;
+                //enemyMaxHealth = 35;
                 timerTime = 30.0f;
                 break;
             case 5:
-                enemyMaxHealth = 400;
-                timerTime = 25.0f;
+                enemyMaxHealth = 350;
+                //enemyMaxHealth = 35;
+                timerTime = 28.0f;
                 switch (area)
                 {
                     case 'A':
@@ -603,6 +790,12 @@ public class BattleController : MonoBehaviour
                         Debug.Log("Algo pudo salir mal al preparar el sprite de jefe.");
                         break;
                 }
+                break;
+            case 6:
+                enemySprite.GetComponent<SpriteRenderer>().sprite = sprEnemyBossFinal;
+                enemyMaxHealth = 400;
+                //enemyMaxHealth = 40;
+                timerTime = 25.0f;
                 break;
             default:
                 Debug.Log("Algo pudo salir mal al preparar el sprite del enemigo.");
@@ -686,6 +879,8 @@ public class BattleController : MonoBehaviour
 
     public void EndTimer()
     {
+        isOKButtonPressed = true;
+        matchTime += timerTime - timer.timeRemaining;
         timer.timeRemaining = 0;
     }
 
@@ -735,22 +930,34 @@ public class BattleController : MonoBehaviour
         switch (elementNumber)
         {
             case 0:
-                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
+                attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerFireIcon;
                 break;
             case 1:
-                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerIceIcon;
+                attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerIceIcon;
                 break;
             case 2:
-                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWaterIcon;
+                attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWaterIcon;
                 break;
             case 3:
-                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerEarthIcon;
+                attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerEarthIcon;
                 break;
             case 4:
-                playerElementIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWindIcon;
+                attackIcon.GetComponent<SpriteRenderer>().sprite = sprPlayerWindIcon;
                 break;
             default:
                 break;
         }
+    }
+
+    public void AccomodateFunctionsNumbersList()
+    {
+
+        availableFunctionsNumbers.Add(0);
+    }
+
+    public void UploadScore(float time, float score)
+    {
+        //Agregar código para subir puntaje
+        //Ya se cuenta con el char del área y el nivel con las variables: area, level
     }
 }
