@@ -1327,10 +1327,6 @@ RectTransform:
   m_Children:
   - {fileID: 2119274752}
   - {fileID: 2030301928}
-  - {fileID: 1896934342}
-  - {fileID: 650269704}
-  - {fileID: 1827217404}
-  - {fileID: 797287965}
   m_Father: {fileID: 597302848}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1875,7 +1871,7 @@ GameObject:
   - component: {fileID: 207954823}
   - component: {fileID: 207954822}
   m_Layer: 5
-  m_Name: ButtonTutorialNext
+  m_Name: ButtonScoreboardlNext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1955,7 +1951,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207954824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1634109063}
+        m_TargetAssemblyTypeName: DBController, Assembly-CSharp
+        m_MethodName: nxtPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1847677674}
+        m_TargetAssemblyTypeName: ControllerAudio, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: f46505c93e9202145a0ac10bb102acf6, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &207954824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,19 +3950,19 @@ RectTransform:
   m_GameObject: {fileID: 650269703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99992, y: 0.99992, z: 0.99992}
   m_Children:
   - {fileID: 1507837302}
   - {fileID: 1545969100}
   - {fileID: 1855766989}
   - {fileID: 341584654}
   - {fileID: 493424321}
-  m_Father: {fileID: 157044064}
-  m_RootOrder: 3
+  m_Father: {fileID: 2119274752}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 184, y: 56}
+  m_AnchoredPosition: {x: 183.98529, y: 55.99552}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &685082617
@@ -4819,19 +4839,19 @@ RectTransform:
   m_GameObject: {fileID: 797287964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99992, y: 0.99992, z: 0.99992}
   m_Children:
   - {fileID: 1022682012}
   - {fileID: 463442310}
   - {fileID: 205841333}
   - {fileID: 126732650}
   - {fileID: 1209582713}
-  m_Father: {fileID: 157044064}
-  m_RootOrder: 5
+  m_Father: {fileID: 2119274752}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 56}
+  m_AnchoredPosition: {x: -399.96802, y: 55.99552}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &803306889
@@ -4885,6 +4905,10 @@ MonoBehaviour:
   areaMenuCanvas: {fileID: 597302844}
   areaMenuSubtitle: {fileID: 964003432}
   worldMapController: {fileID: 1508875542}
+  scoreboardElements: {fileID: 2119274751}
+  scoreboardNoConnect: {fileID: 2030301927}
+  scoreboardButtonNext: {fileID: 207954820}
+  scoreboardButtonPrev: {fileID: 1040970450}
   soundManager: {fileID: 1847677675}
   audioController: {fileID: 0}
   currentLevel: 
@@ -4892,6 +4916,7 @@ MonoBehaviour:
   entranceBlackRectangleRight: {fileID: 2020339958}
   buttonEntrar: {fileID: 1035546703}
   buttonCancelar: {fileID: 1346025202}
+  DBController: {fileID: 1634109062}
 --- !u!1001 &804319938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6141,7 +6166,7 @@ GameObject:
   - component: {fileID: 1040970453}
   - component: {fileID: 1040970452}
   m_Layer: 5
-  m_Name: ButtonTutorialPrevious
+  m_Name: ButtonScoreboardPrevious
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6221,7 +6246,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1040970454}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1634109063}
+        m_TargetAssemblyTypeName: DBController, Assembly-CSharp
+        m_MethodName: bckPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1847677674}
+        m_TargetAssemblyTypeName: ControllerAudio, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 92530432b71ada7448685ad79cdf11e9, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1040970454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8964,6 +9013,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621702450}
   m_CullTransparentMesh: 0
+--- !u!1 &1634109062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1634109064}
+  - component: {fileID: 1634109063}
+  m_Layer: 0
+  m_Name: DBController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1634109063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634109062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38073df08c88dd488b3798a1b50f904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerNames:
+  - {fileID: 165197946}
+  - {fileID: 1757721113}
+  - {fileID: 1820754562}
+  - {fileID: 1476270171}
+  - {fileID: 2144049690}
+  Scores:
+  - {fileID: 1507837303}
+  - {fileID: 1545969101}
+  - {fileID: 1855766990}
+  - {fileID: 341584655}
+  - {fileID: 493424322}
+  Times:
+  - {fileID: 2132922404}
+  - {fileID: 1845722404}
+  - {fileID: 1397171138}
+  - {fileID: 1445197352}
+  - {fileID: 336375846}
+  Numbers:
+  - {fileID: 1022682013}
+  - {fileID: 463442311}
+  - {fileID: 205841334}
+  - {fileID: 126732651}
+  - {fileID: 1209582714}
+  page: 0
+  scoreboardButtonNext: {fileID: 207954820}
+  scoreboardButtonPrev: {fileID: 1040970450}
+--- !u!4 &1634109064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634109062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.23906326, y: -0.012003963, z: -1.3557029}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650915725
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,19 +10805,19 @@ RectTransform:
   m_GameObject: {fileID: 1827217403}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99992, y: 0.99992, z: 0.99992}
   m_Children:
   - {fileID: 2132922403}
   - {fileID: 1845722403}
   - {fileID: 1397171137}
   - {fileID: 1445197351}
   - {fileID: 336375845}
-  m_Father: {fileID: 157044064}
-  m_RootOrder: 4
+  m_Father: {fileID: 2119274752}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 382, y: 56}
+  m_AnchoredPosition: {x: 381.96945, y: 55.99552}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1845722402
@@ -11274,19 +11393,19 @@ RectTransform:
   m_GameObject: {fileID: 1896934341}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99992, y: 0.99992, z: 0.99992}
   m_Children:
   - {fileID: 165197945}
   - {fileID: 1757721112}
   - {fileID: 1820754561}
   - {fileID: 1476270170}
   - {fileID: 2144049689}
-  m_Father: {fileID: 157044064}
-  m_RootOrder: 2
+  m_Father: {fileID: 2119274752}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -290, y: 56}
+  m_AnchoredPosition: {x: -289.9768, y: 55.99552}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1906213921
@@ -12151,7 +12270,11 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
-  m_Children: []
+  m_Children:
+  - {fileID: 1896934342}
+  - {fileID: 650269704}
+  - {fileID: 1827217404}
+  - {fileID: 797287965}
   m_Father: {fileID: 157044064}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
