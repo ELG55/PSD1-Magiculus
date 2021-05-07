@@ -82,6 +82,23 @@ public class DBInterface : MonoBehaviour
         return topFive;
     }
 
+    public bool TryConnection()
+    {
+        using (MySqlConnection connection = new MySqlConnection(stringBuilder.ConnectionString))
+        {
+            try
+            {
+                connection.Open();
+                connection.Close();
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("DBInterface: Could not insert the highscore! " + System.Environment.NewLine + ex.Message);
+                return false;
+            }
+        }
+    }
 
     void Awake()
     {

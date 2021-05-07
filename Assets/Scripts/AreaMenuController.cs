@@ -110,20 +110,29 @@ public class AreaMenuController : MonoBehaviour
     public void SetLevel(string level)
     {
         currentLevel = level;
-        DBController.GetComponent<DBController>().page = 0;
-        scoreboardButtonPrev.GetComponent<Button>().interactable = false;
-        scoreboardButtonNext.GetComponent<Button>().interactable = true;
-        DBController.GetComponent<DBController>().RetrieveTopFiveHighscores(level);
-        if (DBController.GetComponent<DBController>().highscores==null)
+        if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 0)
         {
+            scoreboardButtonPrev.GetComponent<Button>().interactable = false;
+            scoreboardButtonNext.GetComponent<Button>().interactable = false;
             scoreboardElements.SetActive(false);
             scoreboardNoConnect.SetActive(true);
         }
         else
         {
-            scoreboardElements.SetActive(true);
-            scoreboardNoConnect.SetActive(false);
+            DBController.GetComponent<DBController>().page = 0;
+            scoreboardButtonPrev.GetComponent<Button>().interactable = false;
+            scoreboardButtonNext.GetComponent<Button>().interactable = true;
+            DBController.GetComponent<DBController>().RetrieveTopFiveHighscores(level);
+            if (DBController.GetComponent<DBController>().highscores == null)
+            {
+                scoreboardElements.SetActive(false);
+                scoreboardNoConnect.SetActive(true);
+            }
+            else
+            {
+                scoreboardElements.SetActive(true);
+                scoreboardNoConnect.SetActive(false);
+            }
         }
-
     }
 }
