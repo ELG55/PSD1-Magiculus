@@ -16,11 +16,7 @@ public class DBInterface : MonoBehaviour
 
     void Start()
     {
-        stringBuilder = new MySqlConnectionStringBuilder();
-        stringBuilder.Server = Server;
-        stringBuilder.Database = Database;
-        stringBuilder.UserID = UserID;
-        stringBuilder.Password = Password;
+        UpdateConnectionString();
     }
 
     public void InsertHighscore(string playerName, string playerClass, string levelID, double playerScore, double playerTime)
@@ -94,10 +90,18 @@ public class DBInterface : MonoBehaviour
             }
             catch (System.Exception ex)
             {
-                Debug.LogError("DBInterface: Could not insert the highscore! " + System.Environment.NewLine + ex.Message);
                 return false;
             }
         }
+    }
+
+    public void UpdateConnectionString()
+    {
+        stringBuilder = new MySqlConnectionStringBuilder();
+        stringBuilder.Server = Server;
+        stringBuilder.Database = Database;
+        stringBuilder.UserID = UserID;
+        stringBuilder.Password = Password;
     }
 
     void Awake()

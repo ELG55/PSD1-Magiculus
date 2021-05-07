@@ -21,6 +21,7 @@ public class TitleController : MonoBehaviour
 
     public GameObject fieldConectar;
     public GameObject buttonConectar;
+    public GameObject textStatus;
 
     public DBInterface dbInterface;
 
@@ -109,7 +110,7 @@ public class TitleController : MonoBehaviour
     public void TryConnection()
     {
         dbInterface.Server = fieldConectar.GetComponent<InputField>().text;
-        Debug.Log("fieldConectar: " + fieldConectar.GetComponent<InputField>().text);
+        dbInterface.UpdateConnectionString();
         if (dbInterface.TryConnection())
         {
             PlayerPrefs.SetString("ServerIP", dbInterface.Server);
@@ -127,10 +128,12 @@ public class TitleController : MonoBehaviour
         if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 0)
         {
             buttonConectar.transform.GetChild(0).GetComponent<Text>().text = "Conectar";
+            textStatus.GetComponent<Text>().text = "Estado: desconectado";
         }
         else
         {
             buttonConectar.transform.GetChild(0).GetComponent<Text>().text = "Desactivar";
+            textStatus.GetComponent<Text>().text = "Estado: conectado";
         }
     }
 
