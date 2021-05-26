@@ -55,8 +55,9 @@ public class TitleController : MonoBehaviour
             SetFullscreen(false);
         }
 
-        fieldConectar.GetComponent<InputField>().text = PlayerPrefs.GetString("ServerIP", "");
+        fieldConectar.GetComponent<InputField>().text = PlayerPrefs.GetString("ServerIP", "127.0.0.1");
         dbInterface.Server = fieldConectar.GetComponent<InputField>().text;
+        TestSavedConnection();
         UpdateButtonConnect();
     }
 
@@ -121,6 +122,19 @@ public class TitleController : MonoBehaviour
         {
             PlayerPrefs.SetString("ServerIP", dbInterface.Server);
             PlayerPrefs.SetInt("ServerAutoConnect", 0);
+        }
+    }
+
+    public void TestSavedConnection()
+    {
+        if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 1)
+        {
+            dbInterface.Server = PlayerPrefs.GetString("ServerIP", "127.0.0.1");
+            dbInterface.UpdateConnectionString();
+            if (!dbInterface.TryConnection())
+            {
+                PlayerPrefs.SetInt("ServerAutoConnect", 0);
+            }
         }
     }
 
