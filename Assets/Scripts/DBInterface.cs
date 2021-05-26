@@ -40,6 +40,7 @@ public class DBInterface : MonoBehaviour
             catch (System.Exception ex)
             {
                 Debug.LogError("DBInterface: Could not insert the highscore! " + System.Environment.NewLine + ex.Message);
+                PlayerPrefs.SetInt("ServerAutoConnect", 0);
             }
         }
     }
@@ -73,6 +74,7 @@ public class DBInterface : MonoBehaviour
             catch (System.Exception ex)
             {
                 Debug.LogError("DBInterface: Could not retrieve the top five highscores! " + System.Environment.NewLine + ex.Message);
+                PlayerPrefs.SetInt("ServerAutoConnect", 0);
                 return null;
             }
         }
@@ -85,6 +87,7 @@ public class DBInterface : MonoBehaviour
         {
             try
             {
+
                 connection.Open();
                 connection.Close();
                 return true;
@@ -103,6 +106,7 @@ public class DBInterface : MonoBehaviour
         stringBuilder.Database = Database;
         stringBuilder.UserID = UserID;
         stringBuilder.Password = Password;
+        stringBuilder.ConnectionTimeout = 3;
     }
 
     void Awake()

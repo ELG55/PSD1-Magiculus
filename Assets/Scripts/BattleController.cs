@@ -362,9 +362,12 @@ public class BattleController : MonoBehaviour
                             if (playerWon)
                             {
                                 SaveProgress();
-                                Debug.Log("Score: " + System.Math.Round(matchHitP, 2));
-                                Debug.Log("Time: " + System.Math.Round(matchTime, 2));
-                                UploadScore(System.Math.Round(matchTime, 2), System.Math.Round(matchHitP, 2));
+                                //Debug.Log("Score: " + System.Math.Round(matchHitP, 2));
+                                //Debug.Log("Time: " + System.Math.Round(matchTime, 2));
+                                if (PlayerPrefs.GetInt("ServerAutoConnect", 0) == 1)
+                                {
+                                    UploadScore(System.Math.Round(matchTime, 2), System.Math.Round(matchHitP, 2));
+                                }
                             }
                         }
                         if (HideMidScreenMessage(200f))
@@ -691,7 +694,7 @@ public class BattleController : MonoBehaviour
         currentEnemyAttackIcon = sprEnemyAttackIcon;
         if (level == 6)
         {
-            controllerAudioMusic.PlaySong(controllerAudioMusic.bgmAreaBoss);
+            controllerAudioMusic.PlaySong(controllerAudioMusic.bgmFinalBoss);
             currentEnemyAttackIcon = sprBossAttackIcon;
         }
         else if (level == 5)
